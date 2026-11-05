@@ -19,3 +19,7 @@ src = ["src", "tests"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+pythonpath = ["src"]
+markers = [
+    "real_data: cần CSV thật trong data/raw/",
+]

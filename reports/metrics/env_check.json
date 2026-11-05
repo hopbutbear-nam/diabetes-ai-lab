@@ -1,0 +1,17 @@
+{
+  "python": "3.14.5",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "in_venv": true,
+  "core_ok": true,
+  "torch_ok": true,
+  "xgboost_ok": true,
+  "shap_ok": true,
+  "cuda": false,
+  "csv": {
+    "exists": true,
+    "bytes": 22738151,
+    "sha256": "a971809d0786d2d7d7f6070f83dfe8af9d860ea33a79e0e2701c8a49f78f9861",
+    "n_rows": 253680
+  },
+  "recommended_actions": []
+}
