@@ -1,5 +1,7 @@
+name: mlp
 model: mlp
 arch: { hidden: [128, 64, 32], dropout: [0.15, 0.1], activation: relu }
-train: { epochs: 14, batch_size: 1024, lr: 0.001, optimizer: adam, weight_decay: 0.00001 }
+train: { epochs: 14, batch_size: 1024, lr: 0.001, optimizer: adam, weight_decay: 0.00001, patience: null, device: cpu }
 imbalance: { strategy: class_weight, power: 0.75 }
 select_epoch_by: val_auc_ovr
+loss: weighted_ce
