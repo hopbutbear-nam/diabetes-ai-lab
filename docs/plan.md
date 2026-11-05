@@ -1317,7 +1317,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K05** | Ngưỡng, hiệu chuẩn, CI, chọn mô hình (`pytest` 60) | |
 | [x] | K05a | `confidence_intervals` + 4 test | 4 passed |
 | [x] | K05b | `calibration` + 4 test | 4 passed |
-| [ ] | K05c | `thresholds` + 4 test | |
+| [x] | K05c | `thresholds` + 4 test | 4 passed |
 | [ ] | K05d | `evaluate.yaml`, script, ECE trước → sau, mô hình tốt nhất | |
 | [ ] | **K06** | Công bằng, test một lần (`pytest` 69) | |
 | [ ] | K06a | `fairness`, `evaluate.yaml` nhóm, 4 test | |
