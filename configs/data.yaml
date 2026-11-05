@@ -1,0 +1,5 @@
+dataset: brfss2015
+raw_path: data/raw/brfss2015/diabetes_012_health_indicators_BRFSS2015.csv
+target: Diabetes_012          # 0 = không, 1 = tiền tiểu đường, 2 = tiểu đường
+task: multiclass              # multiclass | binary (gộp 1 và 2)
+split: { test_size: 0.2, val_size: 0.15, stratify: true, seed: 42 }

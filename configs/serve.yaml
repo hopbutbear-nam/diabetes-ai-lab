@@ -1,0 +1,2 @@
+model_path: models/best_model.joblib
+risk_levels: { low: 0.10, medium: 0.25 }   # dưới 0.10 thấp, dưới 0.25 trung bình, còn lại cao

@@ -1,0 +1,1 @@
+"""Bọc predictor thành agent."""

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+# Jupyter
+.ipynb_checkpoints/
+# Môi trường / bí mật
+.env
+*.key
+# Dữ liệu lớn (giữ cấu trúc, bỏ nội dung)
+data/raw/**
+data/interim/**
+data/processed/**
+data/external/**
+!data/**/.gitkeep
+!data/**/README.md
+# Mô hình / thí nghiệm
+models/*
+!models/.gitkeep
+!models/README.md
+mlruns/
+wandb/
+lightning_logs/
+*.pt
+*.pth
+*.joblib
+*.npz
+*.ckpt
+# Hệ điều hành / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,9 @@
+# Luật an toàn cố định, ưu tiên hơn mô hình. Tham chiếu: ADA Standards of Care, NIDDK.
+rules:
+  - { id: R1, level: danger, when: "glucose >= 250", text: "Đường huyết rất cao, cần đi khám sớm." }
+  - { id: R2, level: danger, when: "glucose >= 200 and n_symptoms >= 1", text: "Đường huyết cao kèm triệu chứng." }
+  - { id: R3, level: warn,   when: "fasting_glucose >= 126", text: "Đạt ngưỡng tiểu đường (ADA), cần lặp lại xét nghiệm." }
+  - { id: R4, level: warn,   when: "100 <= fasting_glucose <= 125", text: "Vùng tiền tiểu đường." }
+  - { id: R5, level: danger, when: "glucose < 70", text: "Đường huyết quá thấp." }
+  - { id: R6, level: warn,   when: "n_symptoms >= 3", text: "Nhiều triệu chứng điển hình, nên xét nghiệm." }
+  - { id: R7, level: warn,   when: "bmi >= 30", text: "Béo phì là yếu tố nguy cơ." }

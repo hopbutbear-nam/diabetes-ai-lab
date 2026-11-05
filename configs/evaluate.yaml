@@ -1,0 +1,4 @@
+metrics: [roc_auc_ovr, pr_auc, macro_f1, recall_per_class, precision_per_class, brier, ece]
+threshold: { method: optimize_on_val, objective: macro_f1 }   # hoặc recall_at_precision
+fairness_groups: [Age, Sex, Income]
+bootstrap: { n: 1000, ci: 0.95 }

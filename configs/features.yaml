@@ -1,0 +1,4 @@
+numeric: [BMI, MentHlth, PhysHlth, GenHlth, Age, Education, Income]
+binary: [HighBP, HighChol, CholCheck, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity,
+         Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk, Sex]
+drop_for_what_if: [CholCheck, AnyHealthcare, Education, Income, NoDocbcCost]

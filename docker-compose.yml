@@ -1,0 +1,7 @@
+services:
+  api:
+    build: .
+    ports: ["8200:8200"]
+    env_file: .env
+    volumes:
+      - ./models:/app/models:ro

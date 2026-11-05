@@ -1,0 +1,2 @@
+model: logreg
+params: { C: 1.0, class_weight: balanced, max_iter: 1000 }
