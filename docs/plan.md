@@ -1310,7 +1310,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K03b | `registry`, `train`, `scripts/train.py`, 3 test | pytest: 3 passed |
 | [x] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | majority: 0.5000, logreg: 0.7722, xgb: 0.7807 |
 | [ ] | **K04** | MLP (`pytest` 48) | |
-| [ ] | K04a | `dataset`, `losses`, `callbacks` | |
+| [x] | K04a | `dataset`, `losses`, `callbacks` | CrossEntropyLoss None False |
 | [ ] | K04b | `mlp`, `trainer`, `test_mlp` | |
 | [ ] | K04c | `registry` (mlp), `train_mlp.yaml`, `test_trainer` | |
 | [ ] | K04d | Huấn luyện thật, tái lập ≤ 1e-4 (AUC val MLP, best_epoch) | |
