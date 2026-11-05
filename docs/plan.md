@@ -1296,7 +1296,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 
 | Xong | ID | Nội dung | Kết quả đo được |
 |---|---|---|---|
-| [ ] | **K01** | Môi trường, dữ liệu, chia tập (`pytest` 18) | |
+| [x] | **K01** | Môi trường, dữ liệu, chia tập (`pytest` 18) | 18 passed, 0 skipped, core_ok=True |
 | [x] | K01a | `check_env.py`, `pyproject.toml` (`core_ok`, 2 passed) | core_ok=True, torch_ok=True, pytest: 2 passed |
 | [x] | K01b | `paths`, `config`, `seed`, `schema`, `data.yaml` | diabetes-ai-lab 0.15 False 21, pytest: 1 passed |
 | [x] | K01c | `load`, `validate`, `conftest` (253680 / 23899 / True) | 253680 23899 True |
