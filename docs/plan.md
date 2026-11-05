@@ -1311,8 +1311,8 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | majority: 0.5000, logreg: 0.7722, xgb: 0.7807 |
 | [ ] | **K04** | MLP (`pytest` 48) | |
 | [x] | K04a | `dataset`, `losses`, `callbacks` | CrossEntropyLoss None False |
-| [ ] | K04b | `mlp`, `trainer`, `test_mlp` | |
-| [ ] | K04c | `registry` (mlp), `train_mlp.yaml`, `test_trainer` | |
+| [x] | K04b | `mlp`, `trainer`, `test_mlp` | 4 passed |
+| [x] | K04c | `registry` (mlp), `train_mlp.yaml`, `test_trainer` | 3 passed; build_model in `mlp` |
 | [ ] | K04d | Huấn luyện thật, tái lập ≤ 1e-4 (AUC val MLP, best_epoch) | |
 | [ ] | **K05** | Ngưỡng, hiệu chuẩn, CI, chọn mô hình (`pytest` 60) | |
 | [ ] | K05a | `confidence_intervals` + 4 test | |
