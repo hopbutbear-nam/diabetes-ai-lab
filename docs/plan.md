@@ -1314,7 +1314,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K04b | `mlp`, `trainer`, `test_mlp` | 4 passed |
 | [x] | K04c | `registry` (mlp), `train_mlp.yaml`, `test_trainer` | 3 passed; build_model in `mlp` |
 | [x] | K04d | Huấn luyện thật, tái lập ≤ 1e-4 (AUC val MLP, best_epoch) | AUC val: 0.7840, chênh: 0.0, best_epoch: 13 |
-| [ ] | **K05** | Ngưỡng, hiệu chuẩn, CI, chọn mô hình (`pytest` 60) | |
+| [x] | **K05** | Ngưỡng, hiệu chuẩn, CI, chọn mô hình (`pytest` 60) | 60 passed; ECE ≤ 0.0021 |
 | [x] | K05a | `confidence_intervals` + 4 test | 4 passed |
 | [x] | K05b | `calibration` + 4 test | 4 passed |
 | [x] | K05c | `thresholds` + 4 test | 4 passed |
