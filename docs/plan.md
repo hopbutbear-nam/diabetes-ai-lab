@@ -1300,7 +1300,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K01a | `check_env.py`, `pyproject.toml` (`core_ok`, 2 passed) | core_ok=True, torch_ok=True, pytest: 2 passed |
 | [x] | K01b | `paths`, `config`, `seed`, `schema`, `data.yaml` | diabetes-ai-lab 0.15 False 21, pytest: 1 passed |
 | [x] | K01c | `load`, `validate`, `conftest` (253680 / 23899 / True) | 253680 23899 True |
-| [ ] | K01d | `preprocess`, `split`, `prepare_data`, 16 test | |
+| [x] | K01d | `preprocess`, `split`, `prepare_data`, 16 test | full: 172502/30442/50736, dedup: 156250/27574/45957, pytest: 16 passed |
 | [ ] | **K02** | EDA, scaler, metrics, từ điển dữ liệu (`pytest` 33) | |
 | [ ] | K02a | `logging_utils`, `feature_names`, `scalers`, `imbalance` | |
 | [ ] | K02b | `build_features`, `metrics`, 15 test | |
