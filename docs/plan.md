@@ -1309,7 +1309,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K03a | `base`, `baselines`, `xgboost_model`, 4 test | pytest: 4 passed |
 | [x] | K03b | `registry`, `train`, `scripts/train.py`, 3 test | pytest: 3 passed |
 | [x] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | majority: 0.5000, logreg: 0.7722, xgb: 0.7807 |
-| [ ] | **K04** | MLP (`pytest` 48) | |
+| [x] | **K04** | MLP (`pytest` 48) | 48 passed, AUC val MLP: 0.7840 |
 | [x] | K04a | `dataset`, `losses`, `callbacks` | CrossEntropyLoss None False |
 | [x] | K04b | `mlp`, `trainer`, `test_mlp` | 4 passed |
 | [x] | K04c | `registry` (mlp), `train_mlp.yaml`, `test_trainer` | 3 passed; build_model in `mlp` |
