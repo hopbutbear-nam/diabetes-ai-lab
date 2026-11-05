@@ -6,6 +6,7 @@ import pytest
 from diabetes_ai.data.split import make_split
 from diabetes_ai.features.build_features import build_experiment_data_from_frame
 from diabetes_ai.models.baselines import LogisticRegressionModel, MajorityClassifier
+from diabetes_ai.models.mlp import MLPModel
 from diabetes_ai.models.xgboost_model import XGBoostModel
 
 
@@ -72,6 +73,31 @@ def test_binary_logreg_has_two_columns_and_sums_to_one(synthetic_df) -> None:
     p = model.predict_proba(exp_data.X_val)
 
     assert p.shape == (len(exp_data.X_val), 2)
+    assert np.abs(p.sum(axis=1) - 1.0).max() < 1e-6
+    assert np.all(p >= 0.0)
+    assert np.all(p <= 1.0)
+
+
+def test_mlp_proba_sums_to_one(synthetic_df) -> None:
+    """Kiểm tra MLPModel: tổng xác suất = 1, shape (n, 3) và giá trị trong [0, 1]; 1 epoch trên dữ liệu giả lập."""
+    split = make_split(synthetic_df, seed=42)
+    exp_data = build_experiment_data_from_frame(synthetic_df, split, task="multiclass")
+
+    model = MLPModel(
+        params={
+            "arch": {"hidden": [16, 8], "dropout": [0.0], "activation": "relu"},
+            "train": {"epochs": 1, "batch_size": 64, "lr": 0.001, "weight_decay": 1e-5, "patience": None, "device": "cpu"},
+            "loss": "weighted_ce",
+            "imbalance": {"strategy": "class_weight", "power": 0.75},
+        },
+        n_classes=3,
+        seed=42,
+    )
+    model.fit(exp_data.X_train, exp_data.y_train, X_val=exp_data.X_val, y_val=exp_data.y_val)
+
+    p = model.predict_proba(exp_data.X_val)
+
+    assert p.shape == (len(exp_data.X_val), 3)
     assert np.abs(p.sum(axis=1) - 1.0).max() < 1e-6
     assert np.all(p >= 0.0)
     assert np.all(p <= 1.0)
