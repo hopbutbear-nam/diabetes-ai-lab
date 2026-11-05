@@ -1,0 +1,138 @@
+{
+  "run_name": "xgb_multiclass_full",
+  "meta": {
+    "run_name": "xgb_multiclass_full",
+    "model_key": "xgboost",
+    "params": {
+      "n_estimators": 400,
+      "max_depth": 5,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "early_stopping_rounds": 30,
+      "backend": "auto"
+    },
+    "task": "multiclass",
+    "variant": "full",
+    "seed": 42,
+    "n_classes": 3,
+    "class_names": [
+      "không",
+      "tiền tiểu đường",
+      "tiểu đường"
+    ],
+    "feature_order": [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "train_rows": 172502,
+    "val_rows": 30442,
+    "imbalance": {
+      "strategy": "class_weight",
+      "power": 0.75
+    },
+    "class_weights": [
+      0.49890440944052017,
+      8.833344423952557,
+      1.9235700809028178
+    ],
+    "backend": "auto",
+    "versions": {
+      "python": "3.14.5",
+      "numpy": "2.5.4",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "torch": "2.15.0+cpu"
+    },
+    "train_seconds": 11.747669499978656,
+    "fit_info": {
+      "backend": "xgboost",
+      "best_iteration": 168
+    }
+  },
+  "val": {
+    "n": 30442,
+    "accuracy": 0.7733394652125353,
+    "accuracy_majority_baseline": 0.8424216542934104,
+    "roc_auc_ovr_macro": 0.7807041648145905,
+    "roc_auc_per_class": [
+      0.8232044683480564,
+      0.6912400515243297,
+      0.8276679745713855
+    ],
+    "pr_auc_macro": 0.4720229258085366,
+    "pr_auc_per_class": [
+      0.9593546192078691,
+      0.03547806088605526,
+      0.4212360973316853
+    ],
+    "macro_f1": 0.44968434247410144,
+    "recall_per_class": [
+      0.8051861961395984,
+      0.01079136690647482,
+      0.6807356755482198
+    ],
+    "precision_per_class": [
+      0.9282952706347779,
+      0.043478260869565216,
+      0.3581885856079404
+    ],
+    "f1_per_class": [
+      0.8623692288416964,
+      0.01729106628242075,
+      0.4693927322981871
+    ],
+    "brier_multiclass": 0.3392672044654588,
+    "brier_per_class": [
+      0.18372650526816953,
+      0.043330923874392274,
+      0.112209775322897
+    ],
+    "ece_per_class": [
+      0.24803240502127233,
+      0.14145323172383792,
+      0.10657917329743431
+    ],
+    "ece_macro": 0.1653549366808482,
+    "confusion_matrix": [
+      [
+        20649,
+        102,
+        4894
+      ],
+      [
+        271,
+        6,
+        279
+      ],
+      [
+        1324,
+        30,
+        2887
+      ]
+    ]
+  },
+  "fit_info": {
+    "backend": "xgboost",
+    "best_iteration": 168
+  }
+}

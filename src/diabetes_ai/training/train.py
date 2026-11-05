@@ -132,7 +132,7 @@ def run_training(
     """
     # 1. Nạp cấu hình
     if isinstance(model_config, (str, Path)):
-        config_path_str = str(model_config)
+        config_path_str = Path(model_config).as_posix()
         cfg = load_yaml(model_config)
     else:
         config_path_str = "inline_dict"
@@ -199,7 +199,11 @@ def run_training(
         sample_weight = sample_weights(data.y_train, class_weight_arr)
 
     # 5. build_model và fit
-    params = cfg.get("params", {})
+    params = dict(cfg.get("params", {}))
+    for k in ("backend", "early_stopping_rounds"):
+        if k in cfg and k not in params:
+            params[k] = cfg[k]
+
     model = build_model(
         model_key=model_key,
         params=params,
@@ -304,10 +308,15 @@ def run_training(
         today_str = datetime.date.today().isoformat()
         val_auc = float(val_metrics.get("roc_auc_ovr_macro", float("nan")))
         val_f1 = float(val_metrics.get("macro_f1", float("nan")))
-        note_str = f"train: {task}, {variant}"
+        note_parts = [f"seed={seed}", "val"]
+        if "best_iteration" in model.fit_info:
+            note_parts.append(f"best_iteration={model.fit_info['best_iteration']}")
+        if "backend" in model.fit_info:
+            note_parts.append(f"backend={model.fit_info['backend']}")
+        note_str = "; ".join(note_parts)
         append_experiment_log(
             date=today_str,
-            model=model_key,
+            model=cfg.get("name", model_key),
             config=config_path_str,
             auc=val_auc,
             macro_f1=val_f1,

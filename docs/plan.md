@@ -1308,7 +1308,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K03** | Baseline + XGBoost (`pytest` 40) | |
 | [x] | K03a | `base`, `baselines`, `xgboost_model`, 4 test | pytest: 4 passed |
 | [x] | K03b | `registry`, `train`, `scripts/train.py`, 3 test | pytest: 3 passed |
-| [ ] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | |
+| [x] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | majority: 0.5000, logreg: 0.7722, xgb: 0.7807 |
 | [ ] | **K04** | MLP (`pytest` 48) | |
 | [ ] | K04a | `dataset`, `losses`, `callbacks` | |
 | [ ] | K04b | `mlp`, `trainer`, `test_mlp` | |

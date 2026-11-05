@@ -1,0 +1,129 @@
+{
+  "run_name": "majority_multiclass_full",
+  "meta": {
+    "run_name": "majority_multiclass_full",
+    "model_key": "majority",
+    "params": {},
+    "task": "multiclass",
+    "variant": "full",
+    "seed": 42,
+    "n_classes": 3,
+    "class_names": [
+      "không",
+      "tiền tiểu đường",
+      "tiểu đường"
+    ],
+    "feature_order": [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "train_rows": 172502,
+    "val_rows": 30442,
+    "imbalance": {},
+    "class_weights": null,
+    "backend": "majority",
+    "versions": {
+      "python": "3.14.5",
+      "numpy": "2.5.4",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "torch": "2.15.0+cpu"
+    },
+    "train_seconds": 0.0010715000098571181,
+    "fit_info": {
+      "prior": [
+        0.8424076242594288,
+        0.018254860813207964,
+        0.13933751492736315
+      ]
+    }
+  },
+  "val": {
+    "n": 30442,
+    "accuracy": 0.8424216542934104,
+    "accuracy_majority_baseline": 0.8424216542934104,
+    "roc_auc_ovr_macro": 0.5,
+    "roc_auc_per_class": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "pr_auc_macro": 0.3333333333333333,
+    "pr_auc_per_class": [
+      0.8424216542934104,
+      0.01826424019446817,
+      0.13931410551212142
+    ],
+    "macro_f1": 0.3048240531079692,
+    "recall_per_class": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "precision_per_class": [
+      0.8424216542934104,
+      0.0,
+      0.0
+    ],
+    "f1_per_class": [
+      0.9144721593239075,
+      0.0,
+      0.0
+    ],
+    "brier_multiclass": 0.27058375474584534,
+    "brier_per_class": [
+      0.13274741086780595,
+      0.017930657812559734,
+      0.11990568606547962
+    ],
+    "ece_per_class": [
+      1.4030033981371481e-05,
+      9.379381260204295e-06,
+      2.34094152417319e-05
+    ],
+    "ece_macro": 1.5606276827769227e-05,
+    "confusion_matrix": [
+      [
+        25645,
+        0,
+        0
+      ],
+      [
+        556,
+        0,
+        0
+      ],
+      [
+        4241,
+        0,
+        0
+      ]
+    ]
+  },
+  "fit_info": {
+    "prior": [
+      0.8424076242594288,
+      0.018254860813207964,
+      0.13933751492736315
+    ]
+  }
+}
