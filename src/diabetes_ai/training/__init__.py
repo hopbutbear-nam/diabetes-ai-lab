@@ -1,4 +1,4 @@
-"""Gói huấn luyện."""
+"""Gói huấn luyện mô hình."""
 
 from diabetes_ai.training.imbalance import (
     class_weights,
