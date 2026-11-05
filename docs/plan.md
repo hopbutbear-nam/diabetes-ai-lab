@@ -1305,7 +1305,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K02a | `logging_utils`, `feature_names`, `scalers`, `imbalance` | [0.4989 8.8333 1.9236] |
 | [x] | K02b | `build_features`, `metrics`, 15 test | pytest: 15 passed |
 | [ ] | K02c | Notebook EDA (≥ 6 hình), `data_dictionary.md` | |
-| [ ] | **K03** | Baseline + XGBoost (`pytest` 40) | |
+| [x] | **K03** | Baseline + XGBoost (`pytest` 40) | 40 passed; majority AUC 0.5000, LR AUC 0.7722, XGB AUC 0.7807 |
 | [x] | K03a | `base`, `baselines`, `xgboost_model`, 4 test | pytest: 4 passed |
 | [x] | K03b | `registry`, `train`, `scripts/train.py`, 3 test | pytest: 3 passed |
 | [x] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | majority: 0.5000, logreg: 0.7722, xgb: 0.7807 |
