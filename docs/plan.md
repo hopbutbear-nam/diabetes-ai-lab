@@ -1302,7 +1302,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K01c | `load`, `validate`, `conftest` (253680 / 23899 / True) | 253680 23899 True |
 | [x] | K01d | `preprocess`, `split`, `prepare_data`, 16 test | full: 172502/30442/50736, dedup: 156250/27574/45957, pytest: 16 passed |
 | [ ] | **K02** | EDA, scaler, metrics, từ điển dữ liệu (`pytest` 33) | |
-| [ ] | K02a | `logging_utils`, `feature_names`, `scalers`, `imbalance` | |
+| [x] | K02a | `logging_utils`, `feature_names`, `scalers`, `imbalance` | [0.4989 8.8333 1.9236] |
 | [ ] | K02b | `build_features`, `metrics`, 15 test | |
 | [ ] | K02c | Notebook EDA (≥ 6 hình), `data_dictionary.md` | |
 | [ ] | **K03** | Baseline + XGBoost (`pytest` 40) | |
