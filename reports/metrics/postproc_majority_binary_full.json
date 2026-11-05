@@ -1,0 +1,18 @@
+{
+  "run": "majority_binary_full",
+  "task": "binary",
+  "variant": "full",
+  "calibration": {},
+  "thresholds": {
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "val_macro_f1_argmax": null,
+    "val_macro_f1_scaled": null,
+    "val_recall": null,
+    "val_precision": null
+  },
+  "note": "majority không hiệu chuẩn; hệ số (1,1,1)"
+}

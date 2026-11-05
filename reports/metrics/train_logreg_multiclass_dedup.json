@@ -1,0 +1,127 @@
+{
+  "run_name": "logreg_multiclass_dedup",
+  "meta": {
+    "run_name": "logreg_multiclass_dedup",
+    "model_key": "logreg",
+    "params": {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 1000
+    },
+    "task": "multiclass",
+    "variant": "dedup",
+    "seed": 42,
+    "n_classes": 3,
+    "class_names": [
+      "không",
+      "tiền tiểu đường",
+      "tiểu đường"
+    ],
+    "feature_order": [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "train_rows": 156250,
+    "val_rows": 27574,
+    "imbalance": {},
+    "class_weights": null,
+    "backend": "logreg",
+    "versions": {
+      "python": "3.14.5",
+      "numpy": "2.5.4",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "torch": "2.15.0+cpu"
+    },
+    "train_seconds": 0.40340879998984747,
+    "fit_info": {
+      "n_iter_": 12,
+      "n_iter": 12
+    }
+  },
+  "val": {
+    "n": 27574,
+    "accuracy": 0.625154130702836,
+    "accuracy_majority_baseline": 0.8271197504895916,
+    "roc_auc_ovr_macro": 0.7542740780073687,
+    "roc_auc_per_class": [
+      0.8025051128821341,
+      0.6541448476864296,
+      0.8061722734535423
+    ],
+    "pr_auc_macro": 0.4620212032153179,
+    "pr_auc_per_class": [
+      0.9495475203116717,
+      0.030646548594722465,
+      0.40586954073955955
+    ],
+    "macro_f1": 0.4199865521886948,
+    "recall_per_class": [
+      0.6398474152672425,
+      0.26846846846846845,
+      0.5925925925925926
+    ],
+    "precision_per_class": [
+      0.9423958669680336,
+      0.029330708661417324,
+      0.35611356826936796
+    ],
+    "f1_per_class": [
+      0.7621957589052545,
+      0.05288376220053238,
+      0.44488013546029764
+    ],
+    "brier_multiclass": 0.5114796545880714,
+    "brier_per_class": [
+      0.28368780366440827,
+      0.10650539201861721,
+      0.121286458905046
+    ],
+    "ece_per_class": [
+      0.3917242436169064,
+      0.2814052918635234,
+      0.1103189517533828
+    ],
+    "ece_macro": 0.2611494957446042,
+    "confusion_matrix": [
+      [
+        14593,
+        3950,
+        4264
+      ],
+      [
+        157,
+        149,
+        249
+      ],
+      [
+        735,
+        981,
+        2496
+      ]
+    ]
+  },
+  "fit_info": {
+    "n_iter_": 12,
+    "n_iter": 12
+  }
+}

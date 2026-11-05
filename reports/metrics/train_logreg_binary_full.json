@@ -1,0 +1,112 @@
+{
+  "run_name": "logreg_binary_full",
+  "meta": {
+    "run_name": "logreg_binary_full",
+    "model_key": "logreg",
+    "params": {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 1000
+    },
+    "task": "binary",
+    "variant": "full",
+    "seed": 42,
+    "n_classes": 2,
+    "class_names": [
+      "không",
+      "tiền tiểu đường hoặc tiểu đường"
+    ],
+    "feature_order": [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "train_rows": 172502,
+    "val_rows": 30442,
+    "imbalance": {},
+    "class_weights": null,
+    "backend": "logreg",
+    "versions": {
+      "python": "3.14.5",
+      "numpy": "2.5.4",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "torch": "2.15.0+cpu"
+    },
+    "train_seconds": 0.21564509999006987,
+    "fit_info": {
+      "n_iter_": 11,
+      "n_iter": 11
+    }
+  },
+  "val": {
+    "n": 30442,
+    "accuracy": 0.7304710597201235,
+    "accuracy_majority_baseline": 0.8424216542934104,
+    "roc_auc_ovr_macro": 0.8143954597606478,
+    "roc_auc_per_class": [
+      0.8143954597606478,
+      0.8143954597606476
+    ],
+    "pr_auc_macro": 0.689092698091422,
+    "pr_auc_per_class": [
+      0.9572764015536829,
+      0.42090899462916126
+    ],
+    "macro_f1": 0.6441245975248252,
+    "recall_per_class": [
+      0.7259114837200233,
+      0.7548467792370231
+    ],
+    "precision_per_class": [
+      0.9405820533548909,
+      0.34
+    ],
+    "f1_per_class": [
+      0.8194202962343464,
+      0.46882889881530393
+    ],
+    "brier_multiclass": 0.3579930817399309,
+    "brier_per_class": [
+      0.17899654086996544,
+      0.17899654086996544
+    ],
+    "ece_per_class": [
+      0.23657076279203315,
+      0.23657076279203315
+    ],
+    "ece_macro": 0.23657076279203315,
+    "confusion_matrix": [
+      [
+        18616,
+        7029
+      ],
+      [
+        1176,
+        3621
+      ]
+    ]
+  },
+  "fit_info": {
+    "n_iter_": 11,
+    "n_iter": 11
+  }
+}

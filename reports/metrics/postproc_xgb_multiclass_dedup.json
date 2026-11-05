@@ -1,0 +1,46 @@
+{
+  "run": "xgb_multiclass_dedup",
+  "task": "multiclass",
+  "variant": "dedup",
+  "calibration": {
+    "method": "logit_multinomial",
+    "candidates": [
+      "logit_multinomial",
+      "isotonic_ovr"
+    ],
+    "ece_macro_before": 0.16918175676543748,
+    "ece_macro_after_oof": 0.0019020633965479573,
+    "brier_before": 0.358972042515569,
+    "brier_after_oof": 0.24025242158036533,
+    "ece_per_class_before": [
+      0.2537726351481562,
+      0.1466156736003916,
+      0.10715696154776462
+    ],
+    "ece_per_class_after_oof": [
+      0.0029892345718741434,
+      3.9533395256016735e-05,
+      0.002677422222513711
+    ]
+  },
+  "thresholds": {
+    "scale": [
+      1.0,
+      19.920770386703776,
+      2.5936791093020193
+    ],
+    "val_macro_f1_argmax": 0.39455590574159993,
+    "val_macro_f1_scaled": 0.45999731012109324,
+    "val_recall": [
+      0.8457052659271277,
+      0.05945945945945946,
+      0.5216049382716049
+    ],
+    "val_precision": [
+      0.9018562678262496,
+      0.038869257950530034,
+      0.41157736980142373
+    ]
+  },
+  "note": "hiệu chuẩn và ngưỡng chọn trên cùng validation; dùng out-of-fold để giảm lạc quan"
+}

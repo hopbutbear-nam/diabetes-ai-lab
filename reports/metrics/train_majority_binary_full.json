@@ -1,0 +1,112 @@
+{
+  "run_name": "majority_binary_full",
+  "meta": {
+    "run_name": "majority_binary_full",
+    "model_key": "majority",
+    "params": {},
+    "task": "binary",
+    "variant": "full",
+    "seed": 42,
+    "n_classes": 2,
+    "class_names": [
+      "không",
+      "tiền tiểu đường hoặc tiểu đường"
+    ],
+    "feature_order": [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "train_rows": 172502,
+    "val_rows": 30442,
+    "imbalance": {},
+    "class_weights": null,
+    "backend": "majority",
+    "versions": {
+      "python": "3.14.5",
+      "numpy": "2.5.4",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "torch": "2.15.0+cpu"
+    },
+    "train_seconds": 0.0011285999789834023,
+    "fit_info": {
+      "prior": [
+        0.8424076242594288,
+        0.1575923757405711
+      ]
+    }
+  },
+  "val": {
+    "n": 30442,
+    "accuracy": 0.8424216542934104,
+    "accuracy_majority_baseline": 0.8424216542934104,
+    "roc_auc_ovr_macro": 0.5,
+    "roc_auc_per_class": [
+      0.5,
+      0.5
+    ],
+    "pr_auc_macro": 0.5,
+    "pr_auc_per_class": [
+      0.8424216542934104,
+      0.15757834570658957
+    ],
+    "macro_f1": 0.45723607966195373,
+    "recall_per_class": [
+      1.0,
+      0.0
+    ],
+    "precision_per_class": [
+      0.8424216542934104,
+      0.0
+    ],
+    "f1_per_class": [
+      0.9144721593239075,
+      0.0
+    ],
+    "brier_multiclass": 0.26549482173561195,
+    "brier_per_class": [
+      0.132747410867806,
+      0.13274741086780598
+    ],
+    "ece_per_class": [
+      1.4030033981371481e-05,
+      1.4030033981538015e-05
+    ],
+    "ece_macro": 1.4030033981454748e-05,
+    "confusion_matrix": [
+      [
+        25645,
+        0
+      ],
+      [
+        4797,
+        0
+      ]
+    ]
+  },
+  "fit_info": {
+    "prior": [
+      0.8424076242594288,
+      0.1575923757405711
+    ]
+  }
+}
