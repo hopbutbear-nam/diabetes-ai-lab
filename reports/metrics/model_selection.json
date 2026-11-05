@@ -1,0 +1,17 @@
+{
+  "multiclass_full": {
+    "best": "mlp_multiclass_full",
+    "candidates": {
+      "logreg_multiclass_full": {
+        "val_auc": 0.77216718020408
+      },
+      "xgb_multiclass_full": {
+        "val_auc": 0.7807041648145905
+      },
+      "mlp_multiclass_full": {
+        "val_auc": 0.7840069534613107
+      }
+    },
+    "rule": "best AUC hơn logreg 0.0118 >= simplicity_margin=0.003; chọn mlp"
+  }
+}

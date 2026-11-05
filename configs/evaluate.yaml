@@ -1,4 +1,21 @@
 metrics: [roc_auc_ovr, pr_auc, macro_f1, recall_per_class, precision_per_class, brier, ece]
-threshold: { method: optimize_on_val, objective: macro_f1 }   # hoặc recall_at_precision
+threshold:
+  method: optimize_on_val
+  objective: macro_f1    # hoặc recall_at_precision
+  precision_floor: 0.30
+  grid:
+    s_pre: [0.5, 30.0, 41]   # geomspace(start, stop, num)
+    s_dia: [0.5, 8.0, 33]
 fairness_groups: [Age, Sex, Income]
-bootstrap: { n: 1000, ci: 0.95 }
+bootstrap:
+  n: 1000
+  ci: 0.95
+  seed: 42
+calibration:
+  candidates: [logit_multinomial, isotonic_ovr]
+  n_bins: 10
+  n_splits: 5
+selection:
+  metric: val_auc_ovr
+  simplicity_margin: 0.003
+  prefer_order: [logreg, xgb, mlp]
