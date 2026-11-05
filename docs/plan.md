@@ -1306,7 +1306,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K02b | `build_features`, `metrics`, 15 test | pytest: 15 passed |
 | [ ] | K02c | Notebook EDA (≥ 6 hình), `data_dictionary.md` | |
 | [ ] | **K03** | Baseline + XGBoost (`pytest` 40) | |
-| [ ] | K03a | `base`, `baselines`, `xgboost_model`, 4 test | |
+| [x] | K03a | `base`, `baselines`, `xgboost_model`, 4 test | pytest: 4 passed |
 | [ ] | K03b | `registry`, `train`, `scripts/train.py`, 3 test | |
 | [ ] | K03c | 3 cấu hình, huấn luyện thật, nhật ký (AUC val LR / XGB) | |
 | [ ] | **K04** | MLP (`pytest` 48) | |
