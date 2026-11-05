@@ -1,0 +1,132 @@
+{
+  "n_rows": 253680,
+  "n_cols": 22,
+  "missing": {},
+  "n_duplicates": 23899,
+  "n_unique_rows": 229781,
+  "out_of_range": {},
+  "label_counts": {
+    "0": 213703,
+    "1": 4631,
+    "2": 35346
+  },
+  "label_pct": {
+    "0": 0.8424,
+    "1": 0.0183,
+    "2": 0.1393
+  },
+  "feature_stats": {
+    "HighBP": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "HighChol": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "CholCheck": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "BMI": {
+      "min": 12.0,
+      "max": 98.0,
+      "nunique": 84
+    },
+    "Smoker": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "Stroke": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "HeartDiseaseorAttack": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "PhysActivity": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "Fruits": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "Veggies": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "HvyAlcoholConsump": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "AnyHealthcare": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "NoDocbcCost": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "GenHlth": {
+      "min": 1.0,
+      "max": 5.0,
+      "nunique": 5
+    },
+    "MentHlth": {
+      "min": 0.0,
+      "max": 30.0,
+      "nunique": 31
+    },
+    "PhysHlth": {
+      "min": 0.0,
+      "max": 30.0,
+      "nunique": 31
+    },
+    "DiffWalk": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "Sex": {
+      "min": 0.0,
+      "max": 1.0,
+      "nunique": 2
+    },
+    "Age": {
+      "min": 1.0,
+      "max": 13.0,
+      "nunique": 13
+    },
+    "Education": {
+      "min": 1.0,
+      "max": 6.0,
+      "nunique": 6
+    },
+    "Income": {
+      "min": 1.0,
+      "max": 8.0,
+      "nunique": 8
+    }
+  },
+  "warnings": [
+    "Có 23899 dòng trùng lặp (9.42%).",
+    "Cột Education=1 có 174 dòng (< 200 dòng).",
+    "Cột BMI có 805 dòng > 60.",
+    "Tỉ lệ lớp hiếm nhất < 2% (1.83%)."
+  ],
+  "ok": true
+}
