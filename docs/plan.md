@@ -1320,7 +1320,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K05c | `thresholds` + 4 test | 4 passed |
 | [x] | K05d | `evaluate.yaml`, script, ECE trước → sau, mô hình tốt nhất | ECE ≤ 0.0021, best: mlp |
 | [ ] | **K06** | Công bằng, test một lần (`pytest` 69) | |
-| [ ] | K06a | `fairness`, `evaluate.yaml` nhóm, 4 test | |
+| [x] | K06a | `fairness`, `evaluate.yaml` nhóm, 4 test | 4 passed |
 | [ ] | K06b | `plots`, `report`, 2 test | |
 | [ ] | K06c | Huấn luyện nhị phân và `dedup` (12 run) | |
 | [ ] | K06d | `evaluate.py`, khóa test, lần chạy thứ hai thoát mã 2 | |
