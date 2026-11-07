@@ -2,3 +2,12 @@ numeric: [BMI, MentHlth, PhysHlth, GenHlth, Age, Education, Income]
 binary: [HighBP, HighChol, CholCheck, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity,
          Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk, Sex]
 drop_for_what_if: [CholCheck, AnyHealthcare, Education, Income, NoDocbcCost]
+
+what_if:
+  BMI:               {target: 24.5, kind: continuous, min_gap: 0.5, action: "Đưa BMI về 24,5"}
+  PhysActivity:      {target: 1, action: "Duy trì vận động thể chất đều đặn"}
+  Smoker:            {target: 0, action: "Bỏ thuốc lá"}
+  HvyAlcoholConsump: {target: 0, action: "Hạn chế rượu bia"}
+  Fruits:            {target: 1, action: "Ăn trái cây mỗi ngày"}
+  Veggies:           {target: 1, action: "Ăn rau mỗi ngày"}
+
