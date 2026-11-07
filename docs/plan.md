@@ -1344,7 +1344,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | |
 | [x] | K11a | `critic`, `cross_validation`, `tuning`, 7 test | 7 passed |
 | [x] | K11b | `bm25`, `build_kb`, `graph_rag`, 4 test | 4 passed |
-| [ ] | K11c | 4 agent + `orchestrator`, 4 test | |
+| [x] | K11c | 4 agent + `orchestrator`, 4 test | 4 passed |
 
 Số test tích lũy mong đợi: K01 = 18; K02 = 33; K03 = 40; K04 = 48; K05 = 60; K06 = 69; K07 = 77; K08 = 95; K09 = 106; K10 = 110; K11 = 125.
 
