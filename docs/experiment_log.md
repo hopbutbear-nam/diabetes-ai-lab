@@ -20,3 +20,7 @@
 - Run giải thích: `mlp_multiclass_full` (n_repeats=5, seed=42, tập validation).
 - Top-5 đặc trưng theo độ quan trọng hoán vị (ROC-AUC drop): `GenHlth`, `BMI`, `Age`, `HighChol`, `HighBP` (khớp cả 5 đặc trưng then chốt trong phân tích BRFSS).
 
+## Ghi chú K08 — Xuất gói mô hình suy luận
+- Xuất gói: `mlp_multiclass_full`, sha256: `0fefadac9713627af2a9fb4c484477f30d0ed88a488d8eb8a98ad6c5ae36da26` (kích thước: 62.048 byte).
+
+
