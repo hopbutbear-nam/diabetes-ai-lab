@@ -1332,10 +1332,10 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K08a | `rules`, `risk_level`, `disclaimers`, YAML, 10 test | 10 passed |
 | [x] | K08b | `schemas`, `export`, `export_model` (kích thước gói) | 0.06 MB < 50 MB, 21 đặc trưng |
 | [x] | K08c | `predictor`, `conftest`, 8 test | 8 passed |
-| [ ] | **K09** | API và web (`pytest` 106) | |
+| [x] | **K09** | API và web (`pytest` 106) | 106 passed; smoke test đạt |
 | [x] | K09a | `deps`, `routes`, `app` | 1 passed (test_api_health.py) |
 | [x] | K09b | `serve.yaml`, 8 test API | 8 passed |
-| [ ] | K09c | `index.html`, `style.css`, `app.js`, 3 test; smoke test | |
+| [x] | K09c | `index.html`, `style.css`, `app.js`, 3 test; smoke test | 3 passed; smoke test đạt |
 | [ ] | **K10** | Tài liệu, tái lập (`pytest` 110) | |
 | [ ] | K10a | `make_reports`, `run_all.sh`, `Makefile`, `.gitattributes` | |
 | [ ] | K10b | `model_card`, `fairness_report`, `final_report` | |
