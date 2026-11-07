@@ -7,3 +7,6 @@ rules:
   - { id: R5, level: danger, when: "glucose < 70", text: "Đường huyết quá thấp." }
   - { id: R6, level: warn,   when: "n_symptoms >= 3", text: "Nhiều triệu chứng điển hình, nên xét nghiệm." }
   - { id: R7, level: warn,   when: "bmi >= 30", text: "Béo phì là yếu tố nguy cơ." }
+  - { id: R8, level: warn,   when: "high_bp == 1 and high_chol == 1 and heart_or_stroke == 1", text: "Huyết áp cao, mỡ máu cao và bệnh tim/đột quỵ cùng tồn tại: nguy cơ tim mạch, cần theo dõi cùng bác sĩ." }
+  - { id: R9, level: info,   when: "age_code >= 6 and chol_check == 0", text: "Từ 45 tuổi nên kiểm tra mỡ máu định kỳ." }
+  - { id: R10, level: warn,  when: "p_diabetes >= 0.5", text: "Mô hình ước lượng nguy cơ tiểu đường cao: nên xét nghiệm xác nhận." }
