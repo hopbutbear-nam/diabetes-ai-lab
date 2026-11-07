@@ -1341,7 +1341,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K10b | `model_card`, `fairness_report`, `final_report` | make_reports --check thoát 0; grep AUTO >= 7 |
 | [x] | K10c | `architecture`, `safety_and_ethics`, `references`, `README`, nhật ký | grep disclaimer >= 1 mỗi file |
 | [x] | K10d | 4 test tài liệu, chạy sạch `run_all.sh --clean --replay-test` (sai khác tối đa) | 4 passed; sai khác tối đa = 0.0 |
-| [ ] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | |
+| [x] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | pytest 131 passed |
 | [x] | K11a | `critic`, `cross_validation`, `tuning`, 7 test | 7 passed |
 | [x] | K11b | `bm25`, `build_kb`, `graph_rag`, 4 test | 4 passed |
 | [x] | K11c | 4 agent + `orchestrator`, 4 test | 4 passed |
