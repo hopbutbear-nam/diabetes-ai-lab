@@ -15,9 +15,15 @@
 | 2026-11-07 | mlp | configs/evaluate.yaml | 0.786 | 0.464 | TEST (1 lần); multiclass_full; mô hình tốt nhất; CI AUC=[0.780, 0.792] |
 | 2026-11-07 | xgb | configs/evaluate.yaml | 0.824 | 0.687 | TEST (1 lần); binary_full; mô hình tốt nhất; CI AUC=[0.820, 0.829] |
 | 2026-11-07 | mlp | configs/evaluate.yaml | 0.774 | 0.465 | TEST (1 lần); multiclass_dedup; mô hình tốt nhất; CI AUC=[0.768, 0.781] |
+| 2026-11-07 | majority | configs/evaluate.yaml | 0.500 | 0.305 | TEST (phát lại); multiclass_full; baseline |
+| 2026-11-07 | logreg | configs/evaluate.yaml | 0.772 | 0.459 | TEST (phát lại); multiclass_full; CI AUC=[0.765, 0.778] |
+| 2026-11-07 | xgb | configs/evaluate.yaml | 0.787 | 0.468 | TEST (phát lại); multiclass_full; CI AUC=[0.781, 0.793] |
+| 2026-11-07 | mlp | configs/evaluate.yaml | 0.786 | 0.464 | TEST (phát lại); multiclass_full; mô hình tốt nhất; CI AUC=[0.780, 0.792] |
+| 2026-11-07 | xgb | configs/evaluate.yaml | 0.824 | 0.687 | TEST (phát lại); binary_full; mô hình tốt nhất; CI AUC=[0.820, 0.829] |
+| 2026-11-07 | mlp | configs/evaluate.yaml | 0.774 | 0.465 | TEST (phát lại); multiclass_dedup; mô hình tốt nhất; CI AUC=[0.768, 0.781] |
 
 ## Quy ước và ghi chú chung
-- Quy ước: `val` = validation; `TEST (1 lần)` = tập test, đánh giá một lần.
+- Quy ước: `val` = validation; `TEST (1 lần)` = tập test, đánh giá một lần; `TEST (phát lại)` = phát lại sạch để kiểm tra tính tái lập (K10d).
 - Mọi quyết định lựa chọn mô hình, tinh chỉnh siêu tham số, hiệu chuẩn xác suất và tìm ngưỡng quyết định tối ưu đều được thực hiện độc quyền trên tập `val`.
 - Tập `TEST (1 lần)` chỉ được đánh giá đúng một lần duy nhất theo giao thức khóa nghiêm ngặt tại `reports/metrics/test_lock.json` nhằm đảm bảo tính toàn vẹn và trung thực khoa học, tuyệt đối không phục vụ việc dò tìm tham số.
 
@@ -27,3 +33,7 @@
 
 ## Ghi chú K08 — Xuất gói mô hình suy luận
 - Xuất gói: `mlp_multiclass_full`, sha256: `0fefadac9713627af2a9fb4c484477f30d0ed88a488d8eb8a98ad6c5ae36da26` (kích thước: 62.048 byte).
+
+## Ghi chú K10 — Phát lại sạch toàn pipeline và kiểm tra tái lập
+- Phát lại sạch: sai khác tối đa = 0.0 | số lần đánh giá = 2 | lần 2 forced = True (lý do: "run_all replay").
+- Kết quả kiểm tra tái lập toàn pipeline qua `bash scripts/run_all.sh --clean --replay-test` hoàn toàn trùng khớp tuyệt đối (sai khác tối đa = 0.0 <= 1e-3).

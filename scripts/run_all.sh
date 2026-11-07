@@ -75,6 +75,7 @@ echo "=== (5) Giải thích mô hình toàn cục (explain_global.py) ==="
 python scripts/explain_global.py
 
 echo "=== (6) Đánh giá mô hình (evaluate.py) ==="
+python scripts/evaluate.py --split val
 LOCK_FILE="reports/metrics/test_lock.json"
 if [ ! -f "$LOCK_FILE" ]; then
   python scripts/evaluate.py

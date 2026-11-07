@@ -63,7 +63,7 @@
       "xgboost": "3.4.1",
       "torch": "2.15.0+cpu"
     },
-    "train_seconds": 11.747669499978656,
+    "train_seconds": 12.467496500001289,
     "fit_info": {
       "backend": "xgboost",
       "best_iteration": 168

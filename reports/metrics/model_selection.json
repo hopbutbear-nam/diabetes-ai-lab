@@ -14,21 +14,6 @@
     },
     "rule": "best AUC hơn logreg 0.0118 >= simplicity_margin=0.003; chọn mlp"
   },
-  "multiclass_dedup": {
-    "best": "mlp_multiclass_dedup",
-    "candidates": {
-      "logreg_multiclass_dedup": {
-        "val_auc": 0.7542740780073687
-      },
-      "xgb_multiclass_dedup": {
-        "val_auc": 0.7645587637962198
-      },
-      "mlp_multiclass_dedup": {
-        "val_auc": 0.7704398427533995
-      }
-    },
-    "rule": "best AUC hơn logreg 0.0162 >= simplicity_margin=0.003; chọn mlp"
-  },
   "binary_full": {
     "best": "xgb_binary_full",
     "candidates": {
@@ -43,5 +28,20 @@
       }
     },
     "rule": "best AUC hơn logreg 0.0094 >= simplicity_margin=0.003; chọn xgb"
+  },
+  "multiclass_dedup": {
+    "best": "mlp_multiclass_dedup",
+    "candidates": {
+      "logreg_multiclass_dedup": {
+        "val_auc": 0.7542740780073687
+      },
+      "xgb_multiclass_dedup": {
+        "val_auc": 0.7645587637962198
+      },
+      "mlp_multiclass_dedup": {
+        "val_auc": 0.7704398427533995
+      }
+    },
+    "rule": "best AUC hơn logreg 0.0162 >= simplicity_margin=0.003; chọn mlp"
   }
 }

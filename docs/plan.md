@@ -1336,11 +1336,11 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K09a | `deps`, `routes`, `app` | 1 passed (test_api_health.py) |
 | [x] | K09b | `serve.yaml`, 8 test API | 8 passed |
 | [x] | K09c | `index.html`, `style.css`, `app.js`, 3 test; smoke test | 3 passed; smoke test đạt |
-| [ ] | **K10** | Tài liệu, tái lập (`pytest` 110) | |
+| [x] | **K10** | Tài liệu, tái lập (`pytest` 110) | pytest 116 passed; sai khác phát lại = 0.0 |
 | [x] | K10a | `make_reports`, `run_all.sh`, `Makefile`, `.gitattributes` | make_reports.py --help đạt; run_all.sh |
 | [x] | K10b | `model_card`, `fairness_report`, `final_report` | make_reports --check thoát 0; grep AUTO >= 7 |
 | [x] | K10c | `architecture`, `safety_and_ethics`, `references`, `README`, nhật ký | grep disclaimer >= 1 mỗi file |
-| [ ] | K10d | 4 test tài liệu, chạy sạch `run_all.sh --clean --replay-test` (sai khác tối đa) | |
+| [x] | K10d | 4 test tài liệu, chạy sạch `run_all.sh --clean --replay-test` (sai khác tối đa) | 4 passed; sai khác tối đa = 0.0 |
 | [ ] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | |
 | [ ] | K11a | `critic`, `cross_validation`, `tuning`, 7 test | |
 | [ ] | K11b | `bm25`, `build_kb`, `graph_rag`, 4 test | |
