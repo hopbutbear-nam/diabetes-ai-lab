@@ -1326,7 +1326,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K06d | `evaluate.py`, khóa test, lần chạy thứ hai thoát mã 2 | lần 1 exit=0, lần 2 exit=2, khóa 1 mục |
 | [ ] | **K07** | Giải thích (`pytest` 77) | |
 | [x] | K07a | `features.yaml` (what_if), `what_if`, 4 test | 4 passed |
-| [ ] | K07b | `permutation`, `shap_explain`, 4 test | |
+| [x] | K07b | `permutation`, `shap_explain`, 4 test | 4 passed |
 | [ ] | K07c | `plots`, `explain_global` (21 mục, top-5) | |
 | [ ] | **K08** | Luật an toàn, predictor, xuất mô hình (`pytest` 95) | |
 | [ ] | K08a | `rules`, `risk_level`, `disclaimers`, YAML, 10 test | |
