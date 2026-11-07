@@ -1343,7 +1343,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K10d | 4 test tài liệu, chạy sạch `run_all.sh --clean --replay-test` (sai khác tối đa) | 4 passed; sai khác tối đa = 0.0 |
 | [ ] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | |
 | [x] | K11a | `critic`, `cross_validation`, `tuning`, 7 test | 7 passed |
-| [ ] | K11b | `bm25`, `build_kb`, `graph_rag`, 4 test | |
+| [x] | K11b | `bm25`, `build_kb`, `graph_rag`, 4 test | 4 passed |
 | [ ] | K11c | 4 agent + `orchestrator`, 4 test | |
 
 Số test tích lũy mong đợi: K01 = 18; K02 = 33; K03 = 40; K04 = 48; K05 = 60; K06 = 69; K07 = 77; K08 = 95; K09 = 106; K10 = 110; K11 = 125.

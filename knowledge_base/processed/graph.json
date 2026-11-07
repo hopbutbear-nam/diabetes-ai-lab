@@ -1,0 +1,203 @@
+{
+  "nodes": [
+    {
+      "id": "dai_thao_duong",
+      "label": "Đái tháo đường",
+      "aliases": [
+        "đái tháo đường",
+        "tiểu đường",
+        "diabetes",
+        "tăng đường huyết"
+      ]
+    },
+    {
+      "id": "tien_dai_thao_duong",
+      "label": "Tiền đái tháo đường",
+      "aliases": [
+        "tiền đái tháo đường",
+        "prediabetes",
+        "rối loạn dung nạp glucose",
+        "rối loạn đường huyết đói"
+      ]
+    },
+    {
+      "id": "duong_huyet_doi",
+      "label": "Đường huyết lúc đói",
+      "aliases": [
+        "đường huyết lúc đói",
+        "đường huyết đói",
+        "glucose đói",
+        "fpg",
+        "fasting glucose"
+      ]
+    },
+    {
+      "id": "hba1c",
+      "label": "HbA1c",
+      "aliases": [
+        "hba1c",
+        "chỉ số hba1c",
+        "hemoglobin a1c",
+        "a1c"
+      ]
+    },
+    {
+      "id": "dung_nap_glucose",
+      "label": "Dung nạp glucose",
+      "aliases": [
+        "dung nạp glucose",
+        "ogtt",
+        "nghiệm pháp dung nạp glucose"
+      ]
+    },
+    {
+      "id": "trieu_chung",
+      "label": "Triệu chứng lâm sàng",
+      "aliases": [
+        "triệu chứng",
+        "khát nước",
+        "tiểu nhiều",
+        "sụt cân",
+        "ăn nhiều",
+        "mệt mỏi",
+        "symptoms"
+      ]
+    },
+    {
+      "id": "huyet_ap",
+      "label": "Huyết áp",
+      "aliases": [
+        "huyết áp",
+        "tăng huyết áp",
+        "huyết áp cao",
+        "hypertension",
+        "blood pressure"
+      ]
+    },
+    {
+      "id": "tim_mach",
+      "label": "Tim mạch",
+      "aliases": [
+        "tim mạch",
+        "bệnh tim",
+        "xơ vữa động mạch",
+        "đột quỵ",
+        "cardiovascular"
+      ]
+    },
+    {
+      "id": "bmi",
+      "label": "Chỉ số BMI",
+      "aliases": [
+        "bmi",
+        "thừa cân",
+        "béo phì",
+        "chỉ số khối cơ thể",
+        "cân nặng",
+        "obesity",
+        "overweight"
+      ]
+    },
+    {
+      "id": "bien_chung",
+      "label": "Biến chứng đái tháo đường",
+      "aliases": [
+        "biến chứng",
+        "biến chứng thận",
+        "biến chứng mắt",
+        "võng mạc",
+        "loét bàn chân",
+        "complications"
+      ]
+    },
+    {
+      "id": "loi_song",
+      "label": "Lối sống và dinh dưỡng",
+      "aliases": [
+        "lối sống",
+        "dinh dưỡng",
+        "vận động",
+        "tập thể dục",
+        "chế độ ăn",
+        "lifestyle"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "duong_huyet_doi",
+      "target": "dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "hba1c",
+      "target": "dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "dung_nap_glucose",
+      "target": "dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "duong_huyet_doi",
+      "target": "tien_dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "hba1c",
+      "target": "tien_dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "dung_nap_glucose",
+      "target": "tien_dai_thao_duong",
+      "relation": "tiêu_chuẩn_chẩn_đoán"
+    },
+    {
+      "source": "tien_dai_thao_duong",
+      "target": "dai_thao_duong",
+      "relation": "tiến_triển_thành"
+    },
+    {
+      "source": "trieu_chung",
+      "target": "dai_thao_duong",
+      "relation": "chỉ_điểm_lâm_sàng"
+    },
+    {
+      "source": "bmi",
+      "target": "tien_dai_thao_duong",
+      "relation": "yếu_tố_nguy_cơ"
+    },
+    {
+      "source": "bmi",
+      "target": "dai_thao_duong",
+      "relation": "yếu_tố_nguy_cơ"
+    },
+    {
+      "source": "huyet_ap",
+      "target": "tim_mach",
+      "relation": "yếu_tố_nguy_cơ"
+    },
+    {
+      "source": "dai_thao_duong",
+      "target": "tim_mach",
+      "relation": "tăng_nguy_cơ"
+    },
+    {
+      "source": "dai_thao_duong",
+      "target": "bien_chung",
+      "relation": "dẫn_đến"
+    },
+    {
+      "source": "loi_song",
+      "target": "tien_dai_thao_duong",
+      "relation": "phòng_ngừa"
+    },
+    {
+      "source": "loi_song",
+      "target": "dai_thao_duong",
+      "relation": "kiểm_soát"
+    }
+  ]
+}
