@@ -1,8 +1,12 @@
-.PHONY: install data train evaluate serve test lint
+# Git Bash thường không có `make`; dùng `bash scripts/run_all.sh`
+.PHONY: install data train evaluate serve test lint all
+
+all: bash scripts/run_all.sh
 install:
 	pip install -r requirements-dev.txt && pip install -e .
 data:
-	python scripts/download_data.py && python scripts/prepare_data.py
+	python scripts/prepare_data.py
+
 train:
 	python scripts/train.py --config configs/train_xgb.yaml
 evaluate:

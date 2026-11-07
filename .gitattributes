@@ -1,3 +1,6 @@
 * text=auto
 *.ipynb linguist-documentation
+* text=auto
+*.ipynb linguist-documentation
 *.csv  -diff
+*.sh text eol=lf
