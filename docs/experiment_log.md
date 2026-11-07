@@ -15,3 +15,8 @@
 | 2026-11-07 | mlp | configs/evaluate.yaml | 0.786 | 0.464 | TEST (1 lần); multiclass_full; mô hình tốt nhất; CI AUC=[0.780, 0.792] |
 | 2026-11-07 | xgb | configs/evaluate.yaml | 0.824 | 0.687 | TEST (1 lần); binary_full; mô hình tốt nhất; CI AUC=[0.820, 0.829] |
 | 2026-11-07 | mlp | configs/evaluate.yaml | 0.774 | 0.465 | TEST (1 lần); multiclass_dedup; mô hình tốt nhất; CI AUC=[0.768, 0.781] |
+
+## Ghi chú K07 — Giải thích toàn cục (Validation)
+- Run giải thích: `mlp_multiclass_full` (n_repeats=5, seed=42, tập validation).
+- Top-5 đặc trưng theo độ quan trọng hoán vị (ROC-AUC drop): `GenHlth`, `BMI`, `Age`, `HighChol`, `HighBP` (khớp cả 5 đặc trưng then chốt trong phân tích BRFSS).
+

@@ -439,3 +439,117 @@ def plot_fairness_bars(
     plt.savefig(out_path, dpi=110)
     plt.close(fig)
     return out_path
+
+
+def plot_importance(
+    rows: list[dict[str, Any]],
+    path: Path | str,
+    top: int = 15,
+) -> Path:
+    """Vẽ biểu đồ thanh ngang độ quan trọng hoán vị đặc trưng (Permutation Importance).
+
+    Args:
+        rows: Danh sách kết quả hoán vị từ permutation_importance, gồm các khóa:
+            "feature", "vi", "mean_drop", và tùy chọn "std_drop".
+        path: Đường dẫn lưu file ảnh PNG.
+        top: Số lượng đặc trưng quan trọng nhất cần vẽ (mặc định 15).
+
+    Returns:
+        Path: Đường dẫn tới file ảnh đã lưu.
+    """
+    out_path = Path(path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    sub_rows = rows[:top]
+    # Đảo ngược thứ tự để đặc trưng có mean_drop cao nhất nằm ở trên cùng
+    sub_rows = list(reversed(sub_rows))
+
+    labels = [str(r.get("vi", r.get("feature", ""))) for r in sub_rows]
+    mean_drops = [float(r.get("mean_drop", 0.0)) for r in sub_rows]
+    std_drops = [float(r.get("std_drop", 0.0)) for r in sub_rows]
+
+    fig_h = max(5.0, len(sub_rows) * 0.35 + 1.5)
+    fig, ax = plt.subplots(figsize=(8, fig_h), dpi=110)
+
+    y_pos = np.arange(len(sub_rows))
+    has_std = any(s > 0 for s in std_drops)
+    xerr = std_drops if has_std else None
+
+    ax.barh(
+        y_pos,
+        mean_drops,
+        xerr=xerr,
+        capsize=3,
+        color="#2b7bba",
+        edgecolor="black",
+        alpha=0.85,
+    )
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(labels, fontsize=9)
+    ax.set_xlabel("Mức giảm ROC-AUC OvR macro khi hoán vị (mean_drop)", fontsize=10)
+    ax.set_title(
+        f"Top {len(sub_rows)} đặc trưng quan trọng nhất (Permutation Importance — Validation)",
+        fontsize=11,
+        fontweight="bold",
+    )
+    ax.grid(True, axis="x", linestyle="--", alpha=0.5)
+
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=110)
+    plt.close(fig)
+    return out_path
+
+
+def plot_what_if(
+    rows: list[dict[str, Any]],
+    path: Path | str,
+) -> Path:
+    """Vẽ biểu đồ thanh ngang các kịch bản cải thiện lối sống (What-If delta_index).
+
+    Args:
+        rows: Danh sách kịch bản what-if, mỗi phần tử gồm:
+            "action", "delta_index", "feature",...
+        path: Đường dẫn lưu file ảnh PNG.
+
+    Returns:
+        Path: Đường dẫn tới file ảnh đã lưu.
+    """
+    out_path = Path(path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    fig_h = max(4.0, len(rows) * 0.5 + 1.5)
+    fig, ax = plt.subplots(figsize=(8.5, fig_h), dpi=110)
+
+    if not rows:
+        ax.text(
+            0.5,
+            0.5,
+            "Không có kịch bản cải thiện lối sống nào khả dụng",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=ax.transAxes,
+            fontsize=11,
+        )
+        ax.axis("off")
+    else:
+        # Đảo ngược thứ tự để kịch bản giảm nguy cơ nhiều nhất nằm ở trên cùng
+        rev_rows = list(reversed(rows))
+        labels = [str(r.get("action", r.get("feature", ""))) for r in rev_rows]
+        deltas = [float(r.get("delta_index", 0.0)) for r in rev_rows]
+
+        y_pos = np.arange(len(rev_rows))
+        colors = ["#2ca02c" if d >= 0 else "#d62728" for d in deltas]
+
+        ax.barh(y_pos, deltas, color=colors, edgecolor="black", alpha=0.85)
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels(labels, fontsize=9)
+        ax.set_xlabel("Mức giảm chỉ số nguy cơ (delta_index)", fontsize=10)
+        ax.set_title("Kịch bản cải thiện lối sống giả lập (What-If)", fontsize=11, fontweight="bold")
+        ax.axvline(0, color="black", linewidth=0.8, linestyle="--")
+        ax.grid(True, axis="x", linestyle="--", alpha=0.5)
+
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=110)
+    plt.close(fig)
+    return out_path
+

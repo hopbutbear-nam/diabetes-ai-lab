@@ -1,0 +1,128 @@
+[
+  {
+    "feature": "GenHlth",
+    "vi": "Tự đánh giá sức khỏe (1 tốt – 5 kém)",
+    "mean_drop": 0.048653293395002,
+    "std_drop": 0.00047466496183194847
+  },
+  {
+    "feature": "BMI",
+    "vi": "Chỉ số BMI",
+    "mean_drop": 0.04420751262177784,
+    "std_drop": 0.0015407240572433785
+  },
+  {
+    "feature": "Age",
+    "vi": "Nhóm tuổi (13 nhóm)",
+    "mean_drop": 0.034031304328564736,
+    "std_drop": 0.0029138453146136246
+  },
+  {
+    "feature": "HighChol",
+    "vi": "Mỡ máu cao",
+    "mean_drop": 0.01605840390911919,
+    "std_drop": 0.0008910443903941976
+  },
+  {
+    "feature": "HighBP",
+    "vi": "Huyết áp cao",
+    "mean_drop": 0.014879257693676484,
+    "std_drop": 0.0012532292819863282
+  },
+  {
+    "feature": "Income",
+    "vi": "Thu nhập hộ gia đình (8 mức)",
+    "mean_drop": 0.007939447737024064,
+    "std_drop": 0.0014500250014306748
+  },
+  {
+    "feature": "Sex",
+    "vi": "Giới tính",
+    "mean_drop": 0.004832166646108793,
+    "std_drop": 0.00018872689431827247
+  },
+  {
+    "feature": "CholCheck",
+    "vi": "Kiểm tra cholesterol trong 5 năm",
+    "mean_drop": 0.004727552496775522,
+    "std_drop": 0.0012857877713753658
+  },
+  {
+    "feature": "HeartDiseaseorAttack",
+    "vi": "Bệnh tim mạch hoặc nhồi máu cơ tim",
+    "mean_drop": 0.0034895592123970866,
+    "std_drop": 0.00025273408969448275
+  },
+  {
+    "feature": "Education",
+    "vi": "Trình độ học vấn (6 mức)",
+    "mean_drop": 0.0030875167094257085,
+    "std_drop": 0.00043769976346399726
+  },
+  {
+    "feature": "HvyAlcoholConsump",
+    "vi": "Uống nhiều rượu bia",
+    "mean_drop": 0.0028126650893939066,
+    "std_drop": 0.0005049814426248197
+  },
+  {
+    "feature": "PhysActivity",
+    "vi": "Hoạt động thể chất (30 ngày qua)",
+    "mean_drop": 0.0027498228277317294,
+    "std_drop": 0.0006070971422283479
+  },
+  {
+    "feature": "Smoker",
+    "vi": "Hút thuốc (≥100 điếu)",
+    "mean_drop": 0.0022602231183461276,
+    "std_drop": 0.00025127803235743104
+  },
+  {
+    "feature": "PhysHlth",
+    "vi": "Số ngày sức khỏe thể chất không tốt (30 ngày qua)",
+    "mean_drop": 0.0018967922947941806,
+    "std_drop": 0.0004896847081521597
+  },
+  {
+    "feature": "Stroke",
+    "vi": "Từng bị đột quỵ",
+    "mean_drop": 0.001649430455309342,
+    "std_drop": 0.0002229262867772262
+  },
+  {
+    "feature": "NoDocbcCost",
+    "vi": "Không thể khám bệnh vì chi phí",
+    "mean_drop": 0.0016391215195001197,
+    "std_drop": 0.00047180139715562907
+  },
+  {
+    "feature": "Veggies",
+    "vi": "Ăn rau hàng ngày",
+    "mean_drop": 0.0015902565508474798,
+    "std_drop": 0.0006797701999063698
+  },
+  {
+    "feature": "DiffWalk",
+    "vi": "Khó khăn khi đi bộ hoặc leo cầu thang",
+    "mean_drop": 0.0012735067061927063,
+    "std_drop": 0.00042559358618208864
+  },
+  {
+    "feature": "MentHlth",
+    "vi": "Số ngày sức khỏe tinh thần không tốt (30 ngày qua)",
+    "mean_drop": 0.0009092081120529727,
+    "std_drop": 0.000502937269344539
+  },
+  {
+    "feature": "AnyHealthcare",
+    "vi": "Có bảo hiểm y tế",
+    "mean_drop": 0.0007277886770128861,
+    "std_drop": 0.000304355021125456
+  },
+  {
+    "feature": "Fruits",
+    "vi": "Ăn trái cây hàng ngày",
+    "mean_drop": 0.0006781437959352488,
+    "std_drop": 0.0007184010233108652
+  }
+]

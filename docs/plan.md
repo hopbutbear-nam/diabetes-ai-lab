@@ -1327,7 +1327,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K07** | Giải thích (`pytest` 77) | |
 | [x] | K07a | `features.yaml` (what_if), `what_if`, 4 test | 4 passed |
 | [x] | K07b | `permutation`, `shap_explain`, 4 test | 4 passed |
-| [ ] | K07c | `plots`, `explain_global` (21 mục, top-5) | |
+| [x] | K07c | `plots`, `explain_global` (21 mục, top-5) | 21 mục, top-5 khớp BRFSS |
 | [ ] | **K08** | Luật an toàn, predictor, xuất mô hình (`pytest` 95) | |
 | [ ] | K08a | `rules`, `risk_level`, `disclaimers`, YAML, 10 test | |
 | [ ] | K08b | `schemas`, `export`, `export_model` (kích thước gói) | |
