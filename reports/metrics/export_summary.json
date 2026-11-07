@@ -1,0 +1,8 @@
+{
+  "run_name": "mlp_multiclass_full",
+  "task": "multiclass",
+  "variant": "full",
+  "path": "F:\\PT các HTTM\\AITRAINING\\diabetes-ai-lab\\models\\best_model.joblib",
+  "bytes": 62048,
+  "sha256": "0fefadac9713627af2a9fb4c484477f30d0ed88a488d8eb8a98ad6c5ae36da26"
+}
