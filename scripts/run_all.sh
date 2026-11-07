@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ -f ".venv/Scripts/activate" ]; then
+  source .venv/Scripts/activate
+elif [ -f ".venv/bin/activate" ]; then
+  source .venv/bin/activate
+fi
+
 export PYTHONUTF8=1
 export PYTHONIOENCODING=utf-8
 
