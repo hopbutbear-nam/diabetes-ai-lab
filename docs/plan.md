@@ -1339,7 +1339,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K10** | Tài liệu, tái lập (`pytest` 110) | |
 | [x] | K10a | `make_reports`, `run_all.sh`, `Makefile`, `.gitattributes` | make_reports.py --help đạt; run_all.sh |
 | [x] | K10b | `model_card`, `fairness_report`, `final_report` | make_reports --check thoát 0; grep AUTO >= 7 |
-| [ ] | K10c | `architecture`, `safety_and_ethics`, `references`, `README`, nhật ký | |
+| [x] | K10c | `architecture`, `safety_and_ethics`, `references`, `README`, nhật ký | grep disclaimer >= 1 mỗi file |
 | [ ] | K10d | 4 test tài liệu, chạy sạch `run_all.sh --clean --replay-test` (sai khác tối đa) | |
 | [ ] | **K11** (tùy chọn) | Critic, CV, tuning, tri thức, agents (`pytest` 125) | |
 | [ ] | K11a | `critic`, `cross_validation`, `tuning`, 7 test | |

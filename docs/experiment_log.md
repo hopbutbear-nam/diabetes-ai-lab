@@ -16,11 +16,14 @@
 | 2026-11-07 | xgb | configs/evaluate.yaml | 0.824 | 0.687 | TEST (1 lần); binary_full; mô hình tốt nhất; CI AUC=[0.820, 0.829] |
 | 2026-11-07 | mlp | configs/evaluate.yaml | 0.774 | 0.465 | TEST (1 lần); multiclass_dedup; mô hình tốt nhất; CI AUC=[0.768, 0.781] |
 
+## Quy ước và ghi chú chung
+- Quy ước: `val` = validation; `TEST (1 lần)` = tập test, đánh giá một lần.
+- Mọi quyết định lựa chọn mô hình, tinh chỉnh siêu tham số, hiệu chuẩn xác suất và tìm ngưỡng quyết định tối ưu đều được thực hiện độc quyền trên tập `val`.
+- Tập `TEST (1 lần)` chỉ được đánh giá đúng một lần duy nhất theo giao thức khóa nghiêm ngặt tại `reports/metrics/test_lock.json` nhằm đảm bảo tính toàn vẹn và trung thực khoa học, tuyệt đối không phục vụ việc dò tìm tham số.
+
 ## Ghi chú K07 — Giải thích toàn cục (Validation)
 - Run giải thích: `mlp_multiclass_full` (n_repeats=5, seed=42, tập validation).
 - Top-5 đặc trưng theo độ quan trọng hoán vị (ROC-AUC drop): `GenHlth`, `BMI`, `Age`, `HighChol`, `HighBP` (khớp cả 5 đặc trưng then chốt trong phân tích BRFSS).
 
 ## Ghi chú K08 — Xuất gói mô hình suy luận
 - Xuất gói: `mlp_multiclass_full`, sha256: `0fefadac9713627af2a9fb4c484477f30d0ed88a488d8eb8a98ad6c5ae36da26` (kích thước: 62.048 byte).
-
-
