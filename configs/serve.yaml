@@ -1,2 +1,10 @@
 model_path: models/best_model.joblib
 risk_levels: { low: 0.10, medium: 0.25 }   # dưới 0.10 thấp, dưới 0.25 trung bình, còn lại cao
+port: 8200
+app_dir: app
+cors_origins:
+  - "http://localhost:8200"
+  - "http://127.0.0.1:8200"
+  - "http://localhost:5500"
+  - "http://127.0.0.1:5500"
+  - "null"

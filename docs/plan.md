@@ -1334,7 +1334,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K08c | `predictor`, `conftest`, 8 test | 8 passed |
 | [ ] | **K09** | API và web (`pytest` 106) | |
 | [x] | K09a | `deps`, `routes`, `app` | 1 passed (test_api_health.py) |
-| [ ] | K09b | `serve.yaml`, 8 test API | |
+| [x] | K09b | `serve.yaml`, 8 test API | 8 passed |
 | [ ] | K09c | `index.html`, `style.css`, `app.js`, 3 test; smoke test | |
 | [ ] | **K10** | Tài liệu, tái lập (`pytest` 110) | |
 | [ ] | K10a | `make_reports`, `run_all.sh`, `Makefile`, `.gitattributes` | |
