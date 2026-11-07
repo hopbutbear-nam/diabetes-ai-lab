@@ -1,10 +1,364 @@
 <!doctype html>
 <html lang="vi">
-<head><meta charset="utf-8"><title>Diabetes AI Lab</title>
-<link rel="stylesheet" href="static/css/style.css"></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetes AI Lab - Sàng lọc nguy cơ tiểu đường</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
 <body>
-  <h1>Sàng lọc nguy cơ tiểu đường</h1>
-  <p><strong>Chỉ để học tập, không phải chẩn đoán y khoa.</strong></p>
+  <header class="app-header">
+    <h1>Sàng lọc nguy cơ tiểu đường</h1>
+    <div class="disclaimer-banner" role="alert">
+      <strong>Miễn trừ trách nhiệm y tế:</strong>
+      <span>Chỉ để học tập, không phải chẩn đoán y khoa. Kết quả sàng lọc mang tính tham khảo ban đầu và không thay thế cho thăm khám, chẩn đoán hay phác đồ điều trị của nhân viên y tế chuyên nghiệp.</span>
+    </div>
+  </header>
+
+  <main>
+    <form id="screening-form" novalidate>
+      <section class="card form-section">
+        <h2>1. Chỉ số nhân khẩu học & thể chất cơ bản</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="Sex">Giới tính</label>
+            <select id="Sex" name="Sex">
+              <option value="0">Nữ</option>
+              <option value="1">Nam</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Age">Nhóm tuổi</label>
+            <select id="Age" name="Age">
+              <option value="1">18–24</option>
+              <option value="2">25–29</option>
+              <option value="3">30–34</option>
+              <option value="4">35–39</option>
+              <option value="5">40–44</option>
+              <option value="6">45–49</option>
+              <option value="7">50–54</option>
+              <option value="8">55–59</option>
+              <option value="9" selected>60–64</option>
+              <option value="10">65–69</option>
+              <option value="11">70–74</option>
+              <option value="12">75–79</option>
+              <option value="13">80+</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="BMI">Chỉ số BMI (10 – 100)</label>
+            <input type="number" id="BMI" name="BMI" min="10" max="100" step="0.1" value="27.5" required>
+            <small class="field-hint">BMI = Cân nặng(kg) / (Chiều cao(m))²</small>
+          </div>
+
+          <div class="form-group">
+            <label for="GenHlth">Tự đánh giá sức khỏe</label>
+            <select id="GenHlth" name="GenHlth">
+              <option value="1">Rất tốt</option>
+              <option value="2">Tốt</option>
+              <option value="3" selected>Khá</option>
+              <option value="4">Trung bình</option>
+              <option value="5">Kém</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="PhysHlth">Số ngày sức khỏe thể chất kém (30 ngày qua: 0–30)</label>
+            <input type="number" id="PhysHlth" name="PhysHlth" min="0" max="30" step="1" value="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="MentHlth">Số ngày sức khỏe tinh thần kém (30 ngày qua: 0–30)</label>
+            <input type="number" id="MentHlth" name="MentHlth" min="0" max="30" step="1" value="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="DiffWalk">Khó khăn khi đi bộ hoặc leo cầu thang</label>
+            <select id="DiffWalk" name="DiffWalk">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Education">Trình độ học vấn</label>
+            <select id="Education" name="Education">
+              <option value="1">Chưa từng đi học hoặc mẫu giáo</option>
+              <option value="2">Tiểu học (lớp 1–8)</option>
+              <option value="3">THCS hoặc chưa tốt nghiệp THPT (lớp 9–11)</option>
+              <option value="4" selected>Tốt nghiệp THPT hoặc tương đương</option>
+              <option value="5">Cao đẳng hoặc đại học dang dở (1–3 năm)</option>
+              <option value="6">Tốt nghiệp đại học trở lên (≥4 năm)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Income">Mức thu nhập hộ gia đình</label>
+            <select id="Income" name="Income">
+              <option value="1">&lt;10k USD</option>
+              <option value="2">10–15k</option>
+              <option value="3">15–20k</option>
+              <option value="4">20–25k</option>
+              <option value="5" selected>25–35k</option>
+              <option value="6">35–50k</option>
+              <option value="7">50–75k</option>
+              <option value="8">≥75k</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="card form-section">
+        <h2>2. Tiền sử bệnh lý & Lối sống (12 chỉ số)</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="HighBP">Huyết áp cao</label>
+            <select id="HighBP" name="HighBP">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="HighChol">Mỡ máu cao</label>
+            <select id="HighChol" name="HighChol">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="CholCheck">Kiểm tra cholesterol trong 5 năm</label>
+            <select id="CholCheck" name="CholCheck">
+              <option value="0">Không</option>
+              <option value="1" selected>Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Smoker">Hút thuốc (≥100 điếu cả đời)</label>
+            <select id="Smoker" name="Smoker">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Stroke">Từng bị đột quỵ</label>
+            <select id="Stroke" name="Stroke">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="HeartDiseaseorAttack">Bệnh mạch vành / Nhồi máu cơ tim</label>
+            <select id="HeartDiseaseorAttack" name="HeartDiseaseorAttack">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="PhysActivity">Hoạt động thể chất (30 ngày qua)</label>
+            <select id="PhysActivity" name="PhysActivity">
+              <option value="0">Không</option>
+              <option value="1" selected>Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Fruits">Ăn trái cây hàng ngày</label>
+            <select id="Fruits" name="Fruits">
+              <option value="0">Không</option>
+              <option value="1" selected>Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Veggies">Ăn rau hàng ngày</label>
+            <select id="Veggies" name="Veggies">
+              <option value="0">Không</option>
+              <option value="1" selected>Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="HvyAlcoholConsump">Uống nhiều rượu bia</label>
+            <select id="HvyAlcoholConsump" name="HvyAlcoholConsump">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="AnyHealthcare">Có bảo hiểm y tế</label>
+            <select id="AnyHealthcare" name="AnyHealthcare">
+              <option value="0">Không</option>
+              <option value="1" selected>Có</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="NoDocbcCost">Không thể khám vì chi phí</label>
+            <select id="NoDocbcCost" name="NoDocbcCost">
+              <option value="0" selected>Không</option>
+              <option value="1">Có</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="card form-section">
+        <h2>3. Thông tin lâm sàng (không bắt buộc)</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="glucose">Đường huyết ngẫu nhiên (mg/dL)</label>
+            <input type="number" id="glucose" name="glucose" min="20" max="800" step="any" placeholder="Để trống nếu chưa xét nghiệm">
+          </div>
+
+          <div class="form-group">
+            <label for="fasting_glucose">Đường huyết lúc đói (mg/dL)</label>
+            <input type="number" id="fasting_glucose" name="fasting_glucose" min="20" max="800" step="any" placeholder="Để trống nếu chưa xét nghiệm">
+          </div>
+        </div>
+
+        <div class="symptoms-group">
+          <label class="symptoms-title">Triệu chứng lâm sàng nhận biết:</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="khát nước nhiều"> Khát nước nhiều</label>
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="đi tiểu nhiều"> Đi tiểu nhiều</label>
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="mệt mỏi"> Mệt mỏi</label>
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="nhìn mờ"> Nhìn mờ</label>
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="vết thương lâu lành"> Vết thương lâu lành</label>
+            <label class="checkbox-item"><input type="checkbox" name="symptoms" value="sụt cân không rõ lý do"> Sụt cân không rõ lý do</label>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="submit" id="btn-submit" class="btn-primary">Đánh giá nguy cơ</button>
+      </div>
+    </form>
+
+    <div id="error-container" class="error-container" style="display: none;" role="alert"></div>
+
+    <section id="results" class="results-container" style="display: none;">
+      <div class="card result-card">
+        <h2>Kết quả sàng lọc</h2>
+
+        <div class="risk-overview">
+          <div class="risk-level-container">
+            <span class="label-text">Mức nguy cơ:</span>
+            <span id="risk-level-badge" class="risk-badge">Đang xử lý</span>
+          </div>
+          <div class="risk-index-container">
+            <span class="label-text">Chỉ số nguy cơ:</span>
+            <strong id="risk-index-value">--</strong>
+          </div>
+        </div>
+
+        <div class="prob-section">
+          <h3>Xác suất dự đoán theo nhóm:</h3>
+          <div class="prob-bar-wrapper">
+            <div class="prob-label">
+              <span>Không mắc tiểu đường:</span>
+              <strong id="prob-0-text">--%</strong>
+            </div>
+            <div class="progress-track">
+              <div id="prob-0-bar" class="progress-fill fill-green" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="prob-bar-wrapper">
+            <div class="prob-label">
+              <span>Tiền tiểu đường:</span>
+              <strong id="prob-1-text">--%</strong>
+            </div>
+            <div class="progress-track">
+              <div id="prob-1-bar" class="progress-fill fill-amber" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="prob-bar-wrapper">
+            <div class="prob-label">
+              <span>Tiểu đường:</span>
+              <strong id="prob-2-text">--%</strong>
+            </div>
+            <div class="progress-track">
+              <div id="prob-2-bar" class="progress-fill fill-red" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="alerts-block" class="alerts-section">
+          <h3>Cảnh báo an toàn:</h3>
+          <ul id="alerts-list" class="alerts-list"></ul>
+        </div>
+
+        <div id="advice-block" class="advice-section">
+          <h3>Lời khuyên:</h3>
+          <ul id="advice-list" class="advice-list"></ul>
+        </div>
+
+        <div id="drivers-block" class="drivers-section">
+          <h3>6 yếu tố ảnh hưởng chính tới nguy cơ:</h3>
+          <div id="drivers-list" class="drivers-grid"></div>
+        </div>
+
+        <div id="whatif-block" class="whatif-section">
+          <h3>Mô phỏng kịch bản giả định (What-If)</h3>
+          <p class="whatif-description">Thử nghiệm thay đổi chỉ số BMI hoặc lối sống để quan sát mức biến động nguy cơ.</p>
+          <div class="whatif-controls">
+            <div class="whatif-field">
+              <label for="whatif-bmi">Chỉ số BMI giả định: <strong id="whatif-bmi-display">25.0</strong></label>
+              <input type="range" id="whatif-bmi" min="15" max="50" step="0.5" value="25.0">
+            </div>
+
+            <div class="whatif-toggles">
+              <label class="toggle-item"><input type="checkbox" id="whatif-HighBP"> Huyết áp cao</label>
+              <label class="toggle-item"><input type="checkbox" id="whatif-HighChol"> Mỡ máu cao</label>
+              <label class="toggle-item"><input type="checkbox" id="whatif-Smoker"> Hút thuốc</label>
+              <label class="toggle-item"><input type="checkbox" id="whatif-PhysActivity"> Vận động thể chất</label>
+              <label class="toggle-item"><input type="checkbox" id="whatif-Fruits"> Ăn trái cây</label>
+            </div>
+          </div>
+
+          <div class="whatif-comparison">
+            <table class="whatif-table">
+              <thead>
+                <tr>
+                  <th>Nguy cơ ban đầu</th>
+                  <th>Nguy cơ sau thay đổi</th>
+                  <th>Biến động (Δ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="whatif-before">--</td>
+                  <td id="whatif-after">--</td>
+                  <td id="whatif-delta">--</td>
+                </tr>
+              </tbody>
+            </table>
+            <p id="whatif-note" class="whatif-note">Đây là thay đổi theo mô hình học từ khảo sát (tương quan), không phải bằng chứng nhân quả hay lời hứa về hiệu quả.</p>
+          </div>
+        </div>
+
+        <div class="disclaimer-bottom" role="note">
+          <strong>Lưu ý quan trọng:</strong>
+          <p id="disclaimer-text">Chỉ để học tập, không phải chẩn đoán y khoa.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Diabetes AI Lab &mdash; BRFSS Machine Learning Screening Demo &mdash; Chỉ phục vụ mục đích học tập và nghiên cứu.</p>
+  </footer>
+
   <script src="static/js/app.js"></script>
 </body>
 </html>
