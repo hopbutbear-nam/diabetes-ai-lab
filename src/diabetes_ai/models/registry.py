@@ -155,8 +155,9 @@ class LoadedRun:
             th = self.postproc["thresholds"]
             if "scale" in th and th["scale"] is not None:
                 scale = np.asarray(th["scale"], dtype=np.float64)
-                scaled = proba * scale
-                return np.argmax(scaled, axis=-1).astype(np.int64)
+                if scale.shape[0] == proba.shape[-1]:
+                    scaled = proba * scale
+                    return np.argmax(scaled, axis=-1).astype(np.int64)
             if "threshold" in th and th["threshold"] is not None:
                 threshold = float(th["threshold"])
                 if proba.ndim == 2:

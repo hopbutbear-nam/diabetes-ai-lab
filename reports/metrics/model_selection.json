@@ -28,5 +28,20 @@
       }
     },
     "rule": "best AUC hơn logreg 0.0162 >= simplicity_margin=0.003; chọn mlp"
+  },
+  "binary_full": {
+    "best": "xgb_binary_full",
+    "candidates": {
+      "logreg_binary_full": {
+        "val_auc": 0.8143954597606478
+      },
+      "xgb_binary_full": {
+        "val_auc": 0.8237583093319722
+      },
+      "mlp_binary_full": {
+        "val_auc": 0.8217262137376837
+      }
+    },
+    "rule": "best AUC hơn logreg 0.0094 >= simplicity_margin=0.003; chọn xgb"
   }
 }

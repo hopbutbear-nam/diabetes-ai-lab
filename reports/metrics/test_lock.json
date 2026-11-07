@@ -1,0 +1,62 @@
+{
+  "evaluations": [
+    {
+      "n": 1,
+      "utc": "2026-11-07T03:19:41.552981+00:00",
+      "runs": [
+        "majority_multiclass_full",
+        "logreg_multiclass_full",
+        "xgb_multiclass_full",
+        "mlp_multiclass_full",
+        "majority_binary_full",
+        "logreg_binary_full",
+        "xgb_binary_full",
+        "mlp_binary_full",
+        "majority_multiclass_dedup",
+        "logreg_multiclass_dedup",
+        "xgb_multiclass_dedup",
+        "mlp_multiclass_dedup"
+      ],
+      "model_hashes": {
+        "majority_multiclass_full/model.json": "f43961df513dcd4d13261be04f5c5427f486741ed0349ba20c3fa43112e52154",
+        "majority_multiclass_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_majority_multiclass_full.json": "cea72b17a635a82d69a1b0b81dd6016512e96ae3e81b7220472925dd57dd11ce",
+        "logreg_multiclass_full/model.joblib": "17fb7de8761c3b0df6928c5ab6dbb3672dd0dd7a38291bf628692bd659e06bde",
+        "logreg_multiclass_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_logreg_multiclass_full.json": "d85e268d8a3b0e9cde8d0fe3e9f8675c8c7f29e53d557870e134eb3e99301399",
+        "xgb_multiclass_full/model.joblib": "94b0df103ae6924cc3c7b516d1062c3fd4eb59a8e0cc06f0f2402bb548f9a08b",
+        "xgb_multiclass_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_xgb_multiclass_full.json": "09bb6abe9042c4bd49eca7052e398140945a9d90f5ab46d8d239133d9fac23d2",
+        "mlp_multiclass_full/model.pt": "b6ce7e8c02db6b28559fb7f58ab20c2e364f9eccbeb87925866c6c74e28d0b7c",
+        "mlp_multiclass_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_mlp_multiclass_full.json": "448ee84ab023599df7c707cff913294c8ff48e24d188b2f372563a8004360e74",
+        "majority_binary_full/model.json": "8dc1a35609f1f3b70cf789d052bdc661d9a4910008bbb24787929020a27fb424",
+        "majority_binary_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_majority_binary_full.json": "5781c736bfa26c02a601a21b9a84423cfd643eecc257fd7d69bfb160b4c9dd3a",
+        "logreg_binary_full/model.joblib": "6bce632d3aad374b6b8f8b6a1059e865e97d5d45a6f531bbba42781b717b72d6",
+        "logreg_binary_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_logreg_binary_full.json": "15d7f544fcccfba9bcf4ae2755dfb1f97df0e7f7bed88a3b56b61315756a6d8d",
+        "xgb_binary_full/model.joblib": "cf7d3c2a79fe1995393cba524ee150c8599ee703d08ccf2fe6e2d30383bca619",
+        "xgb_binary_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_xgb_binary_full.json": "3fe8ca53ab559bab4a7f7bc329c4d0bfd9d9f12db6f06d32ea884c9d53432bd4",
+        "mlp_binary_full/model.pt": "ed152a5897f7cf03881b05d6e20c972b5c7a15164107ed240916df1c85ff3480",
+        "mlp_binary_full/scaler.json": "2f700bd0449c92573c9f970fa58a577be907421dcfa280a738e9b99f90265c26",
+        "metrics/postproc_mlp_binary_full.json": "1f5afd7607f1ff3f445e32a9668214d503e7829101dffd25138cfda37cce9b78",
+        "majority_multiclass_dedup/model.json": "fd0b7defde7fd9cd3076b71fb9c5143a6446f63cc97a7b4be7dfca62a73f68b7",
+        "majority_multiclass_dedup/scaler.json": "cf0b1655a2bfe8ff993d91640f4600772bb9610d93c4bdc167a19d37ea87cf68",
+        "metrics/postproc_majority_multiclass_dedup.json": "0347bc48024a7fa5f0181be8ab7e106e026ff7268c300db578217b5c5d612877",
+        "logreg_multiclass_dedup/model.joblib": "9571f088dd4cf8744aa84bb111dd3d437f78f4272bf696f5c4b6574567a26010",
+        "logreg_multiclass_dedup/scaler.json": "cf0b1655a2bfe8ff993d91640f4600772bb9610d93c4bdc167a19d37ea87cf68",
+        "metrics/postproc_logreg_multiclass_dedup.json": "9332a68fc21e47c130d7d9187e508d57c8d68bcd4da484878adde42b2ee40f8b",
+        "xgb_multiclass_dedup/model.joblib": "ab0de60100f0c8221b06c32ee5c8ebcc81e7549fd6590b97d5b22c6af3d10224",
+        "xgb_multiclass_dedup/scaler.json": "cf0b1655a2bfe8ff993d91640f4600772bb9610d93c4bdc167a19d37ea87cf68",
+        "metrics/postproc_xgb_multiclass_dedup.json": "44ad8f3113a35c61c9d2e42156d012425c5cf19cd1c32706fb20952ea4b18d09",
+        "mlp_multiclass_dedup/model.pt": "295ef66d7aa46b507bf8909fc33448b1624bff441fbf9c131a69f860a4016a72",
+        "mlp_multiclass_dedup/scaler.json": "cf0b1655a2bfe8ff993d91640f4600772bb9610d93c4bdc167a19d37ea87cf68",
+        "metrics/postproc_mlp_multiclass_dedup.json": "da275f2eee972e268d36c1e802026803b576c6d9361e5a39497a90fca7cbfc57"
+      },
+      "forced": false,
+      "reason": null
+    }
+  ]
+}

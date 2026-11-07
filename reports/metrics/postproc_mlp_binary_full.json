@@ -1,0 +1,32 @@
+{
+  "run": "mlp_binary_full",
+  "task": "binary",
+  "variant": "full",
+  "calibration": {
+    "method": "isotonic_ovr",
+    "candidates": [
+      "logit_multinomial",
+      "isotonic_ovr"
+    ],
+    "ece_macro_before": 0.00820641273468516,
+    "ece_macro_after_oof": 0.0012828794261313902,
+    "brier_before": 0.21400202293941645,
+    "brier_after_oof": 0.21396888075019904,
+    "ece_per_class_before": [
+      0.008206412734685139,
+      0.008206412734685179
+    ],
+    "ece_per_class_after_oof": [
+      0.0012993041025652768,
+      0.0012664547496975035
+    ]
+  },
+  "thresholds": {
+    "threshold": 0.32,
+    "val_macro_f1_argmax": null,
+    "val_macro_f1_scaled": 0.6875109985620576,
+    "val_recall": 0.5430477381696894,
+    "val_precision": 0.4385521885521885
+  },
+  "note": "hiệu chuẩn và ngưỡng chọn trên cùng validation; dùng out-of-fold để giảm lạc quan"
+}

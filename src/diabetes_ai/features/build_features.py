@@ -133,7 +133,7 @@ def build_experiment_data_from_frame(
     X_val_raw, y_val = to_xy(df, split.val, task=task)
     X_val = scaler.transform(X_val_raw)
 
-    # Test: chỉ transform nếu include_test=True
+    # Test: chỉ transform nếu cờ include_test được bật
     if include_test:
         X_test_raw, y_test = to_xy(df, split.test, task=task)
         X_test: np.ndarray | None = scaler.transform(X_test_raw)
@@ -173,7 +173,7 @@ def load_experiment_data(
     Đọc configs/data.yaml, load_raw, load_split(variant), rồi gọi
     build_experiment_data_from_frame.
 
-    Khi include_test=True sẽ ghi warning.
+    Khi bật include_test sẽ ghi warning.
 
     Args:
         task: Tác vụ ('multiclass' hoặc 'binary'). None → đọc từ config.

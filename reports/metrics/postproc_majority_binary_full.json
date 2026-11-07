@@ -6,7 +6,6 @@
   "thresholds": {
     "scale": [
       1.0,
-      1.0,
       1.0
     ],
     "val_macro_f1_argmax": null,
@@ -14,5 +13,5 @@
     "val_recall": null,
     "val_precision": null
   },
-  "note": "majority không hiệu chuẩn; hệ số (1,1,1)"
+  "note": "majority không hiệu chuẩn; hệ số (1,1)"
 }

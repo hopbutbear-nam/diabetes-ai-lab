@@ -1319,11 +1319,11 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K05b | `calibration` + 4 test | 4 passed |
 | [x] | K05c | `thresholds` + 4 test | 4 passed |
 | [x] | K05d | `evaluate.yaml`, script, ECE trước → sau, mô hình tốt nhất | ECE ≤ 0.0021, best: mlp |
-| [ ] | **K06** | Công bằng, test một lần (`pytest` 69) | |
+| [x] | **K06** | Công bằng, test một lần (`pytest` 69) | 69 passed, khóa test 1 lần, thoát mã 2 |
 | [x] | K06a | `fairness`, `evaluate.yaml` nhóm, 4 test | 4 passed |
 | [x] | K06b | `plots`, `report`, 2 test | 2 passed |
-| [ ] | K06c | Huấn luyện nhị phân và `dedup` (12 run) | |
-| [ ] | K06d | `evaluate.py`, khóa test, lần chạy thứ hai thoát mã 2 | |
+| [x] | K06c | Huấn luyện nhị phân và `dedup` (12 run) | 12 run, 3 khóa model_selection |
+| [x] | K06d | `evaluate.py`, khóa test, lần chạy thứ hai thoát mã 2 | lần 1 exit=0, lần 2 exit=2, khóa 1 mục |
 | [ ] | **K07** | Giải thích (`pytest` 77) | |
 | [ ] | K07a | `features.yaml` (what_if), `what_if`, 4 test | |
 | [ ] | K07b | `permutation`, `shap_explain`, 4 test | |

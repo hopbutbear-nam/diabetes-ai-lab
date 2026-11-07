@@ -133,19 +133,20 @@ def _process_run(
 
     # --- majority: không hiệu chuẩn ---
     if model_key == "majority":
+        n_cls = getattr(run.model, "n_classes", 3)
         postproc: dict = {
             "run": run_name,
             "task": run.meta.get("task", ""),
             "variant": run.meta.get("variant", ""),
             "calibration": {},
             "thresholds": {
-                "scale": [1.0, 1.0, 1.0],
+                "scale": [1.0] * n_cls,
                 "val_macro_f1_argmax": None,
                 "val_macro_f1_scaled": None,
                 "val_recall": None,
                 "val_precision": None,
             },
-            "note": "majority không hiệu chuẩn; hệ số (1,1,1)",
+            "note": f"majority không hiệu chuẩn; hệ số ({','.join(['1']*n_cls)})",
         }
         _write_postproc(run_name, postproc)
         print(f"[{run_name}] majority → bỏ qua hiệu chuẩn")
@@ -249,9 +250,11 @@ def _process_run(
             f"< val_macro_f1_argmax ({thr_info['val_macro_f1_argmax']:.4f})"
         )
 
+    f1_argmax_str = f"{thr_info['val_macro_f1_argmax']:.4f}" if isinstance(thr_info.get("val_macro_f1_argmax"), (int, float)) else "—"
+    f1_scaled_str = f"{thr_info['val_macro_f1_scaled']:.4f}" if isinstance(thr_info.get("val_macro_f1_scaled"), (int, float)) else "—"
     print(
-        f"[{run_name}] F1 argmax={thr_info.get('val_macro_f1_argmax', '—'):.4f} "
-        f"→ scaled={thr_info.get('val_macro_f1_scaled', '—'):.4f} | "
+        f"[{run_name}] F1 argmax={f1_argmax_str} "
+        f"→ scaled={f1_scaled_str} | "
         f"scale={thr_info.get('scale', '—')}"
     )
 
