@@ -1331,7 +1331,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [ ] | **K08** | Luật an toàn, predictor, xuất mô hình (`pytest` 95) | |
 | [x] | K08a | `rules`, `risk_level`, `disclaimers`, YAML, 10 test | 10 passed |
 | [x] | K08b | `schemas`, `export`, `export_model` (kích thước gói) | 0.06 MB < 50 MB, 21 đặc trưng |
-| [ ] | K08c | `predictor`, `conftest`, 8 test | |
+| [x] | K08c | `predictor`, `conftest`, 8 test | 8 passed |
 | [ ] | **K09** | API và web (`pytest` 106) | |
 | [ ] | K09a | `deps`, `routes`, `app` | |
 | [ ] | K09b | `serve.yaml`, 8 test API | |

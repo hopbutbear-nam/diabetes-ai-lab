@@ -6,9 +6,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
+from sklearn.linear_model import LogisticRegression
 
 from diabetes_ai.config import load_config
-from diabetes_ai.data.schema import FEATURES, TARGET
+from diabetes_ai.data.schema import FEATURES, TARGET, class_names as get_class_names
+from diabetes_ai.features.scalers import StandardScalerNP
+from diabetes_ai.inference.export import make_bundle, save_bundle
 from diabetes_ai.paths import ROOT
 
 
@@ -137,3 +140,69 @@ def real_csv_path() -> Path:
         pytest.skip("Không có CSV thật")
 
     return csv_file
+
+
+@pytest.fixture
+def tiny_bundle(tmp_path: Path, synthetic_df: pd.DataFrame) -> Path:
+    """Fixture tạo bundle multiclass nhỏ từ Logistic Regression trên dữ liệu giả lập."""
+    X = synthetic_df[FEATURES].values[:400].astype(np.float32)
+    y = synthetic_df[TARGET].values[:400].astype(np.int64)
+
+    scaler = StandardScalerNP(feature_names=FEATURES).fit(X)
+    Xs = scaler.transform(X)
+
+    model = LogisticRegression(max_iter=50, random_state=42)
+    model.fit(Xs, y)
+
+    bundle = make_bundle(
+        model=model,
+        scaler=scaler,
+        class_names=get_class_names("multiclass"),
+        task="multiclass",
+        variant="full",
+        run_name="tiny_test_multiclass",
+        calibrator=None,
+        scale_factors=np.array([1.0, 1.0, 1.0], dtype=np.float64),
+        threshold=None,
+        pop_mean_raw=X.mean(axis=0),
+        risk_levels={"low": 0.10, "medium": 0.25},
+        what_if_cfg=load_config("features").get("what_if", {}),
+        metrics_val={"val_macro_auc": 0.75},
+        backend="sklearn",
+    )
+    bundle_path = tmp_path / "tiny_bundle.joblib"
+    save_bundle(bundle, bundle_path)
+    return bundle_path
+
+
+@pytest.fixture
+def tiny_bundle_binary(tmp_path: Path, synthetic_df: pd.DataFrame) -> Path:
+    """Fixture tạo bundle binary nhỏ từ Logistic Regression trên dữ liệu giả lập."""
+    X = synthetic_df[FEATURES].values[:400].astype(np.float32)
+    y = (synthetic_df[TARGET].values[:400] > 0).astype(np.int64)
+
+    scaler = StandardScalerNP(feature_names=FEATURES).fit(X)
+    Xs = scaler.transform(X)
+
+    model = LogisticRegression(max_iter=50, random_state=42)
+    model.fit(Xs, y)
+
+    bundle = make_bundle(
+        model=model,
+        scaler=scaler,
+        class_names=get_class_names("binary"),
+        task="binary",
+        variant="full",
+        run_name="tiny_test_binary",
+        calibrator=None,
+        scale_factors=None,
+        threshold=0.5,
+        pop_mean_raw=X.mean(axis=0),
+        risk_levels={"low": 0.10, "medium": 0.25},
+        what_if_cfg=load_config("features").get("what_if", {}),
+        metrics_val={"val_auc": 0.75},
+        backend="sklearn",
+    )
+    bundle_path = tmp_path / "tiny_bundle_binary.joblib"
+    save_bundle(bundle, bundle_path)
+    return bundle_path
