@@ -1324,7 +1324,7 @@ Agent cập nhật cột "Kết quả đo được" ngay sau khi hoàn thành (g
 | [x] | K06b | `plots`, `report`, 2 test | 2 passed |
 | [x] | K06c | Huấn luyện nhị phân và `dedup` (12 run) | 12 run, 3 khóa model_selection |
 | [x] | K06d | `evaluate.py`, khóa test, lần chạy thứ hai thoát mã 2 | lần 1 exit=0, lần 2 exit=2, khóa 1 mục |
-| [ ] | **K07** | Giải thích (`pytest` 77) | |
+| [x] | **K07** | Giải thích (`pytest` 77) | 77 passed |
 | [x] | K07a | `features.yaml` (what_if), `what_if`, 4 test | 4 passed |
 | [x] | K07b | `permutation`, `shap_explain`, 4 test | 4 passed |
 | [x] | K07c | `plots`, `explain_global` (21 mục, top-5) | 21 mục, top-5 khớp BRFSS |
