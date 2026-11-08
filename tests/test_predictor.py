@@ -9,6 +9,7 @@ from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.explain.what_if import WHAT_IF_NOTE
 from diabetes_ai.inference.predictor import ModelNotReady, Predictor
 from diabetes_ai.safety.disclaimers import CONFIRM_TEST_ADVICE, DISCLAIMER_VI
+from diabetes_ai.inference.export import load_bundle, save_bundle
 
 
 def test_predict_probs_sum_to_one(tiny_bundle: Path, sample_profile: dict) -> None:
@@ -209,3 +210,19 @@ def test_numpy_mlp_matches_torch() -> None:
 
     diff = float(np.max(np.abs(torch_probs - numpy_probs)))
     assert diff <= 1e-5, f"Chênh lệch tối đa giữa NumpyMLP và PyTorch là {diff} > 1e-5"
+
+
+def test_bundle_records_runtime_env(tiny_bundle) -> None:
+    """Kiểm tra bundle có ghi thông tin môi trường runtime (python, numpy, scikit-learn)."""
+    env = load_bundle(tiny_bundle)["env"]
+    assert env["python"] and env["numpy"] and env["scikit-learn"]
+
+
+def test_predictor_warns_on_sklearn_version_mismatch(tiny_bundle, tmp_path) -> None:
+    """Kiểm tra Predictor phát cảnh báo RuntimeWarning khi scikit-learn lệch phiên bản major.minor."""
+    bundle = load_bundle(tiny_bundle)
+    bundle["env"]["scikit-learn"] = "0.0.1"
+    path = tmp_path / "mismatch.joblib"
+    save_bundle(bundle, path)
+    with pytest.warns(RuntimeWarning):
+        Predictor.from_bundle(path)

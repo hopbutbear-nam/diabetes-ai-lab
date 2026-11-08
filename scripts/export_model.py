@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 
 from diabetes_ai.inference.export import export_best, load_bundle
-from diabetes_ai.paths import METRICS_DIR, ROOT
+from diabetes_ai.paths import METRICS_DIR, ROOT, rel
 
 
 def parse_args() -> argparse.Namespace:
@@ -65,7 +65,7 @@ def main() -> None:
         "run_name": run_name,
         "task": task,
         "variant": args.variant,
-        "path": str(saved_path),
+        "path": rel(saved_path),
         "bytes": file_bytes,
         "sha256": file_sha256,
     }

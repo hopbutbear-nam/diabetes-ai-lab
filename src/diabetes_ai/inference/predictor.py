@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,26 @@ from diabetes_ai.safety.rules import Alert, Rule, evaluate, load_rules
 
 class ModelNotReady(RuntimeError):
     """Ngoại lệ ném ra khi tệp mô hình chưa sẵn sàng hoặc chưa được xuất."""
+
+
+def _warn_if_env_mismatch(bundle: dict[str, Any]) -> None:
+    """Cảnh báo khi phiên bản numpy/scikit-learn lúc nạp khác lúc đóng gói (pickle có thể không tương thích)."""
+    from importlib import metadata
+
+    saved = bundle.get("env") or {}
+    for pkg in ("numpy", "scikit-learn"):
+        old = saved.get(pkg)
+        try:
+            current = metadata.version(pkg)
+        except metadata.PackageNotFoundError:
+            continue
+        if old and old.split(".")[:2] != current.split(".")[:2]:
+            warnings.warn(
+                f"Gói mô hình được đóng gói với {pkg}=={old} nhưng môi trường hiện tại là {current}; "
+                "nếu gặp lỗi nạp hoặc kết quả lạ, hãy chạy lại scripts/export_model.py.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
 
 
 class Predictor:
@@ -118,6 +139,7 @@ class Predictor:
             )
 
         bundle = load_bundle(target_path)
+        _warn_if_env_mismatch(bundle)
         return cls(bundle=bundle, path=target_path)
 
     def _transform(self, X: np.ndarray) -> np.ndarray:

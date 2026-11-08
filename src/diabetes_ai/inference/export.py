@@ -92,6 +92,26 @@ class NumpyMLP:
         return np.argmax(proba, axis=-1)
 
 
+def _runtime_env() -> dict[str, str | None]:
+    """Phiên bản Python và thư viện tại thời điểm đóng gói (để cảnh báo khi nạp lệch phiên bản)."""
+    import platform
+    from importlib import metadata
+
+    def _ver(name: str) -> str | None:
+        try:
+            return metadata.version(name)
+        except metadata.PackageNotFoundError:
+            return None
+
+    return {
+        "python": platform.python_version(),
+        "numpy": _ver("numpy"),
+        "scikit-learn": _ver("scikit-learn"),
+        "joblib": _ver("joblib"),
+        "xgboost": _ver("xgboost"),
+    }
+
+
 def make_bundle(
     model: Any,
     scaler: Any,
@@ -167,6 +187,7 @@ def make_bundle(
 
     bundle: dict[str, Any] = {
         "schema_version": 1,
+        "env": _runtime_env(),
         "run_name": run_name,
         "task": task,
         "variant": variant,
