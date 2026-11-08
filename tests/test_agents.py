@@ -4,9 +4,17 @@ import ast
 import json
 from pathlib import Path
 
+import pytest
+
 from diabetes_ai.agents.orchestrator import Orchestrator
 from diabetes_ai.agents.safety_agent import SafetyAgent
 from diabetes_ai.paths import ROOT
+
+
+@pytest.fixture(autouse=True)
+def _use_tiny_bundle(monkeypatch: pytest.MonkeyPatch, tiny_bundle) -> None:
+    """Ép Orchestrator/RiskAgent dùng bundle nhỏ của fixture, không phụ thuộc models/best_model.joblib."""
+    monkeypatch.setenv("MODEL_PATH", str(tiny_bundle))
 
 
 def _load_sample_profile() -> dict:
