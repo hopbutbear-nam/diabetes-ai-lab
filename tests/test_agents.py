@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from diabetes_ai.agents.orchestrator import Orchestrator
+from diabetes_ai.agents.safety_agent import SafetyAgent
 from diabetes_ai.paths import ROOT
 
 
@@ -114,3 +115,22 @@ def test_agents_do_not_call_each_other():
                 assert other not in imp, (
                     f"Agent '{current_agent}' vi phạm nguyên tắc độc lập: đã import '{imp}'"
                 )
+
+
+def _safety_state(probs: dict[str, float], risk_index: float) -> dict:
+    return {
+        "profile": _load_sample_profile(),
+        "risk_result": {"risk_level": "cao", "risk_index": risk_index, "probabilities": probs},
+    }
+
+
+def test_safety_agent_r10_uses_true_diabetes_probability():
+    """R10 (p_diabetes >= 0.5) phải dựa trên P(tiểu đường), không phải chỉ số nguy cơ."""
+    agent = SafetyAgent()
+    # risk_index = 0.62 nhưng P(tiểu đường) chỉ 0.30 → R10 KHÔNG được kích hoạt
+    low = agent.run(_safety_state({"không": 0.30, "tiền tiểu đường": 0.40, "tiểu đường": 0.30}, 0.62))
+    assert "R10" not in [a.rule_id for a in low["alerts"]]
+    # P(tiểu đường) = 0.55 → R10 phải kích hoạt
+    high = agent.run(_safety_state({"không": 0.25, "tiền tiểu đường": 0.20, "tiểu đường": 0.55}, 0.65))
+    assert "R10" in [a.rule_id for a in high["alerts"]]
+

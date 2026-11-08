@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from diabetes_ai.data.schema import CLASSES
 from diabetes_ai.inference.schemas import PatientProfile
 from diabetes_ai.safety.critic import cross_check
 from diabetes_ai.safety.rules import Alert, Rule, evaluate, load_rules
@@ -29,6 +30,22 @@ class SafetyAgent:
         else:
             self.rules = load_rules(rules_path)
 
+    @staticmethod
+    def _extract_p_diabetes(probs: dict[str, Any], fallback: float) -> float:
+        """Lấy P(tiểu đường) từ từ điển xác suất theo tên lớp, đồng nhất với Predictor.predict.
+
+        - Đa lớp: lớp cuối của CLASSES ("tiểu đường"), so khớp không phân biệt hoa/thường.
+        - Nhị phân (đúng 2 giá trị): cột dương (cột thứ hai).
+        - Không xác định được: dùng `fallback` (chỉ số nguy cơ).
+        """
+        wanted = CLASSES[-1].casefold()
+        for name, value in probs.items():
+            if str(name).casefold() == wanted:
+                return float(value)
+        if len(probs) == 2:
+            return float(list(probs.values())[1])
+        return float(fallback)
+
     def run(self, state: dict[str, Any]) -> dict[str, Any]:
         """Đánh giá an toàn và kiểm tra chéo các mâu thuẫn lâm sàng.
 
@@ -47,14 +64,9 @@ class SafetyAgent:
         }
 
         # Xác định xác suất tiểu đường và chỉ số nguy cơ cho ngữ cảnh đánh giá luật
-        probs = predictor_output.get("probabilities", {})
-        if "Tiểu đường" in probs:
-            p_diabetes = float(probs["Tiểu đường"])
-        elif "1" in probs:
-            p_diabetes = float(probs["1"])
-        else:
-            p_diabetes = float(risk_result.get("risk_index", 0.0))
+        probs = predictor_output.get("probabilities", {}) or {}
         r_idx = float(predictor_output.get("risk_index", 0.0))
+        p_diabetes = self._extract_p_diabetes(probs, fallback=r_idx)
 
         # Trích xuất ngữ cảnh context phù hợp với hàm evaluate()
         profile_dict = profile if isinstance(profile, dict) else profile.model_dump()
