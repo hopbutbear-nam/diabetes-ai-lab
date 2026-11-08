@@ -54,3 +54,8 @@ def test_whatif_keys_sent_by_ui_are_allowed_by_server() -> None:
     for key in sent - {"BMI"}:
         assert f'id="whatif-{key}"' in html, f"Thiếu ô bật/tắt whatif-{key} trong index.html"
 
+
+
+def test_app_js_calls_consult_endpoint() -> None:
+    js = (ROOT / 'app' / 'static' / 'js' / 'app.js').read_text(encoding='utf-8')
+    assert '/consult' in js

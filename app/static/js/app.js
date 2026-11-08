@@ -328,6 +328,46 @@ function triggerWhatIfUpdate() {
   }, 200);
 }
 
+async function callConsult() {
+  const out = document.getElementById("consult-output");
+  out.textContent = "";
+  if (!currentProfile) {
+    out.textContent = "Hãy bấm “Đánh giá nguy cơ” trước.";
+    return;
+  }
+  try {
+    const res = await fetch(`${API}/consult`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(currentProfile),
+    });
+    if (!res.ok) {
+      out.textContent = "Không lấy được tư vấn (mã lỗi " + res.status + ").";
+      return;
+    }
+    const data = await res.json();
+    const head = document.createElement("p");
+    head.textContent = `Mức nguy cơ sau rà soát an toàn: ${data.final_level}`;
+    out.appendChild(head);
+
+    const ul = document.createElement("ul");
+    (data.citations || []).forEach((c) => {
+      const li = document.createElement("li");
+      const b = document.createElement("strong");
+      b.textContent = c.title || "Tài liệu";
+      li.append(b, document.createTextNode(` — ${c.source || ""}`));
+      ul.appendChild(li);
+    });
+    out.appendChild(ul);
+
+    const note = document.createElement("p");
+    note.textContent = data.disclaimer || "";
+    out.appendChild(note);
+  } catch (err) {
+    out.textContent = "Không kết nối được máy chủ.";
+  }
+}
+
 // Lắng nghe sự kiện
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("screening-form");
@@ -336,6 +376,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const payload = buildPayload();
     callPredict(payload);
   });
+
+  const consultBtn = document.getElementById("consult-btn");
+  if (consultBtn) {
+    consultBtn.addEventListener("click", callConsult);
+  }
 
   const bmiSlider = document.getElementById("whatif-bmi");
   bmiSlider.addEventListener("input", (e) => {
