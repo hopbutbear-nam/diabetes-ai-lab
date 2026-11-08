@@ -1,5 +1,8 @@
 """Kiểm thử tĩnh cho giao diện web demo sàng lọc nguy cơ tiểu đường."""
 
+import re
+
+from diabetes_ai.config import load_config
 from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.paths import ROOT
 
@@ -34,3 +37,20 @@ def test_app_js_calls_endpoints_and_renders_disclaimer() -> None:
     assert "/explain" in content
     assert "disclaimer" in content
     assert "localStorage" not in content
+
+
+def test_whatif_keys_sent_by_ui_are_allowed_by_server() -> None:
+    """Các khóa what-if mà app.js gửi tới /explain phải nằm trong khối `what_if` của configs/features.yaml."""
+    js = (ROOT / "app" / "static" / "js" / "app.js").read_text(encoding="utf-8")
+    html = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
+    allowed = set(load_config("features")["what_if"].keys())
+
+    block = re.search(r"const whatIfChanges = \{(.*?)\n\s*\};", js, re.S)
+    assert block, "Không tìm thấy khối `const whatIfChanges = {...}` trong app.js"
+    sent = set(re.findall(r"^\s*(\w+):", block.group(1), re.M))
+    assert sent, "Khối whatIfChanges không có khóa nào"
+    assert sent <= allowed, f"app.js gửi khóa không được phép: {sorted(sent - allowed)}"
+
+    for key in sent - {"BMI"}:
+        assert f'id="whatif-{key}"' in html, f"Thiếu ô bật/tắt whatif-{key} trong index.html"
+

@@ -207,6 +207,10 @@ async function callExplain(payload, whatIfChanges = null) {
     });
 
     if (!res.ok) {
+      if (whatIfChanges !== null) {
+        document.getElementById("whatif-note").textContent =
+          "Không cập nhật được kịch bản what-if (mã lỗi " + res.status + "). Vui lòng thử lại.";
+      }
       return;
     }
 
@@ -264,12 +268,12 @@ function initWhatIfControls(profile, explainData) {
   bmiSlider.value = profile.BMI || 25;
   bmiDisplay.textContent = parseFloat(bmiSlider.value).toFixed(1);
 
-  // 5 yếu tố có thể thay đổi
-  document.getElementById("whatif-HighBP").checked = profile.HighBP === 1;
-  document.getElementById("whatif-HighChol").checked = profile.HighChol === 1;
+  // 5 yếu tố lối sống có thể thay đổi (khớp khối `what_if` trong configs/features.yaml)
   document.getElementById("whatif-Smoker").checked = profile.Smoker === 1;
   document.getElementById("whatif-PhysActivity").checked = profile.PhysActivity === 1;
   document.getElementById("whatif-Fruits").checked = profile.Fruits === 1;
+  document.getElementById("whatif-Veggies").checked = profile.Veggies === 1;
+  document.getElementById("whatif-HvyAlcoholConsump").checked = profile.HvyAlcoholConsump === 1;
 
   // Cập nhật bảng ban đầu
   const beforeEl = document.getElementById("whatif-before");
@@ -314,11 +318,11 @@ function triggerWhatIfUpdate() {
   whatIfDebounceTimer = setTimeout(() => {
     const whatIfChanges = {
       BMI: parseFloat(document.getElementById("whatif-bmi").value),
-      HighBP: document.getElementById("whatif-HighBP").checked ? 1 : 0,
-      HighChol: document.getElementById("whatif-HighChol").checked ? 1 : 0,
       Smoker: document.getElementById("whatif-Smoker").checked ? 1 : 0,
       PhysActivity: document.getElementById("whatif-PhysActivity").checked ? 1 : 0,
       Fruits: document.getElementById("whatif-Fruits").checked ? 1 : 0,
+      Veggies: document.getElementById("whatif-Veggies").checked ? 1 : 0,
+      HvyAlcoholConsump: document.getElementById("whatif-HvyAlcoholConsump").checked ? 1 : 0,
     };
     callExplain(currentProfile, whatIfChanges);
   }, 200);
