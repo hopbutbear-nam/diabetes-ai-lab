@@ -30,14 +30,14 @@ flowchart TD
 
 | Module | Đường dẫn | Trách nhiệm chính |
 |---|---|---|
-| **Data** | `src/diabetes_ai/data` | Nạp dữ liệu BRFSS, kiểm tra checksum SHA-256, chuẩn hóa schema, xử lý biến đổi nhị phân, phân chia train/val/test phân tầng (`stratified_split`), lọc trùng lặp (`dedup`). |
+| **Data** | `src/diabetes_ai/data` | Nạp dữ liệu BRFSS, kiểm tra checksum SHA-256, chuẩn hóa schema, xử lý biến đổi nhị phân, phân chia train/val/test phân tầng (`make_split`), lọc trùng lặp (`dedup`). |
 | **Features** | `src/diabetes_ai/features` | Danh mục 21 đặc trưng lâm sàng và nhân khẩu học, chuẩn hóa số học `StandardScaler`, mã hóa dữ liệu đầu vào. |
-| **Models** | `src/diabetes_ai/models` | Khởi tạo và huấn luyện 4 họ mô hình: Baseline tần suất đa số (`Majority`), Hồi quy Logistic (`LogisticRegression`), Cây quyết định tăng cường (`XGBoost`), và Mạng nơ-ron đa tầng PyTorch (`MLP` 3 lớp với Dropout/BatchNorm). |
+| **Models** | `src/diabetes_ai/models` | Khởi tạo và huấn luyện 4 họ mô hình: Baseline tần suất đa số (`Majority`), Hồi quy Logistic (`LogisticRegression`), Cây quyết định tăng cường (`XGBoost`), và Mạng nơ-ron đa tầng PyTorch (`MLP` 21→128→64→32→3 với ReLU và Dropout). |
 | **Evaluation** | `src/diabetes_ai/evaluation` | Tính toán chỉ số đánh giá (ROC-AUC, PR-AUC, Macro-F1, Brier Score, ECE), tính khoảng tin cậy Bootstrap 95%, hiệu chuẩn nhiệt độ và hồi quy đẳng trương, phân tích công bằng theo nhóm, vẽ biểu đồ và khóa kiểm thử `test_lock`. |
 | **Explain** | `src/diabetes_ai/explain` | Tính toán độ quan trọng đặc trưng bằng phương pháp hoán vị (Permutation Feature Importance) trên tập validation, trích xuất top đặc trưng ảnh hưởng lớn nhất. |
 | **Safety** | `src/diabetes_ai/safety` | Hệ thống luật an toàn lâm sàng chốt chặn (cờ đỏ triệu chứng, BMI cực đoan >= 45 kết hợp tăng huyết áp/cholesterol); ưu tiên ghi đè mô hình khi phát hiện rủi ro nghiêm trọng. |
 | **Inference** | `src/diabetes_ai/inference` | Đóng gói bộ dự đoán suy luận `Predictor`: kết hợp nạp trọng số mô hình, tiền xử lý dữ liệu, hiệu chuẩn xác suất, áp dụng luật an toàn và xuất mức cảnh báo nguy cơ. |
-| **Serving** | `src/diabetes_ai/serving` | Dịch vụ web FastAPI (`app.py`, `routes.py`, `deps.py`), cung cấp REST API endpoint `/predict`, `/explain/global`, `/health`, và phục vụ giao diện tĩnh `/app/`. |
+| **Serving** | `src/diabetes_ai/serving` | Dịch vụ web FastAPI (`app.py`, `routes.py`, `deps.py`), cung cấp REST API endpoint `/predict`, `/explain`, `/model-info`, `/health`, và phục vụ giao diện tĩnh `/app/`. |
 
 ### 2.2. Kịch bản thực thi (`scripts/`)
 
@@ -69,7 +69,7 @@ $$\text{run\_name} = \langle\text{model}\rangle\_\langle\text{task}\rangle\_\lan
    - `binary`: Bài toán phân loại 2 lớp (0: Không mắc / Tiền tiểu đường, 1: Đái tháo đường).
 3. **Thành phần `<dataset>`:**
    - `full`: Toàn bộ tập dữ liệu BRFSS 2015 (253.680 bản ghi).
-   - `dedup`: Tập dữ liệu đã khử bỏ 24.206 dòng trùng lặp hoàn toàn (còn lại 229.474 bản ghi).
+   - `dedup`: Tập dữ liệu đã khử bỏ 23.899 dòng trùng lặp hoàn toàn (còn lại 229.781 bản ghi).
 
 **Danh sách các run tiêu chuẩn:**
 - Bộ phân loại đa lớp đầy đủ: `majority_multiclass_full`, `logreg_multiclass_full`, `xgb_multiclass_full`, `mlp_multiclass_full`.

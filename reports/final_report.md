@@ -118,7 +118,7 @@ Hệ thống đã thực hiện đánh giá độ nhạy (Recall), độ chính 
 
 ## 6. Khả năng giải thích mô hình (Model Explainability)
 
-Để hiểu rõ mức độ đóng góp của từng yếu tố vào quyết định phân loại của mô hình MLP, phương pháp Permutation Importance (đo mức độ sụt giảm ROC-AUC khi xáo trộn ngẫu nhiên từng cột đặc trưng) đã được thực hiện trên tập dữ liệu kiểm thử.
+Để hiểu rõ mức độ đóng góp của từng yếu tố vào quyết định phân loại của mô hình MLP, phương pháp Permutation Importance (đo mức độ sụt giảm ROC-AUC khi xáo trộn ngẫu nhiên từng cột đặc trưng) đã được thực hiện trên tập validation (không dùng tập test).
 
 <!-- AUTO:importance_top10 -->
 | Thứ hạng | Mã đặc trưng | Diễn giải lâm sàng / khảo sát | Mức giảm ROC-AUC trung bình (Mean drop) | Độ lệch chuẩn (Std) |
@@ -151,12 +151,13 @@ Hệ thống được thiết kế với tiêu chuẩn an toàn cao nhằm bảo
 
 ## 8. Hạn chế
 
-1. **Khó khăn trong phân biệt nhóm tiền tiểu đường:** Recall của lớp tiền tiểu đường (Lớp 1) rất thấp. Các biểu hiện hành vi bên ngoài không đủ để tách biệt người tiền tiểu đường với người bình thường nếu thiếu xét nghiệm sinh hóa chuyên sâu.
+1. **Khó khăn trong phân biệt nhóm tiền tiểu đường:** Lớp "tiền tiểu đường" gần như không phân biệt được (recall test 4,5%, precision 4,1%). Các biểu hiện hành vi bên ngoài không đủ để tách biệt người tiền tiểu đường với người bình thường nếu thiếu xét nghiệm sinh hóa chuyên sâu.
 2. **Accuracy thấp hơn Baseline và tính không phù hợp của Accuracy:**
    - Do 84,24% dân số mẫu không mắc bệnh, một mô hình tầm thường chỉ cần đoán "không bệnh" là đạt 84,24% Accuracy.
    - Mô hình của chúng ta đạt Accuracy khoảng 80% vì nó tích cực cảnh báo các trường hợp có nguy cơ cao (để đạt độ nhạy trên 50% cho lớp bệnh và trên 90% khi sàng lọc gộp). Do đó, Accuracy thấp hơn baseline là hệ quả tự nhiên và chấp nhận được trong bài toán y tế mất cân bằng nhãn.
-3. **Dữ liệu tự khai:** BRFSS 2015 dựa trên lời tự khai qua điện thoại, có nguy cơ sai số nhớ lại hoặc thiếu chính xác về cân nặng, chiều cao.
-4. **Không đại diện cho quần thể Việt Nam:** Mô hình mang đặc tính dịch tễ của người dân Hoa Kỳ năm 2015, không phù hợp để áp dụng trực tiếp cho người Việt Nam.
+3. **Tỉ lệ cảnh báo:** Ở ngưỡng "trung bình" (chỉ số ≥ 0,10) khoảng **49,9%** người được xếp từ mức trung bình trở lên (PPV 25,3%, độ nhạy 90,4%); ở mức "cao" (≥ 0,25) là **22,2%** (PPV 38,0%, độ nhạy 60,5%). Đây là đánh đổi có chủ đích của công cụ **sàng lọc**, không phải chẩn đoán.
+4. **Dữ liệu tự khai:** BRFSS 2015 dựa trên lời tự khai qua điện thoại, có nguy cơ sai số nhớ lại hoặc thiếu chính xác về cân nặng, chiều cao.
+5. **Không đại diện cho quần thể Việt Nam:** Mô hình mang đặc tính dịch tễ của người dân Hoa Kỳ năm 2015, không phù hợp để áp dụng trực tiếp cho người Việt Nam.
 
 ---
 

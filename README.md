@@ -38,7 +38,7 @@ Nếu muốn kiểm soát hoặc tinh chỉnh từng bước trong chu trình:
    ```bash
    python scripts/prepare_data.py
    ```
-   *(Tạo phân chia stratified 60/20/20 cho cả bộ dữ liệu đầy đủ và bộ dữ liệu đã khử trùng lặp)*
+   *(Tạo phân chia phân tầng theo nhãn 3 lớp: train 68% / val 12% / test 20% — val là 15% của phần còn lại sau khi tách test, seed 42 — cho cả bộ đầy đủ và bộ đã khử trùng lặp)*
 
 2. **Huấn luyện mô hình:**
    ```bash
@@ -101,7 +101,7 @@ python scripts/calibrate_and_threshold.py --binary
 ```
 
 ### 3.2. Tập dữ liệu khử trùng lặp (Deduplicated Dataset)
-Loại bỏ 24.206 bản ghi có vector đặc trưng trùng lặp hoàn toàn khỏi dữ liệu gốc:
+Loại bỏ 23.899 bản ghi trùng lặp hoàn toàn (cả 21 đặc trưng và nhãn), còn 229.781 bản ghi:
 ```bash
 # Huấn luyện trên tập đã khử trùng lặp
 python scripts/train.py --config configs/train_mlp.yaml --dedup
