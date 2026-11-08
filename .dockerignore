@@ -1,6 +1,12 @@
 .git
+.github
 .venv
 data
 mlruns
 __pycache__
 notebooks
+tests
+reports
+docs
+models
+experiments
