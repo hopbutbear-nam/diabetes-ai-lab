@@ -1,8 +1,9 @@
 """Các endpoint phục vụ API /model-info, /predict, /explain."""
 
 from typing import Any
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
+from diabetes_ai.explain.what_if import WhatIfError
 from diabetes_ai.inference.predictor import Predictor
 from diabetes_ai.inference.schemas import (
     ExplainRequest,
@@ -37,5 +38,18 @@ def explain(
     predictor: Predictor = Depends(get_predictor),
 ) -> ExplainResponse:
     """Giải thích các yếu tố rủi ro và mô phỏng kịch bản what-if."""
-    result = predictor.explain(request.profile, what_if_changes=request.what_if_changes)
+    try:
+        result = predictor.explain(request.profile, what_if_changes=request.what_if_changes)
+    except WhatIfError as exc:
+        # Đầu vào what-if sai (khóa không được phép / ngoài miền / không hữu hạn) là lỗi của client.
+        raise HTTPException(
+            status_code=422,
+            detail=[
+                {
+                    "field": "what_if_changes",
+                    "message": str(exc),
+                    "input": request.what_if_changes,
+                }
+            ],
+        ) from exc
     return ExplainResponse(**result)

@@ -1,5 +1,6 @@
 """Kiểm thử API phục vụ dự đoán, giải thích, kiểm tra lỗi và CORS."""
 
+import json
 from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
@@ -153,3 +154,33 @@ def test_cors_preflight_allows_local_origin(client: TestClient) -> None:
     )
     assert res.status_code == 200
     assert res.headers.get("access-control-allow-origin") == "http://localhost:5500"
+
+
+def test_explain_rejects_disallowed_what_if_feature_422(client: TestClient, sample_profile: dict) -> None:
+    """Khóa không nằm trong khối what_if (HighBP) phải bị từ chối bằng 422, không phải 500."""
+    res = client.post("/explain", json={"profile": sample_profile, "what_if_changes": {"HighBP": 0}})
+    assert res.status_code == 422
+    assert "HighBP" in res.text
+
+
+def test_explain_rejects_out_of_range_what_if_422(client: TestClient, sample_profile: dict) -> None:
+    """BMI = 500 nằm ngoài miền → 422."""
+    res = client.post("/explain", json={"profile": sample_profile, "what_if_changes": {"BMI": 500}})
+    assert res.status_code == 422
+    assert "BMI" in res.text
+
+
+def test_explain_rejects_nan_what_if_422(client: TestClient, sample_profile: dict) -> None:
+    """JSON chứa NaN phải bị từ chối bằng 422 và máy chủ không sập khi tuần tự hóa lỗi."""
+    body = json.dumps({"profile": sample_profile, "what_if_changes": {"BMI": float("nan")}})
+    res = client.post("/explain", content=body, headers={"Content-Type": "application/json"})
+    assert res.status_code == 422
+
+
+def test_explain_accepts_every_key_the_ui_sends(client: TestClient, sample_profile: dict) -> None:
+    """Sáu khóa lối sống hợp lệ (đúng bộ giao diện gửi) phải trả 200 và có custom_what_if."""
+    changes = {"BMI": 24.5, "Smoker": 0, "PhysActivity": 1, "Fruits": 1, "Veggies": 1, "HvyAlcoholConsump": 0}
+    res = client.post("/explain", json={"profile": sample_profile, "what_if_changes": changes})
+    assert res.status_code == 200
+    assert res.json()["custom_what_if"] is not None
+

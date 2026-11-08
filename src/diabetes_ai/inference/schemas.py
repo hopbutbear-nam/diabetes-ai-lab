@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any, Literal
 
 import numpy as np
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from diabetes_ai.data.schema import FEATURES
 
@@ -110,6 +111,17 @@ class ExplainRequest(BaseModel):
 
     profile: PatientProfile
     what_if_changes: dict[str, float] | None = None
+
+    @field_validator("what_if_changes")
+    @classmethod
+    def _check_finite(cls, value: dict[str, float] | None) -> dict[str, float] | None:
+        """Từ chối NaN/Infinity trong các giá trị what-if ngay ở lớp lược đồ."""
+        if value is None:
+            return value
+        for key, val in value.items():
+            if not math.isfinite(val):
+                raise ValueError(f"Giá trị của {key} phải là số hữu hạn.")
+        return value
 
 
 class ExplainResponse(BaseModel):

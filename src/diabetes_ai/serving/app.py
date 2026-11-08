@@ -1,6 +1,7 @@
 """FastAPI: phục vụ các endpoint /health, /model-info, /predict, /explain và giao diện web."""
 
 import logging
+import math
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
@@ -99,6 +100,19 @@ app.add_middleware(
 )
 
 
+def _json_safe(value: Any) -> Any:
+    """Chuyển giá trị không tuần tự hóa được (NaN/Infinity, đối tượng lạ) thành chuỗi."""
+    if isinstance(value, float) and not math.isfinite(value):
+        return str(value)
+    if isinstance(value, dict):
+        return {str(k): _json_safe(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(v) for v in value]
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    return str(value)
+
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
     """Xử lý lỗi kiểm thực đầu vào, trả về mã 422 với thông điệp tiếng Việt nêu rõ trường và miền hợp lệ."""
@@ -123,7 +137,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             {
                 "field": field,
                 "message": message,
-                "input": input_val,
+                "input": _json_safe(input_val),
             }
         )
     return JSONResponse(status_code=422, content={"detail": formatted_errors})

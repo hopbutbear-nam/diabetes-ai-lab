@@ -138,6 +138,10 @@ def what_if_scenarios(
     return scenarios
 
 
+class WhatIfError(ValueError):
+    """Lỗi đầu vào của kịch bản what-if tùy biến (khóa không được phép hoặc giá trị không hợp lệ)."""
+
+
 def what_if_custom(
     index_fn: Callable[[np.ndarray], np.ndarray],
     x_raw: np.ndarray,
@@ -158,7 +162,7 @@ def what_if_custom(
         dict[str, Any]: Kết quả gồm 'before', 'after', 'delta' và 'note'.
 
     Raises:
-        ValueError: Nếu có đặc trưng nằm ngoài danh sách allowed hoặc giá trị nằm ngoài FEATURE_RANGES.
+        WhatIfError: Nếu có đặc trưng nằm ngoài danh sách allowed, giá trị không hữu hạn hoặc nằm ngoài FEATURE_RANGES.
     """
     if features is None:
         features = list(FEATURES)
@@ -166,15 +170,17 @@ def what_if_custom(
     invalid_feats = [k for k in changes if k not in allowed]
     if invalid_feats:
         allowed_str = ", ".join(sorted(allowed))
-        raise ValueError(
+        raise WhatIfError(
             f"Chỉ được thay đổi: {allowed_str}. Đặc trưng không được phép: {sorted(invalid_feats)}"
         )
 
     for feat, val in changes.items():
+        if not np.isfinite(val):
+            raise WhatIfError(f"Giá trị của {feat} phải là số hữu hạn (nhận được {val}).")
         if feat in FEATURE_RANGES:
             min_val, max_val = FEATURE_RANGES[feat]
             if val < min_val or val > max_val:
-                raise ValueError(
+                raise WhatIfError(
                     f"Giá trị của {feat} ({val}) nằm ngoài khoảng cho phép [{min_val}, {max_val}]."
                 )
 
