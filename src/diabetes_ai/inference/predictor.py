@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
-from diabetes_ai.config import load_config
+from diabetes_ai.config import get_env, load_config
 from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.explain.what_if import (
     WHAT_IF_NOTE,
@@ -101,7 +100,7 @@ class Predictor:
             if not target_path.is_file() and not target_path.is_absolute():
                 target_path = ROOT / target_path
         else:
-            env_path = os.environ.get("MODEL_PATH")
+            env_path = get_env("MODEL_PATH")
             if env_path:
                 target_path = Path(env_path)
             else:

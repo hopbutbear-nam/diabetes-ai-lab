@@ -15,6 +15,12 @@ from diabetes_ai.inference.export import make_bundle, save_bundle
 from diabetes_ai.paths import ROOT
 
 
+@pytest.fixture(autouse=True)
+def _isolate_dotenv(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Không để file .env cục bộ của lập trình viên ảnh hưởng tới kết quả test."""
+    monkeypatch.setattr("diabetes_ai.config._DOTENV_LOADED", True)
+
+
 @pytest.fixture
 def sample_profile():
     """Fixture trả về một mẫu hồ sơ bệnh nhân dạng dict."""

@@ -1,10 +1,10 @@
 """Quản lý phụ thuộc nạp mô hình Predictor (singleton lười)."""
 
-import os
 from pathlib import Path
+
 from fastapi import HTTPException, status
 
-from diabetes_ai.config import load_config
+from diabetes_ai.config import get_env, load_config
 from diabetes_ai.inference.predictor import ModelNotReady, Predictor
 from diabetes_ai.paths import ROOT
 
@@ -32,7 +32,7 @@ def get_predictor() -> Predictor:
     if _PREDICTOR is not None:
         return _PREDICTOR
 
-    model_path = os.environ.get("MODEL_PATH")
+    model_path = get_env("MODEL_PATH")
     if not model_path:
         try:
             cfg = load_config("serve")
