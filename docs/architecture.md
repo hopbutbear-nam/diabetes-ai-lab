@@ -37,7 +37,7 @@ flowchart TD
 | **Explain** | `src/diabetes_ai/explain` | Tính toán độ quan trọng đặc trưng bằng phương pháp hoán vị (Permutation Feature Importance) trên tập validation, trích xuất top đặc trưng ảnh hưởng lớn nhất. |
 | **Safety** | `src/diabetes_ai/safety` | Hệ thống luật an toàn lâm sàng chốt chặn (cờ đỏ triệu chứng, BMI cực đoan >= 45 kết hợp tăng huyết áp/cholesterol); ưu tiên ghi đè mô hình khi phát hiện rủi ro nghiêm trọng. |
 | **Inference** | `src/diabetes_ai/inference` | Đóng gói bộ dự đoán suy luận `Predictor`: kết hợp nạp trọng số mô hình, tiền xử lý dữ liệu, hiệu chuẩn xác suất, áp dụng luật an toàn và xuất mức cảnh báo nguy cơ. |
-| **Serving** | `src/diabetes_ai/serving` | Dịch vụ web FastAPI (`app.py`, `routes.py`, `deps.py`), cung cấp REST API endpoint `/predict`, `/explain`, `/model-info`, `/health`, và phục vụ giao diện tĩnh `/app/`. |
+| **Serving** | `src/diabetes_ai/serving` | Dịch vụ web FastAPI (`app.py`, `routes.py`, `deps.py`), cung cấp REST API endpoint `/predict`, `/explain`, `/model-info`, `/health`, `/consult` (đa agent), và phục vụ giao diện tĩnh `/app/`. |
 
 ### 2.2. Kịch bản thực thi (`scripts/`)
 

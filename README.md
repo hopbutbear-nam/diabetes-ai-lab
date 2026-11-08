@@ -28,6 +28,16 @@ Truy cập trình duyệt tại:
 - **Giao diện Web Demo:** [http://localhost:8200/app/](http://localhost:8200/app/)
 - **Tài liệu OpenAPI / Swagger:** [http://localhost:8200/docs](http://localhost:8200/docs)
 
+**Endpoint API chính:**
+
+| Endpoint | Phương thức | Mô tả |
+|---|---|---|
+| `/health` | GET | Kiểm tra tình trạng dịch vụ |
+| `/model-info` | GET | Thông tin metadata mô hình đang phục vụ |
+| `/predict` | POST | Dự đoán nguy cơ tiểu đường từ hồ sơ sức khỏe |
+| `/explain` | POST | Giải thích các yếu tố rủi ro và mô phỏng kịch bản what-if |
+| `/consult` | POST | Tư vấn đa tác tử: RiskAgent → SafetyAgent → KnowledgeAgent (có trích dẫn tài liệu) |
+
 ---
 
 ## 2. Hướng dẫn thực thi từng bước độc lập

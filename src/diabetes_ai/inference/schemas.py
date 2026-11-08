@@ -133,3 +133,17 @@ class ExplainResponse(BaseModel):
     method: str
     note: str
     disclaimer: str
+
+
+class ConsultResponse(BaseModel):
+    """Lược đồ phản hồi tư vấn đa tác tử (Risk → Safety → Knowledge)."""
+
+    events: list[dict[str, Any]]
+    risk_level: str
+    final_level: str
+    risk_index: float
+    probabilities: dict[str, float]
+    alerts: list[dict[str, Any]] = Field(default_factory=list)
+    citations: list[dict[str, Any]] = Field(default_factory=list)
+    advice: list[str] = Field(default_factory=list)
+    disclaimer: str

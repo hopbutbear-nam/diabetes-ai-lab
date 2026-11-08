@@ -1,20 +1,24 @@
-"""Quản lý phụ thuộc nạp mô hình Predictor (singleton lười)."""
+"""Quản lý phụ thuộc nạp mô hình Predictor (singleton lười) và Orchestrator đa agent."""
 
 from pathlib import Path
 
 from fastapi import HTTPException, status
 
+from diabetes_ai.agents.orchestrator import Orchestrator
+from diabetes_ai.agents.risk_agent import RiskAgent
 from diabetes_ai.config import get_env, load_config
 from diabetes_ai.inference.predictor import ModelNotReady, Predictor
 from diabetes_ai.paths import ROOT
 
 _PREDICTOR: Predictor | None = None
+_ORCHESTRATOR: Orchestrator | None = None
 
 
 def reset_predictor() -> None:
-    """Xóa bỏ instance Predictor hiện tại để buộc nạp lại (dùng trong kiểm thử)."""
-    global _PREDICTOR
+    """Xóa bỏ Predictor và Orchestrator hiện tại để buộc nạp lại (dùng trong kiểm thử)."""
+    global _PREDICTOR, _ORCHESTRATOR
     _PREDICTOR = None
+    _ORCHESTRATOR = None
 
 
 def get_predictor() -> Predictor:
@@ -63,3 +67,11 @@ def get_predictor() -> Predictor:
                 "message": f"Không thể nạp mô hình: {exc}",
             },
         ) from exc
+
+
+def get_orchestrator() -> Orchestrator:
+    """Lấy singleton Orchestrator dùng chung Predictor đã nạp (503 nếu mô hình chưa sẵn sàng)."""
+    global _ORCHESTRATOR
+    if _ORCHESTRATOR is None:
+        _ORCHESTRATOR = Orchestrator(risk_agent=RiskAgent(predictor=get_predictor()))
+    return _ORCHESTRATOR

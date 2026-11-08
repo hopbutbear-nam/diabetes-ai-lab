@@ -1,17 +1,19 @@
-"""Các endpoint phục vụ API /model-info, /predict, /explain."""
+"""Các endpoint phục vụ API /model-info, /predict, /explain, /consult."""
 
 from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 
+from diabetes_ai.agents.orchestrator import Orchestrator
 from diabetes_ai.explain.what_if import WhatIfError
 from diabetes_ai.inference.predictor import Predictor
 from diabetes_ai.inference.schemas import (
+    ConsultResponse,
     ExplainRequest,
     ExplainResponse,
     PatientProfile,
     PredictionResponse,
 )
-from diabetes_ai.serving.deps import get_predictor
+from diabetes_ai.serving.deps import get_orchestrator, get_predictor
 
 router = APIRouter()
 
@@ -53,3 +55,12 @@ def explain(
             ],
         ) from exc
     return ExplainResponse(**result)
+
+
+@router.post("/consult", response_model=ConsultResponse)
+def consult(
+    profile: PatientProfile,
+    orchestrator: Orchestrator = Depends(get_orchestrator),
+) -> ConsultResponse:
+    """Tư vấn đa tác tử: RiskAgent → SafetyAgent (luật + phản biện) → KnowledgeAgent (trích dẫn có nguồn)."""
+    return ConsultResponse(**orchestrator.consult(profile.model_dump()))

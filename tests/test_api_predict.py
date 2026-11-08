@@ -184,3 +184,27 @@ def test_explain_accepts_every_key_the_ui_sends(client: TestClient, sample_profi
     assert res.status_code == 200
     assert res.json()["custom_what_if"] is not None
 
+
+def test_consult_ends_with_final_and_has_disclaimer(client: TestClient, sample_profile: dict) -> None:
+    """Kiểm tra /consult trả về sự kiện cuối là 'final', risk_level hợp lệ, có disclaimer và lời khuyên xét nghiệm."""
+    res = client.post("/consult", json=sample_profile)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["events"][-1]["event"] == "final"
+    assert data["risk_level"] in {"thấp", "trung bình", "cao"}
+    assert data["disclaimer"]
+    assert any("xét nghiệm xác nhận" in a.lower() for a in data["advice"])
+
+
+def test_consult_danger_alert_forces_high_level(client: TestClient, sample_profile: dict) -> None:
+    """Kiểm tra glucose=280 (danger alert) ép mức final_level lên 'cao'."""
+    payload = {**sample_profile, "glucose": 280.0}
+    data = client.post("/consult", json=payload).json()
+    assert data["final_level"] == "cao"
+
+
+def test_consult_rejects_invalid_profile_422(client: TestClient, sample_profile: dict) -> None:
+    """Kiểm tra /consult từ chối payload với BMI=5 (ngoài miền) bằng 422."""
+    res = client.post("/consult", json={**sample_profile, "BMI": 5})
+    assert res.status_code == 422
+
