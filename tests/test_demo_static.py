@@ -59,3 +59,11 @@ def test_whatif_keys_sent_by_ui_are_allowed_by_server() -> None:
 def test_app_js_calls_consult_endpoint() -> None:
     js = (ROOT / 'app' / 'static' / 'js' / 'app.js').read_text(encoding='utf-8')
     assert '/consult' in js
+
+
+def test_app_js_has_no_dynamic_inner_html() -> None:
+    """Chỉ cho phép innerHTML để xóa nội dung (gán chuỗi rỗng); không ghép HTML từ dữ liệu."""
+    js = (ROOT / "app" / "static" / "js" / "app.js").read_text(encoding="utf-8")
+    for line in js.splitlines():
+        if "innerHTML" in line:
+            assert '= ""' in line, f"innerHTML động không được phép: {line.strip()}"

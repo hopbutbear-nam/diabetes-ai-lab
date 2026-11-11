@@ -57,16 +57,25 @@ function buildPayload() {
 function showError(message, fieldErrors = []) {
   const errorContainer = document.getElementById("error-container");
   errorContainer.style.display = "block";
+  errorContainer.textContent = "";
 
-  let html = `<strong>Đã xảy ra lỗi:</strong> <span>${message}</span>`;
+  const title = document.createElement("strong");
+  title.textContent = "Đã xảy ra lỗi: ";
+  const msg = document.createElement("span");
+  msg.textContent = String(message);
+  errorContainer.append(title, msg);
+
   if (fieldErrors.length > 0) {
-    html += "<ul>";
+    const ul = document.createElement("ul");
     fieldErrors.forEach((err) => {
-      html += `<li><strong>${err.field}:</strong> ${err.message}</li>`;
+      const li = document.createElement("li");
+      const f = document.createElement("strong");
+      f.textContent = `${err.field}: `;
+      li.append(f, document.createTextNode(String(err.message)));
+      ul.appendChild(li);
     });
-    html += "</ul>";
+    errorContainer.appendChild(ul);
   }
-  errorContainer.innerHTML = html;
   errorContainer.scrollIntoView({ behavior: "smooth" });
 }
 
@@ -251,13 +260,21 @@ function renderDrivers(drivers) {
     const effectClass = isPos ? "effect-pos" : "effect-neg";
     const dirText = isPos ? "Tăng nguy cơ" : "Giảm nguy cơ";
 
-    div.innerHTML = `
-      <span class="driver-title">${d.vi || d.feature}</span>
-      <div>Giá trị hiện tại: <strong>${d.value}</strong></div>
-      <span class="driver-effect ${effectClass}">
-        ${sign}${(d.effect * 100).toFixed(2)}% (${dirText})
-      </span>
-    `;
+    const title = document.createElement("span");
+    title.className = "driver-title";
+    title.textContent = d.vi || d.feature;
+
+    const current = document.createElement("div");
+    current.append("Giá trị hiện tại: ");
+    const val = document.createElement("strong");
+    val.textContent = String(d.value);
+    current.appendChild(val);
+
+    const effect = document.createElement("span");
+    effect.className = `driver-effect ${effectClass}`;
+    effect.textContent = `${sign}${(d.effect * 100).toFixed(2)}% (${dirText})`;
+
+    div.append(title, current, effect);
     driversList.appendChild(div);
   });
 }
