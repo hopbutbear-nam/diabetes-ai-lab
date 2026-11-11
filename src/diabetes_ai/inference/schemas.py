@@ -99,7 +99,12 @@ class PredictionResponse(BaseModel):
     probabilities: dict[str, float]
     risk_index: float
     risk_level: str
-    label: str
+    label: str = Field(
+        description=(
+            "Nhãn theo ngưỡng sàng lọc (xác suất nhân hệ số để ưu tiên độ nhạy); có thể là "
+            "'tiền tiểu đường' dù xác suất lớp này thấp. Hãy dựa vào `probabilities` và `risk_level`."
+        )
+    )
     alerts: list[Alert] = Field(default_factory=list)
     advice: list[str] = Field(default_factory=list)
     disclaimer: str

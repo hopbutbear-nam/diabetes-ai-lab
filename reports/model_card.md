@@ -191,6 +191,13 @@ Dựa trên số liệu đo đạc thực tế, nhóm đối tượng bị hệ 
 3. **Hiệu chuẩn và ngưỡng cùng chọn trên tập Validation:** Mặc dù đã dùng kỹ thuật Out-of-fold để giảm thiểu hiện tượng quá lạc quan, việc chọn đồng thời cả phương pháp hiệu chuẩn và ngưỡng quyết định trên cùng một tập dữ liệu validation vẫn có thể mang lại một mức độ sai số nhỏ khi suy rộng.
 4. **Bản chất tương quan thống kê trên khảo sát Hoa Kỳ 2015:** Dữ liệu bắt nguồn từ một cuộc khảo sát dân số tại Mỹ vào năm 2015 qua điện thoại. Mọi kết quả chỉ phản ánh mối liên hệ **tương quan thống kê** trong mẫu điều tra đó, hoàn toàn **không phản ánh quan hệ nhân quả y khoa** và không đại diện cho cấu trúc nhân khẩu học hay bệnh lý của các quốc gia khác (như Việt Nam).
 
+### Cách đọc kết quả
+
+- `risk_level` và `probabilities` là thông tin chính cần quan tâm; trường `label` chỉ mang tính tham khảo ngưỡng (được nhân hệ số để ưu tiên độ nhạy sàng lọc, có thể gán nhãn "tiền tiểu đường" dù xác suất lớp này thấp).
+- Chỉ số nguy cơ: $r = P(\text{tiểu đường}) + 0,5 \cdot P(\text{tiền tiểu đường})$, với hai ngưỡng phân loại 0,10 (nguy cơ trung bình) và 0,25 (nguy cơ cao).
+- Nhóm "trung bình trở lên" chiếm khoảng một nửa số người (khoảng 49,9% ở ngưỡng 0,10 và 22,2% ở ngưỡng 0,25) — đây là đánh đổi có chủ đích của một công cụ sàng lọc nhằm tối đa hóa độ nhạy, không phải công cụ chẩn đoán.
+- Mọi kết quả sàng lọc đều cần xét nghiệm xác nhận lâm sàng từ cơ sở y tế chuyên môn.
+
 ---
 
 > **MIỄN TRỪ TRÁCH NHIỆM CUỐI TÀI LIỆU:**

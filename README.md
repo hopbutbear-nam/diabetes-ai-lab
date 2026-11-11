@@ -38,6 +38,13 @@ Truy cập trình duyệt tại:
 | `/explain` | POST | Giải thích các yếu tố rủi ro và mô phỏng kịch bản what-if |
 | `/consult` | POST | Tư vấn đa tác tử: RiskAgent → SafetyAgent → KnowledgeAgent (có trích dẫn tài liệu) |
 
+### Cách đọc kết quả
+
+- **`risk_level` và `probabilities` là thông tin chính:** `risk_level` và `probabilities` là thông tin chính phản ánh mức độ nguy cơ, `label` chỉ mang tính tham khảo ngưỡng (được nhân hệ số để ưu tiên độ nhạy sàng lọc, có thể là "tiền tiểu đường" dù xác suất lớp này thấp).
+- **Chỉ số nguy cơ:** Được xác định theo công thức $r = P(\text{tiểu đường}) + 0,5 \cdot P(\text{tiền tiểu đường})$ với hai ngưỡng phân loại 0,10 (nguy cơ trung bình) và 0,25 (nguy cơ cao).
+- **Tỉ lệ cảnh báo:** Nhóm "trung bình trở lên" chiếm khoảng một nửa số người (khoảng 49,9% ở ngưỡng 0,10; mức cao ≥ 0,25 là 22,2%) — đây là đánh đổi có chủ đích của một công cụ sàng lọc nhằm tối đa hóa độ nhạy phát hiện bệnh.
+- **Xác nhận y tế:** Mọi kết quả dự đoán chỉ mang tính hỗ trợ sàng lọc và luôn cần xét nghiệm xác nhận từ cơ sở y tế chuyên môn.
+
 ---
 
 ## 2. Hướng dẫn thực thi từng bước độc lập
