@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 import warnings
 from pathlib import Path
 from typing import Any
@@ -47,6 +49,15 @@ def _warn_if_env_mismatch(bundle: dict[str, Any]) -> None:
                 RuntimeWarning,
                 stacklevel=2,
             )
+
+
+@lru_cache(maxsize=1)
+def _drop_for_what_if() -> tuple[str, ...]:
+    """Đọc một lần danh sách đặc trưng không đưa vào what-if từ configs/features.yaml."""
+    try:
+        return tuple(load_config("features").get("drop_for_what_if", []))
+    except Exception:
+        return ()
 
 
 class Predictor:
@@ -305,11 +316,7 @@ class Predictor:
             else:
                 pop_mean = np.zeros(len(self.feature_order), dtype=np.float32)
 
-        try:
-            feat_cfg = load_config("features")
-            drop_list = set(feat_cfg.get("drop_for_what_if", []))
-        except Exception:
-            drop_list = set()
+        drop_list = set(_drop_for_what_if())
 
         drivers = feature_effects(
             self._index_fn,

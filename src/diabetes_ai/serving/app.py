@@ -149,6 +149,14 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/ready")
+def ready() -> dict[str, str]:
+    """Kiểm tra sẵn sàng: 200 khi mô hình đã nạp được, 503 (MODEL_NOT_READY) khi chưa."""
+    get_predictor()  # ném HTTPException 503 nếu chưa sẵn sàng
+    return {"status": "ready"}
+
+
+
 # Gắn các route chức năng
 app.include_router(api_router)
 

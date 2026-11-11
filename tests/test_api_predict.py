@@ -208,3 +208,18 @@ def test_consult_rejects_invalid_profile_422(client: TestClient, sample_profile:
     res = client.post("/consult", json={**sample_profile, "BMI": 5})
     assert res.status_code == 422
 
+
+
+def test_ready_ok_when_model_loaded(client: TestClient) -> None:
+    res = client.get("/ready")
+    assert res.status_code == 200
+    assert res.json() == {"status": "ready"}
+
+
+def test_ready_503_when_model_missing(client: TestClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("MODEL_PATH", str(tmp_path / "khong_ton_tai.joblib"))
+    reset_predictor()
+    res = client.get("/ready")
+    assert res.status_code == 503
+    assert res.json()["detail"]["code"] == "MODEL_NOT_READY"
+
