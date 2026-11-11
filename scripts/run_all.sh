@@ -93,6 +93,7 @@ python scripts/export_model.py
 
 echo "=== (8) Sinh các bảng báo cáo (make_reports.py) ==="
 python scripts/make_reports.py
+python scripts/make_reports.py --check
 
 echo "=== (9) Chạy bộ kiểm thử (pytest) ==="
 python -m pytest -q
