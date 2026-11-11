@@ -30,6 +30,20 @@ def _try_import(mod: str) -> tuple[bool, str]:
         return False, str(e)
 
 
+def _package_versions() -> dict[str, str | None]:
+    """Phiên bản các gói chính (None nếu chưa cài)."""
+    from importlib import metadata
+
+    names = ["numpy", "pandas", "scikit-learn", "xgboost", "torch", "shap", "fastapi", "pydantic", "uvicorn", "joblib", "pyyaml"]
+    out: dict[str, str | None] = {}
+    for n in names:
+        try:
+            out[n] = metadata.version(n)
+        except metadata.PackageNotFoundError:
+            out[n] = None
+    return out
+
+
 def main() -> int:
     if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
         try:
@@ -219,6 +233,7 @@ def main() -> int:
         "xgboost_ok": xgboost_ok,
         "shap_ok": shap_ok,
         "cuda": cuda_available,
+        "packages": _package_versions(),
         "csv": {
             "exists": csv_exists,
             "bytes": csv_bytes,
