@@ -405,7 +405,13 @@ document.addEventListener("DOMContentLoaded", () => {
     triggerWhatIfUpdate();
   });
 
-  ["whatif-HighBP", "whatif-HighChol", "whatif-Smoker", "whatif-PhysActivity", "whatif-Fruits"].forEach((id) => {
+  [
+    "whatif-Smoker",
+    "whatif-PhysActivity",
+    "whatif-Fruits",
+    "whatif-Veggies",
+    "whatif-HvyAlcoholConsump",
+  ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener("change", triggerWhatIfUpdate);

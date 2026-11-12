@@ -56,6 +56,19 @@ def test_whatif_keys_sent_by_ui_are_allowed_by_server() -> None:
 
 
 
+def test_every_whatif_toggle_has_change_listener() -> None:
+    """Mọi ô bật/tắt what-if trong index.html phải được gắn sự kiện `change` trong app.js."""
+    js = (ROOT / "app" / "static" / "js" / "app.js").read_text(encoding="utf-8")
+    html = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
+    toggles = set(re.findall(r'<input type="checkbox" id="(whatif-\w+)"', html))
+    assert toggles, "Không tìm thấy ô bật/tắt what-if nào trong index.html"
+    listener = re.search(r"\[([^\]]*)\]\.forEach\(\(id\)", js)
+    assert listener, "Không tìm thấy danh sách id gắn sự kiện trong app.js"
+    wired = set(re.findall(r'"(whatif-\w+)"', listener.group(1)))
+    assert toggles <= wired, f"Ô what-if chưa gắn sự kiện: {sorted(toggles - wired)}"
+    assert wired <= toggles, f"app.js gắn sự kiện cho id không tồn tại: {sorted(wired - toggles)}"
+
+
 def test_app_js_calls_consult_endpoint() -> None:
     js = (ROOT / 'app' / 'static' / 'js' / 'app.js').read_text(encoding='utf-8')
     assert '/consult' in js
