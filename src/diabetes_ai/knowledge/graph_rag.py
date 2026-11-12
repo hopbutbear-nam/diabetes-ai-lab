@@ -38,8 +38,16 @@ def search(
     Returns:
         Danh sách dict chứa id, text (nguyên văn), source (nguồn) và điểm số.
     """
-    c_path = Path(chunks_path) if chunks_path is not None else ROOT / "knowledge_base" / "processed" / "chunks.json"
-    g_path = Path(graph_path) if graph_path is not None else ROOT / "knowledge_base" / "processed" / "graph.json"
+    c_path = (
+        Path(chunks_path)
+        if chunks_path is not None
+        else ROOT / "knowledge_base" / "processed" / "chunks.json"
+    )
+    g_path = (
+        Path(graph_path)
+        if graph_path is not None
+        else ROOT / "knowledge_base" / "processed" / "graph.json"
+    )
 
     if not c_path.is_file() or not g_path.is_file():
         raw_dir = ROOT / "knowledge_base" / "raw"
@@ -63,7 +71,9 @@ def search(
 
     for node in graph.get("nodes", []):
         node_id = node["id"]
-        aliases = [node_id, node.get("label", "").lower()] + [a.lower() for a in node.get("aliases", [])]
+        aliases = [node_id, node.get("label", "").lower()] + [
+            a.lower() for a in node.get("aliases", [])
+        ]
         found = False
         for a in aliases:
             if not a:

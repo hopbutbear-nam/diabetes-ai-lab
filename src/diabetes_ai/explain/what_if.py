@@ -9,9 +9,7 @@ import numpy as np
 from diabetes_ai.data.schema import FEATURE_RANGES, FEATURES
 from diabetes_ai.features.feature_names import vi
 
-WHAT_IF_NOTE: str = (
-    "Đây là thay đổi theo mô hình học từ khảo sát (tương quan), không phải bằng chứng nhân quả hay lời hứa về hiệu quả."
-)
+WHAT_IF_NOTE: str = "Đây là thay đổi theo mô hình học từ khảo sát (tương quan), không phải bằng chứng nhân quả hay lời hứa về hiệu quả."
 
 
 def _eval_index(index_fn: Callable[[np.ndarray], np.ndarray], vec: np.ndarray) -> float:
@@ -59,12 +57,14 @@ def feature_effects(
         x2[j] = pop_mean[j]
         idx2 = _eval_index(index_fn, x2)
         effect = float(base_idx - idx2)
-        results.append({
-            "feature": feat,
-            "vi": vi(feat),
-            "value": float(x[j]),
-            "effect": effect,
-        })
+        results.append(
+            {
+                "feature": feat,
+                "vi": vi(feat),
+                "value": float(x[j]),
+                "effect": effect,
+            }
+        )
 
     results.sort(key=lambda item: abs(item["effect"]), reverse=True)
     return results
@@ -125,14 +125,16 @@ def what_if_scenarios(
         target_idx = _eval_index(index_fn, x_target)
         delta_index = float(base_idx - target_idx)
 
-        scenarios.append({
-            "feature": feat,
-            "action": action,
-            "from_value": cur_val,
-            "to_value": target_val,
-            "delta_index": delta_index,
-            "note": WHAT_IF_NOTE,
-        })
+        scenarios.append(
+            {
+                "feature": feat,
+                "action": action,
+                "from_value": cur_val,
+                "to_value": target_val,
+                "delta_index": delta_index,
+                "note": WHAT_IF_NOTE,
+            }
+        )
 
     scenarios.sort(key=lambda item: item["delta_index"], reverse=True)
     return scenarios

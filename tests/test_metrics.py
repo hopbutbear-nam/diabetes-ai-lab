@@ -19,6 +19,7 @@ from diabetes_ai.evaluation.metrics import (
 # test_auc_perfect_and_random
 # ---------------------------------------------------------------------------
 
+
 def test_auc_perfect_and_random() -> None:
     """AUC hoàn hảo = 1.0; AUC ngẫu nhiên nằm trong 0.5 ± 0.03."""
     rng = np.random.default_rng(42)
@@ -46,6 +47,7 @@ def test_auc_perfect_and_random() -> None:
 # test_auc_binary_matches_sklearn
 # ---------------------------------------------------------------------------
 
+
 def test_auc_binary_matches_sklearn() -> None:
     """Với K=2, roc_auc_ovr phải khớp với sklearn trên cột 1."""
     rng = np.random.default_rng(7)
@@ -57,12 +59,15 @@ def test_auc_binary_matches_sklearn() -> None:
 
     result = roc_auc_ovr(y, proba)
     expected = roc_auc_score(y, p_col1)
-    assert abs(result - expected) < 1e-9, f"roc_auc_ovr K=2 không khớp sklearn: {result} vs {expected}"
+    assert abs(result - expected) < 1e-9, (
+        f"roc_auc_ovr K=2 không khớp sklearn: {result} vs {expected}"
+    )
 
 
 # ---------------------------------------------------------------------------
 # test_macro_f1_known
 # ---------------------------------------------------------------------------
+
 
 def test_macro_f1_known() -> None:
     """Kiểm tra macro_f1 với trường hợp biết trước."""
@@ -81,6 +86,7 @@ def test_macro_f1_known() -> None:
 # ---------------------------------------------------------------------------
 # test_recall_precision_per_class_known
 # ---------------------------------------------------------------------------
+
 
 def test_recall_precision_per_class_known() -> None:
     """Kiểm tra recall, precision, f1 từng lớp với ví dụ cụ thể."""
@@ -108,6 +114,7 @@ def test_recall_precision_per_class_known() -> None:
 # test_brier_multiclass_known
 # ---------------------------------------------------------------------------
 
+
 def test_brier_multiclass_known() -> None:
     """Brier hoàn hảo = 0; Brier đều 1/3 với K=3 = 2/3."""
     K = 3
@@ -123,12 +130,15 @@ def test_brier_multiclass_known() -> None:
     # Đều 1/3: Σ_k (1/3 − 1[y=k])² = (1/3 - 1)² + 2*(1/3)² = 4/9 + 2/9 = 6/9 = 2/3
     p_uniform = np.full((len(y_perf), K), 1.0 / K)
     bs_uniform = brier_multiclass(y_perf, p_uniform)
-    assert bs_uniform == pytest.approx(2.0 / 3.0, abs=1e-9), f"Brier đều 1/3 phải = 2/3, nhận {bs_uniform}"
+    assert bs_uniform == pytest.approx(2.0 / 3.0, abs=1e-9), (
+        f"Brier đều 1/3 phải = 2/3, nhận {bs_uniform}"
+    )
 
 
 # ---------------------------------------------------------------------------
 # test_ece_zero_when_calibrated
 # ---------------------------------------------------------------------------
+
 
 def test_ece_zero_when_calibrated() -> None:
     """ECE ≈ 0 khi mô hình được hiệu chuẩn hoàn hảo (p = tỉ lệ dương thực tế)."""
@@ -146,6 +156,7 @@ def test_ece_zero_when_calibrated() -> None:
 # test_ece_large_when_overconfident
 # ---------------------------------------------------------------------------
 
+
 def test_ece_large_when_overconfident() -> None:
     """ECE ≈ 0.4 khi mô hình tự tin quá (p=0.9 nhưng ~50% dương)."""
     n = 1000
@@ -159,6 +170,7 @@ def test_ece_large_when_overconfident() -> None:
 # ---------------------------------------------------------------------------
 # test_majority_baseline_accuracy
 # ---------------------------------------------------------------------------
+
 
 def test_majority_baseline_accuracy() -> None:
     """Kiểm tra majority_baseline_accuracy với ví dụ biết trước."""
@@ -176,6 +188,7 @@ def test_majority_baseline_accuracy() -> None:
 # test_compute_all_keys_and_baseline
 # ---------------------------------------------------------------------------
 
+
 def test_compute_all_keys_and_baseline() -> None:
     """Kiểm tra compute_all trả đủ khóa và accuracy_majority_baseline đúng."""
     rng = np.random.default_rng(99)
@@ -186,12 +199,21 @@ def test_compute_all_keys_and_baseline() -> None:
     result = compute_all(y, proba)
 
     expected_keys = {
-        "n", "accuracy", "accuracy_majority_baseline",
-        "roc_auc_ovr_macro", "roc_auc_per_class",
-        "pr_auc_macro", "pr_auc_per_class",
-        "macro_f1", "recall_per_class", "precision_per_class", "f1_per_class",
-        "brier_multiclass", "brier_per_class",
-        "ece_per_class", "ece_macro",
+        "n",
+        "accuracy",
+        "accuracy_majority_baseline",
+        "roc_auc_ovr_macro",
+        "roc_auc_per_class",
+        "pr_auc_macro",
+        "pr_auc_per_class",
+        "macro_f1",
+        "recall_per_class",
+        "precision_per_class",
+        "f1_per_class",
+        "brier_multiclass",
+        "brier_per_class",
+        "ece_per_class",
+        "ece_macro",
         "confusion_matrix",
     }
     assert expected_keys.issubset(result.keys()), f"Thiếu khóa: {expected_keys - result.keys()}"

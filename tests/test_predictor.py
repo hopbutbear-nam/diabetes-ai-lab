@@ -35,11 +35,22 @@ def test_disclaimer_and_confirm_advice_at_every_level(
 
     # 1. Hồ sơ nguy cơ thấp
     low_profile = dict(sample_profile)
-    low_profile.update({
-        "HighBP": 0, "HighChol": 0, "BMI": 19.0, "GenHlth": 1,
-        "Age": 1, "Smoker": 0, "HeartDiseaseorAttack": 0, "Stroke": 0,
-        "PhysActivity": 1, "Fruits": 1, "Veggies": 1, "HvyAlcoholConsump": 0,
-    })
+    low_profile.update(
+        {
+            "HighBP": 0,
+            "HighChol": 0,
+            "BMI": 19.0,
+            "GenHlth": 1,
+            "Age": 1,
+            "Smoker": 0,
+            "HeartDiseaseorAttack": 0,
+            "Stroke": 0,
+            "PhysActivity": 1,
+            "Fruits": 1,
+            "Veggies": 1,
+            "HvyAlcoholConsump": 0,
+        }
+    )
     res_low = predictor.predict(low_profile)
     assert res_low["risk_level"] == "thấp"
 
@@ -51,11 +62,20 @@ def test_disclaimer_and_confirm_advice_at_every_level(
 
     # 3. Hồ sơ nguy cơ cao
     high_profile = dict(sample_profile)
-    high_profile.update({
-        "HighBP": 1, "HighChol": 1, "BMI": 45.0, "GenHlth": 5,
-        "Age": 13, "Smoker": 1, "HeartDiseaseorAttack": 1, "Stroke": 1,
-        "DiffWalk": 1, "PhysActivity": 0,
-    })
+    high_profile.update(
+        {
+            "HighBP": 1,
+            "HighChol": 1,
+            "BMI": 45.0,
+            "GenHlth": 5,
+            "Age": 13,
+            "Smoker": 1,
+            "HeartDiseaseorAttack": 1,
+            "Stroke": 1,
+            "DiffWalk": 1,
+            "PhysActivity": 0,
+        }
+    )
     res_high = predictor.predict(high_profile)
     assert res_high["risk_level"] == "cao"
 
@@ -72,23 +92,34 @@ def test_disclaimer_and_confirm_advice_at_every_level(
         )
 
     # Riêng mức cao phải có lời khuyên khám sớm
-    assert any("khám sớm" in a for a in res_high["advice"]), "Mức nguy cơ cao phải có lời khuyên đi khám sớm"
+    assert any("khám sớm" in a for a in res_high["advice"]), (
+        "Mức nguy cơ cao phải có lời khuyên đi khám sớm"
+    )
 
 
-def test_glucose_over_250_forces_high_level(
-    tiny_bundle: Path, sample_profile: dict
-) -> None:
+def test_glucose_over_250_forces_high_level(tiny_bundle: Path, sample_profile: dict) -> None:
     """Kiểm tra hồ sơ nguy cơ thấp nhưng có đường huyết >= 250 bị nâng lên mức cao và có cảnh báo R1."""
     predictor = Predictor.from_bundle(tiny_bundle)
 
     # Hồ sơ vốn có chỉ số rất thấp
     profile = dict(sample_profile)
-    profile.update({
-        "HighBP": 0, "HighChol": 0, "BMI": 19.0, "GenHlth": 1,
-        "Age": 1, "Smoker": 0, "HeartDiseaseorAttack": 0, "Stroke": 0,
-        "PhysActivity": 1, "Fruits": 1, "Veggies": 1, "HvyAlcoholConsump": 0,
-        "glucose": 260.0,
-    })
+    profile.update(
+        {
+            "HighBP": 0,
+            "HighChol": 0,
+            "BMI": 19.0,
+            "GenHlth": 1,
+            "Age": 1,
+            "Smoker": 0,
+            "HeartDiseaseorAttack": 0,
+            "Stroke": 0,
+            "PhysActivity": 1,
+            "Fruits": 1,
+            "Veggies": 1,
+            "HvyAlcoholConsump": 0,
+            "glucose": 260.0,
+        }
+    )
 
     res = predictor.predict(profile)
     assert res["risk_level"] == "cao", "Đường huyết 260 phải ép mức nguy cơ lên 'cao'"
@@ -99,9 +130,7 @@ def test_glucose_over_250_forces_high_level(
     assert "glucose" in r1_alerts[0]["evidence"]
 
 
-def test_bundle_roundtrip_identical_probabilities(
-    tiny_bundle: Path, sample_profile: dict
-) -> None:
+def test_bundle_roundtrip_identical_probabilities(tiny_bundle: Path, sample_profile: dict) -> None:
     """Kiểm tra nạp lại bundle cho xác suất hoàn toàn giống nhau (sai khác <= 1e-9)."""
     predictor1 = Predictor.from_bundle(tiny_bundle)
     predictor2 = Predictor.from_bundle(tiny_bundle)

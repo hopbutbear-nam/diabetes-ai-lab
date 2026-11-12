@@ -37,7 +37,9 @@ def test_r1_danger_at_250():
     assert "glucose" in r1_alerts[0].evidence
 
     alerts_249 = evaluate({"glucose": 249.9})
-    assert not any(a.rule_id == "R1" for a in alerts_249), "R1 không được kích hoạt khi glucose < 250"
+    assert not any(a.rule_id == "R1" for a in alerts_249), (
+        "R1 không được kích hoạt khi glucose < 250"
+    )
 
 
 def test_r2_glucose_200_with_symptom():
@@ -48,10 +50,14 @@ def test_r2_glucose_200_with_symptom():
     assert r2_hits[0].level == "danger"
 
     alerts_no_symptom = evaluate({"glucose": 200, "n_symptoms": 0})
-    assert not any(a.rule_id == "R2" for a in alerts_no_symptom), "R2 không được kích hoạt nếu n_symptoms == 0"
+    assert not any(a.rule_id == "R2" for a in alerts_no_symptom), (
+        "R2 không được kích hoạt nếu n_symptoms == 0"
+    )
 
     alerts_low_glucose = evaluate({"glucose": 199, "n_symptoms": 2})
-    assert not any(a.rule_id == "R2" for a in alerts_low_glucose), "R2 không được kích hoạt nếu glucose < 200"
+    assert not any(a.rule_id == "R2" for a in alerts_low_glucose), (
+        "R2 không được kích hoạt nếu glucose < 200"
+    )
 
 
 def test_missing_glucose_skips_glucose_rules():
@@ -72,17 +78,23 @@ def test_fasting_glucose_r3_r4_boundaries():
     alerts_126 = evaluate({"fasting_glucose": 126})
     r3_hits = [a for a in alerts_126 if a.rule_id == "R3"]
     assert len(r3_hits) == 1, "fasting_glucose = 126 phải kích hoạt R3"
-    assert not any(a.rule_id == "R4" for a in alerts_126), "fasting_glucose = 126 không được kích hoạt R4"
+    assert not any(a.rule_id == "R4" for a in alerts_126), (
+        "fasting_glucose = 126 không được kích hoạt R4"
+    )
 
     # Mức 110 -> R4 (100 <= fasting_glucose <= 125)
     alerts_110 = evaluate({"fasting_glucose": 110})
     r4_hits = [a for a in alerts_110 if a.rule_id == "R4"]
     assert len(r4_hits) == 1, "fasting_glucose = 110 phải kích hoạt R4"
-    assert not any(a.rule_id == "R3" for a in alerts_110), "fasting_glucose = 110 không được kích hoạt R3"
+    assert not any(a.rule_id == "R3" for a in alerts_110), (
+        "fasting_glucose = 110 không được kích hoạt R3"
+    )
 
     # Mức 99 -> không kích hoạt cả R3 và R4
     alerts_99 = evaluate({"fasting_glucose": 99})
-    assert not any(a.rule_id in {"R3", "R4"} for a in alerts_99), "fasting_glucose = 99 không kích hoạt R3 hoặc R4"
+    assert not any(a.rule_id in {"R3", "R4"} for a in alerts_99), (
+        "fasting_glucose = 99 không kích hoạt R3 hoặc R4"
+    )
 
 
 def test_r5_low_glucose_danger():
@@ -110,7 +122,9 @@ def test_r7_bmi_boundary():
 def test_combine_levels():
     """Kiểm tra kết hợp mức nguy cơ mô hình và cảnh báo: danger nâng thấp -> cao; warn nâng thấp -> trung bình."""
     # low risk index (0.05 -> mức thấp ban đầu)
-    danger_alert = Alert(rule_id="R1", level="danger", text="Đường huyết rất cao", evidence={"glucose": 260})
+    danger_alert = Alert(
+        rule_id="R1", level="danger", text="Đường huyết rất cao", evidence={"glucose": 260}
+    )
     warn_alert = Alert(rule_id="R7", level="warn", text="Béo phì", evidence={"bmi": 32.0})
     info_alert = Alert(rule_id="R9", level="info", text="Mỡ máu", evidence={"age_code": 7})
 
@@ -171,7 +185,9 @@ def test_level_from_index_boundaries():
 def test_unsafe_expression_rejected(tmp_path):
     """Kiểm tra từ chối biểu thức không an toàn qua AST và ném lỗi khi nạp hoặc đánh giá."""
     # Biểu thức chứa lời gọi hàm bị từ chối
-    unsafe_rule_call = Rule(id="RX", level="warn", when="__import__('os').system('ls')", text="Nguy hiểm")
+    unsafe_rule_call = Rule(
+        id="RX", level="warn", when="__import__('os').system('ls')", text="Nguy hiểm"
+    )
     with pytest.raises(ValueError, match="Biểu thức luật không an toàn"):
         evaluate({"x": 1}, [unsafe_rule_call])
 

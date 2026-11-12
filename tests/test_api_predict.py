@@ -50,9 +50,7 @@ def test_predict_ok_has_required_keys_and_disclaimer(
     assert "risk_level" in data
 
 
-def test_predict_rejects_bmi_out_of_range_422(
-    client: TestClient, sample_profile: dict
-) -> None:
+def test_predict_rejects_bmi_out_of_range_422(client: TestClient, sample_profile: dict) -> None:
     """Kiểm tra /predict từ chối khi BMI nằm ngoài miền hợp lệ (BMI=5), thông điệp lỗi chứa 'BMI'."""
     payload = dict(sample_profile)
     payload["BMI"] = 5
@@ -64,9 +62,7 @@ def test_predict_rejects_bmi_out_of_range_422(
     assert any("BMI" in err.get("message", "") and err.get("field") == "BMI" for err in errors)
 
 
-def test_predict_rejects_extra_field_422(
-    client: TestClient, sample_profile: dict
-) -> None:
+def test_predict_rejects_extra_field_422(client: TestClient, sample_profile: dict) -> None:
     """Kiểm tra /predict từ chối khi payload chứa trường lạ ngoài schema (extra forbidden)."""
     payload = dict(sample_profile)
     payload["unknown_extra_field"] = 999
@@ -90,9 +86,7 @@ def test_predict_without_model_returns_503_friendly(
     assert data.get("detail", {}).get("code") == "MODEL_NOT_READY"
 
 
-def test_glucose_260_forces_high_level_with_r1(
-    client: TestClient, sample_profile: dict
-) -> None:
+def test_glucose_260_forces_high_level_with_r1(client: TestClient, sample_profile: dict) -> None:
     """Kiểm tra hồ sơ có glucose=260 bị ép mức nguy cơ lên 'cao' do kích hoạt luật an toàn R1."""
     payload = dict(sample_profile)
     payload.update(
@@ -120,9 +114,7 @@ def test_glucose_260_forces_high_level_with_r1(
     assert "R1" in alert_ids
 
 
-def test_explain_has_note_and_whitelisted_what_if(
-    client: TestClient, sample_profile: dict
-) -> None:
+def test_explain_has_note_and_whitelisted_what_if(client: TestClient, sample_profile: dict) -> None:
     """Kiểm tra /explain trả về ghi chú chứa 'tương quan', kèm miễn trừ và kịch bản what-if trong danh sách trắng."""
     payload = {
         "profile": sample_profile,
@@ -156,9 +148,13 @@ def test_cors_preflight_allows_local_origin(client: TestClient) -> None:
     assert res.headers.get("access-control-allow-origin") == "http://localhost:5500"
 
 
-def test_explain_rejects_disallowed_what_if_feature_422(client: TestClient, sample_profile: dict) -> None:
+def test_explain_rejects_disallowed_what_if_feature_422(
+    client: TestClient, sample_profile: dict
+) -> None:
     """Khóa không nằm trong khối what_if (HighBP) phải bị từ chối bằng 422, không phải 500."""
-    res = client.post("/explain", json={"profile": sample_profile, "what_if_changes": {"HighBP": 0}})
+    res = client.post(
+        "/explain", json={"profile": sample_profile, "what_if_changes": {"HighBP": 0}}
+    )
     assert res.status_code == 422
     assert "HighBP" in res.text
 
@@ -179,13 +175,22 @@ def test_explain_rejects_nan_what_if_422(client: TestClient, sample_profile: dic
 
 def test_explain_accepts_every_key_the_ui_sends(client: TestClient, sample_profile: dict) -> None:
     """Sáu khóa lối sống hợp lệ (đúng bộ giao diện gửi) phải trả 200 và có custom_what_if."""
-    changes = {"BMI": 24.5, "Smoker": 0, "PhysActivity": 1, "Fruits": 1, "Veggies": 1, "HvyAlcoholConsump": 0}
+    changes = {
+        "BMI": 24.5,
+        "Smoker": 0,
+        "PhysActivity": 1,
+        "Fruits": 1,
+        "Veggies": 1,
+        "HvyAlcoholConsump": 0,
+    }
     res = client.post("/explain", json={"profile": sample_profile, "what_if_changes": changes})
     assert res.status_code == 200
     assert res.json()["custom_what_if"] is not None
 
 
-def test_consult_ends_with_final_and_has_disclaimer(client: TestClient, sample_profile: dict) -> None:
+def test_consult_ends_with_final_and_has_disclaimer(
+    client: TestClient, sample_profile: dict
+) -> None:
     """Kiểm tra /consult trả về sự kiện cuối là 'final', risk_level hợp lệ, có disclaimer và lời khuyên xét nghiệm."""
     res = client.post("/consult", json=sample_profile)
     assert res.status_code == 200
@@ -209,17 +214,17 @@ def test_consult_rejects_invalid_profile_422(client: TestClient, sample_profile:
     assert res.status_code == 422
 
 
-
 def test_ready_ok_when_model_loaded(client: TestClient) -> None:
     res = client.get("/ready")
     assert res.status_code == 200
     assert res.json() == {"status": "ready"}
 
 
-def test_ready_503_when_model_missing(client: TestClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_ready_503_when_model_missing(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.setenv("MODEL_PATH", str(tmp_path / "khong_ton_tai.joblib"))
     reset_predictor()
     res = client.get("/ready")
     assert res.status_code == 503
     assert res.json()["detail"]["code"] == "MODEL_NOT_READY"
-

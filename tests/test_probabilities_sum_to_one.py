@@ -85,7 +85,14 @@ def test_mlp_proba_sums_to_one(synthetic_df) -> None:
     model = MLPModel(
         params={
             "arch": {"hidden": [16, 8], "dropout": [0.0], "activation": "relu"},
-            "train": {"epochs": 1, "batch_size": 64, "lr": 0.001, "weight_decay": 1e-5, "patience": None, "device": "cpu"},
+            "train": {
+                "epochs": 1,
+                "batch_size": 64,
+                "lr": 0.001,
+                "weight_decay": 1e-5,
+                "patience": None,
+                "device": "cpu",
+            },
             "loss": "weighted_ce",
             "imbalance": {"strategy": "class_weight", "power": 0.75},
         },

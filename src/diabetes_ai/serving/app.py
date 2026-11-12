@@ -114,7 +114,9 @@ def _json_safe(value: Any) -> Any:
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
+async def validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
     """Xử lý lỗi kiểm thực đầu vào, trả về mã 422 với thông điệp tiếng Việt nêu rõ trường và miền hợp lệ."""
     formatted_errors = []
     for err in exc.errors():
@@ -154,7 +156,6 @@ def ready() -> dict[str, str]:
     """Kiểm tra sẵn sàng: 200 khi mô hình đã nạp được, 503 (MODEL_NOT_READY) khi chưa."""
     get_predictor()  # ném HTTPException 503 nếu chưa sẵn sàng
     return {"status": "ready"}
-
 
 
 # Gắn các route chức năng

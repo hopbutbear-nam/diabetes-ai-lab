@@ -30,7 +30,9 @@ def test_group_mappings_cover_all_codes():
     all_age_codes: list[int] = []
     for g, codes in age_groups.items():
         all_age_codes.extend(codes)
-    assert sorted(all_age_codes) == list(range(1, 14)), "Mã tuổi phải bao phủ đủ 1-13 không trùng lặp."
+    assert sorted(all_age_codes) == list(range(1, 14)), (
+        "Mã tuổi phải bao phủ đủ 1-13 không trùng lặp."
+    )
     assert len(all_age_codes) == len(set(all_age_codes)), "Có mã tuổi bị trùng lặp giữa các nhóm."
 
     # 2. Thu nhập (Income): 1 đến 8
@@ -38,8 +40,12 @@ def test_group_mappings_cover_all_codes():
     all_income_codes: list[int] = []
     for g, codes in income_groups.items():
         all_income_codes.extend(codes)
-    assert sorted(all_income_codes) == list(range(1, 9)), "Mã thu nhập phải bao phủ đủ 1-8 không trùng lặp."
-    assert len(all_income_codes) == len(set(all_income_codes)), "Có mã thu nhập bị trùng lặp giữa các nhóm."
+    assert sorted(all_income_codes) == list(range(1, 9)), (
+        "Mã thu nhập phải bao phủ đủ 1-8 không trùng lặp."
+    )
+    assert len(all_income_codes) == len(set(all_income_codes)), (
+        "Có mã thu nhập bị trùng lặp giữa các nhóm."
+    )
 
     # 3. Giới tính (Sex): 0 và 1
     sex_groups = fairness_cfg.get("sex_groups", {})
@@ -167,9 +173,11 @@ def test_disparity_ignores_small_groups():
     assert disp["max_gap_pp"] == pytest.approx(15.0)
 
     # Kiểm tra thêm khi chạy qua fairness_report
-    df_feat = pd.DataFrame({
-        "Age": [1] * 200 + [4] * 200 + [12] * 50,
-    })
+    df_feat = pd.DataFrame(
+        {
+            "Age": [1] * 200 + [4] * 200 + [12] * 50,
+        }
+    )
     y_true = np.array([2] * 50 + [0] * 150 + [2] * 45 + [0] * 155 + [2] * 5 + [0] * 45)
     y_pred = y_true.copy()  # perfect predictions
     rep = fairness_report(df_feat, y_true, y_pred, min_pos=30)

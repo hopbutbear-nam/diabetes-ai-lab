@@ -17,12 +17,23 @@ DEFAULT_GRAPH: dict[str, list[dict[str, Any]]] = {
         {
             "id": "tien_dai_thao_duong",
             "label": "Tiền đái tháo đường",
-            "aliases": ["tiền đái tháo đường", "prediabetes", "rối loạn dung nạp glucose", "rối loạn đường huyết đói"],
+            "aliases": [
+                "tiền đái tháo đường",
+                "prediabetes",
+                "rối loạn dung nạp glucose",
+                "rối loạn đường huyết đói",
+            ],
         },
         {
             "id": "duong_huyet_doi",
             "label": "Đường huyết lúc đói",
-            "aliases": ["đường huyết lúc đói", "đường huyết đói", "glucose đói", "fpg", "fasting glucose"],
+            "aliases": [
+                "đường huyết lúc đói",
+                "đường huyết đói",
+                "glucose đói",
+                "fpg",
+                "fasting glucose",
+            ],
         },
         {
             "id": "hba1c",
@@ -37,12 +48,26 @@ DEFAULT_GRAPH: dict[str, list[dict[str, Any]]] = {
         {
             "id": "trieu_chung",
             "label": "Triệu chứng lâm sàng",
-            "aliases": ["triệu chứng", "khát nước", "tiểu nhiều", "sụt cân", "ăn nhiều", "mệt mỏi", "symptoms"],
+            "aliases": [
+                "triệu chứng",
+                "khát nước",
+                "tiểu nhiều",
+                "sụt cân",
+                "ăn nhiều",
+                "mệt mỏi",
+                "symptoms",
+            ],
         },
         {
             "id": "huyet_ap",
             "label": "Huyết áp",
-            "aliases": ["huyết áp", "tăng huyết áp", "huyết áp cao", "hypertension", "blood pressure"],
+            "aliases": [
+                "huyết áp",
+                "tăng huyết áp",
+                "huyết áp cao",
+                "hypertension",
+                "blood pressure",
+            ],
         },
         {
             "id": "tim_mach",
@@ -52,27 +77,69 @@ DEFAULT_GRAPH: dict[str, list[dict[str, Any]]] = {
         {
             "id": "bmi",
             "label": "Chỉ số BMI",
-            "aliases": ["bmi", "thừa cân", "béo phì", "chỉ số khối cơ thể", "cân nặng", "obesity", "overweight"],
+            "aliases": [
+                "bmi",
+                "thừa cân",
+                "béo phì",
+                "chỉ số khối cơ thể",
+                "cân nặng",
+                "obesity",
+                "overweight",
+            ],
         },
         {
             "id": "bien_chung",
             "label": "Biến chứng đái tháo đường",
-            "aliases": ["biến chứng", "biến chứng thận", "biến chứng mắt", "võng mạc", "loét bàn chân", "complications"],
+            "aliases": [
+                "biến chứng",
+                "biến chứng thận",
+                "biến chứng mắt",
+                "võng mạc",
+                "loét bàn chân",
+                "complications",
+            ],
         },
         {
             "id": "loi_song",
             "label": "Lối sống và dinh dưỡng",
-            "aliases": ["lối sống", "dinh dưỡng", "vận động", "tập thể dục", "chế độ ăn", "lifestyle"],
+            "aliases": [
+                "lối sống",
+                "dinh dưỡng",
+                "vận động",
+                "tập thể dục",
+                "chế độ ăn",
+                "lifestyle",
+            ],
         },
     ],
     "edges": [
-        {"source": "duong_huyet_doi", "target": "dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
+        {
+            "source": "duong_huyet_doi",
+            "target": "dai_thao_duong",
+            "relation": "tiêu_chuẩn_chẩn_đoán",
+        },
         {"source": "hba1c", "target": "dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
-        {"source": "dung_nap_glucose", "target": "dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
-        {"source": "duong_huyet_doi", "target": "tien_dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
+        {
+            "source": "dung_nap_glucose",
+            "target": "dai_thao_duong",
+            "relation": "tiêu_chuẩn_chẩn_đoán",
+        },
+        {
+            "source": "duong_huyet_doi",
+            "target": "tien_dai_thao_duong",
+            "relation": "tiêu_chuẩn_chẩn_đoán",
+        },
         {"source": "hba1c", "target": "tien_dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
-        {"source": "dung_nap_glucose", "target": "tien_dai_thao_duong", "relation": "tiêu_chuẩn_chẩn_đoán"},
-        {"source": "tien_dai_thao_duong", "target": "dai_thao_duong", "relation": "tiến_triển_thành"},
+        {
+            "source": "dung_nap_glucose",
+            "target": "tien_dai_thao_duong",
+            "relation": "tiêu_chuẩn_chẩn_đoán",
+        },
+        {
+            "source": "tien_dai_thao_duong",
+            "target": "dai_thao_duong",
+            "relation": "tiến_triển_thành",
+        },
         {"source": "trieu_chung", "target": "dai_thao_duong", "relation": "chỉ_điểm_lâm_sàng"},
         {"source": "bmi", "target": "tien_dai_thao_duong", "relation": "yếu_tố_nguy_cơ"},
         {"source": "bmi", "target": "dai_thao_duong", "relation": "yếu_tố_nguy_cơ"},
@@ -201,7 +268,9 @@ def _detect_nodes(text: str, graph: dict[str, Any]) -> list[str]:
     matched: list[str] = []
     for node in graph.get("nodes", []):
         node_id = node["id"]
-        aliases = [node_id, node.get("label", "").lower()] + [a.lower() for a in node.get("aliases", [])]
+        aliases = [node_id, node.get("label", "").lower()] + [
+            a.lower() for a in node.get("aliases", [])
+        ]
         found = False
         for a in aliases:
             if not a:

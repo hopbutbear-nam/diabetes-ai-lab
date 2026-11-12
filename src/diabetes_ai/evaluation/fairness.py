@@ -55,7 +55,9 @@ def group_codes(
         except (ValueError, TypeError):
             raise ValueError(f"Mã '{val}' trong cột '{column}' không phải số nguyên hợp lệ.")
         if val_int not in code_to_group:
-            raise ValueError(f"Mã '{val}' trong cột '{column}' không thuộc bất kỳ nhóm nào trong mapping.")
+            raise ValueError(
+                f"Mã '{val}' trong cột '{column}' không thuộc bất kỳ nhóm nào trong mapping."
+            )
         mapped_labels.append(code_to_group[val_int])
 
     return np.asarray(mapped_labels, dtype=object)

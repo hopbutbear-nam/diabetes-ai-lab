@@ -126,8 +126,7 @@ def cross_check(
             if current_level == "thấp":
                 passed = False
                 evidence = (
-                    f"Người dùng có {n_symptoms} triệu chứng điển hình "
-                    f"nhưng mô hình báo mức 'thấp'"
+                    f"Người dùng có {n_symptoms} triệu chứng điển hình nhưng mô hình báo mức 'thấp'"
                 )
                 elevate("trung bình")
             else:

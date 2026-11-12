@@ -30,7 +30,9 @@ def load_raw(
     if path is None:
         if config is None:
             config = load_config("data")
-        raw_path = config.get("raw_path", "data/raw/brfss2015/diabetes_012_health_indicators_BRFSS2015.csv")
+        raw_path = config.get(
+            "raw_path", "data/raw/brfss2015/diabetes_012_health_indicators_BRFSS2015.csv"
+        )
         file_path = ROOT / raw_path
         display_path = str(file_path)
     else:

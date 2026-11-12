@@ -78,9 +78,9 @@ def test_feature_effects_skip_drop_list(sample_profile):
 
     returned_features = [item["feature"] for item in effects]
     for dropped in drop_set:
-        assert (
-            dropped not in returned_features
-        ), f"Đặc trưng {dropped} thuộc drop_for_what_if không được xuất hiện trong kết quả."
+        assert dropped not in returned_features, (
+            f"Đặc trưng {dropped} thuộc drop_for_what_if không được xuất hiện trong kết quả."
+        )
 
     assert len(returned_features) == len(FEATURES) - len(drop_set)
 

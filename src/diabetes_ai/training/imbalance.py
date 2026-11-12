@@ -3,9 +3,7 @@
 import numpy as np
 
 
-def class_weights(
-    y: np.ndarray, n_classes: int | None = None, power: float = 0.75
-) -> np.ndarray:
+def class_weights(y: np.ndarray, n_classes: int | None = None, power: float = 0.75) -> np.ndarray:
     """Tính trọng số lớp theo công thức nghịch đảo lũy thừa tần suất.
 
     Args:
@@ -23,9 +21,7 @@ def class_weights(
     k = n_classes or int(y.max()) + 1
     counts = np.bincount(y, minlength=k).astype("float64")
     if (counts == 0).any():
-        raise ValueError(
-            f"Lớp {int(np.argmin(counts))} không có mẫu trong tập huấn luyện"
-        )
+        raise ValueError(f"Lớp {int(np.argmin(counts))} không có mẫu trong tập huấn luyện")
     return (len(y) / (k * counts)) ** power
 
 

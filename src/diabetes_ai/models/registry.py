@@ -70,9 +70,7 @@ def build_model(
         return model_cls(params=model_params, n_classes=n_classes, seed=seed)
 
     if model_key not in MODEL_REGISTRY:
-        raise ValueError(
-            f"Mô hình '{model_key}' không có. Hợp lệ: {sorted(MODEL_REGISTRY)}"
-        )
+        raise ValueError(f"Mô hình '{model_key}' không có. Hợp lệ: {sorted(MODEL_REGISTRY)}")
 
     model_cls = MODEL_REGISTRY[model_key]
     return model_cls(params=model_params, n_classes=n_classes, seed=seed)
@@ -90,9 +88,7 @@ class LoadedRun:
     calibrator: Any | None = None
     postproc: dict[str, Any] | None = None
 
-    def predict_proba_scaled(
-        self, Xs: np.ndarray, calibrated: bool = True
-    ) -> np.ndarray:
+    def predict_proba_scaled(self, Xs: np.ndarray, calibrated: bool = True) -> np.ndarray:
         """Dự đoán xác suất trên ma trận đặc trưng đã chuẩn hoá (scaled).
 
         Args:
@@ -112,9 +108,7 @@ class LoadedRun:
                 proba = self.calibrator(proba)
         return proba
 
-    def predict_proba(
-        self, X_raw: np.ndarray, calibrated: bool = True
-    ) -> np.ndarray:
+    def predict_proba(self, X_raw: np.ndarray, calibrated: bool = True) -> np.ndarray:
         """Dự đoán xác suất từ đặc trưng thô (chưa scale).
 
         Args:
@@ -221,9 +215,7 @@ def load_run(run_name: str, models_dir: Path | None = None) -> LoadedRun:
 
             model_cls = MLPModel
     elif model_key not in MODEL_REGISTRY:
-        raise ValueError(
-            f"Mô hình '{model_key}' không có. Hợp lệ: {sorted(MODEL_REGISTRY)}"
-        )
+        raise ValueError(f"Mô hình '{model_key}' không có. Hợp lệ: {sorted(MODEL_REGISTRY)}")
     else:
         model_cls = MODEL_REGISTRY[model_key]
 

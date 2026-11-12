@@ -69,14 +69,22 @@ def make_synthetic_df(
     bmi = np.clip(bmi_raw, 12, 98).astype("float32")
 
     # Đặc trưng rời rạc
-    gen_hlth = rng.choice([1, 2, 3, 4, 5], size=n_unique, p=[0.2, 0.35, 0.3, 0.1, 0.05]).astype("float32")
+    gen_hlth = rng.choice([1, 2, 3, 4, 5], size=n_unique, p=[0.2, 0.35, 0.3, 0.1, 0.05]).astype(
+        "float32"
+    )
     age = rng.integers(1, 14, size=n_unique).astype("float32")
-    education = rng.choice([1, 2, 3, 4, 5, 6], size=n_unique, p=[0.02, 0.03, 0.1, 0.25, 0.3, 0.3]).astype("float32")
+    education = rng.choice(
+        [1, 2, 3, 4, 5, 6], size=n_unique, p=[0.02, 0.03, 0.1, 0.25, 0.3, 0.3]
+    ).astype("float32")
     income = rng.integers(1, 9, size=n_unique).astype("float32")
 
     # MentHlth/PhysHlth (0-30), phần lớn là 0
-    ment_hlth = np.where(rng.random(n_unique) < 0.8, 0, rng.integers(1, 31, size=n_unique)).astype("float32")
-    phys_hlth = np.where(rng.random(n_unique) < 0.8, 0, rng.integers(1, 31, size=n_unique)).astype("float32")
+    ment_hlth = np.where(rng.random(n_unique) < 0.8, 0, rng.integers(1, 31, size=n_unique)).astype(
+        "float32"
+    )
+    phys_hlth = np.where(rng.random(n_unique) < 0.8, 0, rng.integers(1, 31, size=n_unique)).astype(
+        "float32"
+    )
 
     # Nhãn sinh từ mô hình logistic kết hợp HighBP, BMI, Age, GenHlth (AUC > 0.7, tỉ lệ ~84/2/14)
     z = -3.5 + 1.2 * high_bp + 0.08 * (bmi - 25) + 0.2 * (age - 7) + 0.5 * (gen_hlth - 2)
@@ -137,10 +145,14 @@ def real_csv_path() -> Path:
     """Fixture trả về đường dẫn CSV dữ liệu thật hoặc skip nếu file chưa có."""
     try:
         cfg = load_config("data")
-        raw_path = cfg.get("raw_path", "data/raw/brfss2015/diabetes_012_health_indicators_BRFSS2015.csv")
+        raw_path = cfg.get(
+            "raw_path", "data/raw/brfss2015/diabetes_012_health_indicators_BRFSS2015.csv"
+        )
         csv_file = ROOT / raw_path
     except Exception:
-        csv_file = ROOT / "data" / "raw" / "brfss2015" / "diabetes_012_health_indicators_BRFSS2015.csv"
+        csv_file = (
+            ROOT / "data" / "raw" / "brfss2015" / "diabetes_012_health_indicators_BRFSS2015.csv"
+        )
 
     if not csv_file.is_file():
         pytest.skip("Không có CSV thật")

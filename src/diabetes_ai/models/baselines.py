@@ -44,7 +44,9 @@ class MajorityClassifier(BaseModel):
         sample_weight: np.ndarray | None = None,
     ) -> MajorityClassifier:
         """Lưu tần suất các lớp trong tập huấn luyện làm prior_."""
-        counts = np.bincount(y_train, weights=sample_weight, minlength=self.n_classes).astype(np.float64)
+        counts = np.bincount(y_train, weights=sample_weight, minlength=self.n_classes).astype(
+            np.float64
+        )
         total = counts.sum()
         if total > 0:
             self.prior_ = counts / total
@@ -132,7 +134,10 @@ class LogisticRegressionModel(BaseModel):
         Bỏ qua sample_weight nếu params đã có class_weight để tránh nhân đôi trọng số.
         Lưu n_iter_ vào fit_info và cảnh báo nếu n_iter_ >= max_iter.
         """
-        has_class_weight = "class_weight" in self.sklearn_params and self.sklearn_params["class_weight"] is not None
+        has_class_weight = (
+            "class_weight" in self.sklearn_params
+            and self.sklearn_params["class_weight"] is not None
+        )
         sw = None if has_class_weight else sample_weight
 
         self.model.fit(X_train, y_train, sample_weight=sw)

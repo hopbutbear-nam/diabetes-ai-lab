@@ -55,9 +55,7 @@ def append_experiment_log(
     clean_note = str(note).replace("|", "/").strip()
     auc_str = f"{auc:.3f} (val)" if auc is not None and not np.isnan(auc) else "- (val)"
     f1_str = (
-        f"{macro_f1:.3f} (val)"
-        if macro_f1 is not None and not np.isnan(macro_f1)
-        else "- (val)"
+        f"{macro_f1:.3f} (val)" if macro_f1 is not None and not np.isnan(macro_f1) else "- (val)"
     )
     row = f"| {date} | {model} | {config} | {auc_str} | {f1_str} | {clean_note} |\n"
 
@@ -188,14 +186,9 @@ def run_training(
     sample_weight = None
     class_weight_arr = None
 
-    if (
-        isinstance(imbalance_cfg, dict)
-        and imbalance_cfg.get("strategy") == "class_weight"
-    ):
+    if isinstance(imbalance_cfg, dict) and imbalance_cfg.get("strategy") == "class_weight":
         power = float(imbalance_cfg.get("power", 0.75))
-        class_weight_arr = class_weights(
-            data.y_train, n_classes=data.n_classes, power=power
-        )
+        class_weight_arr = class_weights(data.y_train, n_classes=data.n_classes, power=power)
         sample_weight = sample_weights(data.y_train, class_weight_arr)
 
     # 5. build_model và fit
@@ -275,9 +268,7 @@ def run_training(
         "train_rows": int(data.X_train.shape[0]),
         "val_rows": int(data.X_val.shape[0]),
         "imbalance": imbalance_cfg,
-        "class_weights": (
-            class_weight_arr.tolist() if class_weight_arr is not None else None
-        ),
+        "class_weights": (class_weight_arr.tolist() if class_weight_arr is not None else None),
         "backend": backend,
         "versions": versions,
         "train_seconds": train_seconds,
@@ -288,9 +279,7 @@ def run_training(
         json.dump(meta, f, ensure_ascii=False, indent=2)
 
     # 8. Ghi reports/metrics/train_<run>.json (meta + val + fit_info)
-    target_metrics_dir = (
-        Path(metrics_dir) if metrics_dir is not None else METRICS_DIR
-    )
+    target_metrics_dir = Path(metrics_dir) if metrics_dir is not None else METRICS_DIR
     target_metrics_dir.mkdir(parents=True, exist_ok=True)
 
     train_metrics_path = target_metrics_dir / f"train_{run_name}.json"

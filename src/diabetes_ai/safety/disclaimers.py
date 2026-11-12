@@ -14,9 +14,7 @@ DISCLAIMER_VI = (
 
 DISCLAIMER_SHORT = "Chỉ để học tập, không phải chẩn đoán y khoa."
 
-CONFIRM_TEST_ADVICE = (
-    "Kết quả chỉ là sàng lọc nguy cơ; hãy xét nghiệm xác nhận (đường huyết đói hoặc HbA1c) tại cơ sở y tế."
-)
+CONFIRM_TEST_ADVICE = "Kết quả chỉ là sàng lọc nguy cơ; hãy xét nghiệm xác nhận (đường huyết đói hoặc HbA1c) tại cơ sở y tế."
 
 EARLY_EXAM_ADVICE = "Nên đi khám sớm tại cơ sở y tế."
 

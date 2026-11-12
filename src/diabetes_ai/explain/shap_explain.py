@@ -8,6 +8,7 @@ def shap_available() -> bool:
     """Kiểm tra thư viện shap có sẵn trong môi trường hay không."""
     try:
         import shap  # noqa: F401
+
         return True
     except ImportError:
         return False

@@ -95,12 +95,18 @@ class Predictor:
         pop_mean = bundle.get("pop_mean_raw")
         if pop_mean is not None:
             self.pop_mean_raw = np.asarray(pop_mean, dtype=np.float32)
-        elif self._scaler is not None and hasattr(self._scaler, "mean_") and self._scaler.mean_ is not None:
+        elif (
+            self._scaler is not None
+            and hasattr(self._scaler, "mean_")
+            and self._scaler.mean_ is not None
+        ):
             self.pop_mean_raw = np.asarray(self._scaler.mean_, dtype=np.float32)
         else:
             self.pop_mean_raw = None
 
-        self.risk_levels: dict[str, float] = dict(bundle.get("risk_levels") or {"low": 0.10, "medium": 0.25})
+        self.risk_levels: dict[str, float] = dict(
+            bundle.get("risk_levels") or {"low": 0.10, "medium": 0.25}
+        )
         self.what_if_cfg: dict[str, Any] = dict(bundle.get("what_if") or {})
         self.disclaimer: str = str(bundle.get("disclaimer") or DISCLAIMER_VI)
 
@@ -311,7 +317,11 @@ class Predictor:
 
         pop_mean = self.pop_mean_raw
         if pop_mean is None:
-            if self._scaler is not None and hasattr(self._scaler, "mean_") and self._scaler.mean_ is not None:
+            if (
+                self._scaler is not None
+                and hasattr(self._scaler, "mean_")
+                and self._scaler.mean_ is not None
+            ):
                 pop_mean = np.asarray(self._scaler.mean_, dtype=np.float32)
             else:
                 pop_mean = np.zeros(len(self.feature_order), dtype=np.float32)

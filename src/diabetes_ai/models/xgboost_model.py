@@ -27,10 +27,13 @@ def check_env_xgboost_ok() -> bool:
     ]
     try:
         from ..paths import ROOT
-        candidates.extend([
-            ROOT / "reports" / "metrics" / "env_check.json",
-            ROOT / "env_check.json",
-        ])
+
+        candidates.extend(
+            [
+                ROOT / "reports" / "metrics" / "env_check.json",
+                ROOT / "env_check.json",
+            ]
+        )
     except Exception:
         pass
 
@@ -74,6 +77,7 @@ class XGBoostModel(BaseModel):
                 return "hgb"
             try:
                 import xgboost as xgb
+
                 v = Version(xgb.__version__)
                 if v >= Version("2.0.0"):
                     return "xgboost"

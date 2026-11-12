@@ -89,7 +89,11 @@ def read_lock(path: str | Path) -> dict[str, Any]:
     try:
         with open(lock_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        if isinstance(data, dict) and "evaluations" in data and isinstance(data["evaluations"], list):
+        if (
+            isinstance(data, dict)
+            and "evaluations" in data
+            and isinstance(data["evaluations"], list)
+        ):
             return data
     except Exception:
         pass

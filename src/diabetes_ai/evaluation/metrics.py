@@ -10,6 +10,7 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 # AUC helpers
 # ---------------------------------------------------------------------------
 
+
 def roc_auc_per_class(y_true: np.ndarray, proba: np.ndarray) -> np.ndarray:
     """Tính ROC-AUC OvR cho từng lớp.
 
@@ -58,6 +59,7 @@ def roc_auc_ovr(y_true: np.ndarray, proba: np.ndarray) -> float:
 # PR-AUC helpers
 # ---------------------------------------------------------------------------
 
+
 def pr_auc_per_class(y_true: np.ndarray, proba: np.ndarray) -> np.ndarray:
     """Tính PR-AUC OvR cho từng lớp (average_precision_score).
 
@@ -103,6 +105,7 @@ def pr_auc_ovr(y_true: np.ndarray, proba: np.ndarray) -> float:
 # ---------------------------------------------------------------------------
 # F1, Recall, Precision
 # ---------------------------------------------------------------------------
+
 
 def recall_precision_f1_per_class(
     y_true: np.ndarray,
@@ -159,6 +162,7 @@ def macro_f1(y_true: np.ndarray, y_pred: np.ndarray, n_classes: int) -> float:
 # Brier Score
 # ---------------------------------------------------------------------------
 
+
 def brier_multiclass(y_true: np.ndarray, proba: np.ndarray) -> float:
     """Tính Brier score đa lớp.
 
@@ -203,6 +207,7 @@ def brier_per_class(y_true: np.ndarray, proba: np.ndarray) -> np.ndarray:
 # ---------------------------------------------------------------------------
 # ECE (Expected Calibration Error)
 # ---------------------------------------------------------------------------
+
 
 def ece_binary(
     y_bin: np.ndarray,
@@ -270,6 +275,7 @@ def ece_ovr(
 # Majority baseline
 # ---------------------------------------------------------------------------
 
+
 def majority_baseline_accuracy(y_true: np.ndarray) -> float:
     """Tính độ chính xác baseline (luôn đoán lớp đa số).
 
@@ -289,6 +295,7 @@ def majority_baseline_accuracy(y_true: np.ndarray) -> float:
 # ---------------------------------------------------------------------------
 # compute_all
 # ---------------------------------------------------------------------------
+
 
 def compute_all(
     y_true: np.ndarray,

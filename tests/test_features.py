@@ -25,6 +25,7 @@ from diabetes_ai.training.imbalance import class_weights
 # test_scaler_fit_uses_only_train_stats
 # ---------------------------------------------------------------------------
 
+
 def test_scaler_fit_uses_only_train_stats(synthetic_df: pd.DataFrame) -> None:
     """Scaler fit trên train; mean của scaler khớp mean train, khác mean toàn bộ."""
     split = make_split(synthetic_df, seed=42)
@@ -55,6 +56,7 @@ def test_scaler_fit_uses_only_train_stats(synthetic_df: pd.DataFrame) -> None:
 # test_scaler_std_zero_guard
 # ---------------------------------------------------------------------------
 
+
 def test_scaler_std_zero_guard() -> None:
     """Đặc trưng hằng số (std=0) phải được thay bằng std=1 để không chia 0."""
     n = 100
@@ -76,6 +78,7 @@ def test_scaler_std_zero_guard() -> None:
 # ---------------------------------------------------------------------------
 # test_scaler_json_roundtrip
 # ---------------------------------------------------------------------------
+
 
 def test_scaler_json_roundtrip() -> None:
     """Lưu scaler ra JSON rồi tải lại; mean_ và std_ phải giống hệt."""
@@ -99,6 +102,7 @@ def test_scaler_json_roundtrip() -> None:
 # test_class_weights_match_formula
 # ---------------------------------------------------------------------------
 
+
 def test_class_weights_match_formula() -> None:
     """class_weights trên đếm cụ thể phải cho [0.4989; 8.8333; 1.9236] ± 1e-3.
 
@@ -113,19 +117,23 @@ def test_class_weights_match_formula() -> None:
     n_total = n0 + n1 + n2
     K = 3
 
-    y = np.concatenate([
-        np.zeros(n0, dtype=np.int64),
-        np.ones(n1, dtype=np.int64),
-        2 * np.ones(n2, dtype=np.int64),
-    ])
+    y = np.concatenate(
+        [
+            np.zeros(n0, dtype=np.int64),
+            np.ones(n1, dtype=np.int64),
+            2 * np.ones(n2, dtype=np.int64),
+        ]
+    )
 
     w = class_weights(y, n_classes=K, power=0.75)
 
-    expected = np.array([
-        (n_total / (K * n0)) ** 0.75,
-        (n_total / (K * n1)) ** 0.75,
-        (n_total / (K * n2)) ** 0.75,
-    ])
+    expected = np.array(
+        [
+            (n_total / (K * n0)) ** 0.75,
+            (n_total / (K * n1)) ** 0.75,
+            (n_total / (K * n2)) ** 0.75,
+        ]
+    )
 
     np.testing.assert_allclose(w, expected, rtol=1e-6)
     # Kiểm tra gần các số đã nêu trong plan
@@ -137,6 +145,7 @@ def test_class_weights_match_formula() -> None:
 # ---------------------------------------------------------------------------
 # test_build_experiment_data_shapes_and_test_hidden
 # ---------------------------------------------------------------------------
+
 
 def test_build_experiment_data_shapes_and_test_hidden(synthetic_df: pd.DataFrame) -> None:
     """X_test là None khi include_test=False; thứ tự cột đúng FEATURES."""
@@ -174,6 +183,7 @@ def test_build_experiment_data_shapes_and_test_hidden(synthetic_df: pd.DataFrame
 # ---------------------------------------------------------------------------
 # test_binary_task_labels
 # ---------------------------------------------------------------------------
+
 
 def test_binary_task_labels(synthetic_df: pd.DataFrame) -> None:
     """Với task='binary', nhãn phải là 0 hoặc 1; n_classes = 2."""

@@ -52,7 +52,11 @@ def test_graph_boost_changes_rank(tmp_path: Path):
     ]
     graph = {
         "nodes": [
-            {"id": "dai_thao_duong", "label": "Đái tháo đường", "aliases": ["đái tháo đường", "tiểu đường"]},
+            {
+                "id": "dai_thao_duong",
+                "label": "Đái tháo đường",
+                "aliases": ["đái tháo đường", "tiểu đường"],
+            },
         ],
         "edges": [],
     }
@@ -92,7 +96,9 @@ def test_search_returns_source():
 
     for item in results:
         assert "text" in item and isinstance(item["text"], str) and len(item["text"].strip()) > 0
-        assert "source" in item and isinstance(item["source"], str) and len(item["source"].strip()) > 0
+        assert (
+            "source" in item and isinstance(item["source"], str) and len(item["source"].strip()) > 0
+        )
         assert "score" in item and isinstance(item["score"], float)
         # Đảm bảo không sinh văn bản tùy tiện, đoạn trả về là văn bản gốc có tiêu đề
         assert "title" in item
@@ -122,4 +128,6 @@ def test_build_creates_files(tmp_path: Path):
     for c in chunks:
         assert "id" in c and "text" in c and "source" in c
         words = c["text"].split()
-        assert 120 <= len(words) <= 200, f"Đoạn {c['id']} có độ dài {len(words)} từ, ngoài khoảng 120-200"
+        assert 120 <= len(words) <= 200, (
+            f"Đoạn {c['id']} có độ dài {len(words)} từ, ngoài khoảng 120-200"
+        )

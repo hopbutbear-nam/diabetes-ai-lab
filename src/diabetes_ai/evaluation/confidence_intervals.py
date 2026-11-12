@@ -140,7 +140,11 @@ def bootstrap_multi(
     proba_arr = np.asarray(proba, dtype=np.float64)
     y_pred_arr = np.asarray(y_pred, dtype=np.int64)
 
-    n_classes = proba_arr.shape[1] if proba_arr.ndim == 2 else int(max(np.max(y_true_arr), np.max(y_pred_arr))) + 1
+    n_classes = (
+        proba_arr.shape[1]
+        if proba_arr.ndim == 2
+        else int(max(np.max(y_true_arr), np.max(y_pred_arr))) + 1
+    )
 
     point_auc = roc_auc_ovr(y_true_arr, proba_arr)
     point_rec = recall_precision_f1_per_class(y_true_arr, y_pred_arr, n_classes)["recall"]

@@ -238,7 +238,9 @@ def plot_reliability(
         if pb_arr is not None:
             pb_c = pb_arr[:, c] if pb_arr.ndim > 1 and pb_arr.shape[1] > 1 else pb_arr.ravel()
             try:
-                prob_true_b, prob_pred_b = calibration_curve(y_c, pb_c, n_bins=n_bins, strategy="uniform")
+                prob_true_b, prob_pred_b = calibration_curve(
+                    y_c, pb_c, n_bins=n_bins, strategy="uniform"
+                )
                 ax.plot(prob_pred_b, prob_true_b, "s--", color="#d62728", label="Trước hiệu chuẩn")
             except Exception:
                 pass
@@ -544,7 +546,9 @@ def plot_what_if(
         ax.set_yticks(y_pos)
         ax.set_yticklabels(labels, fontsize=9)
         ax.set_xlabel("Mức giảm chỉ số nguy cơ (delta_index)", fontsize=10)
-        ax.set_title("Kịch bản cải thiện lối sống giả lập (What-If)", fontsize=11, fontweight="bold")
+        ax.set_title(
+            "Kịch bản cải thiện lối sống giả lập (What-If)", fontsize=11, fontweight="bold"
+        )
         ax.axvline(0, color="black", linewidth=0.8, linestyle="--")
         ax.grid(True, axis="x", linestyle="--", alpha=0.5)
 
@@ -552,4 +556,3 @@ def plot_what_if(
     plt.savefig(out_path, dpi=110)
     plt.close(fig)
     return out_path
-

@@ -24,7 +24,9 @@ def test_index_has_all_21_feature_inputs() -> None:
 
     for feat in FEATURES:
         expected_attr = f'name="{feat}"'
-        assert expected_attr in content, f"Trường đặc trưng '{feat}' không có trong form ({expected_attr})."
+        assert expected_attr in content, (
+            f"Trường đặc trưng '{feat}' không có trong form ({expected_attr})."
+        )
 
 
 def test_app_js_calls_endpoints_and_renders_disclaimer() -> None:
@@ -55,7 +57,6 @@ def test_whatif_keys_sent_by_ui_are_allowed_by_server() -> None:
         assert f'id="whatif-{key}"' in html, f"Thiếu ô bật/tắt whatif-{key} trong index.html"
 
 
-
 def test_every_whatif_toggle_has_change_listener() -> None:
     """Mọi ô bật/tắt what-if trong index.html phải được gắn sự kiện `change` trong app.js."""
     js = (ROOT / "app" / "static" / "js" / "app.js").read_text(encoding="utf-8")
@@ -70,8 +71,8 @@ def test_every_whatif_toggle_has_change_listener() -> None:
 
 
 def test_app_js_calls_consult_endpoint() -> None:
-    js = (ROOT / 'app' / 'static' / 'js' / 'app.js').read_text(encoding='utf-8')
-    assert '/consult' in js
+    js = (ROOT / "app" / "static" / "js" / "app.js").read_text(encoding="utf-8")
+    assert "/consult" in js
 
 
 def test_app_js_has_no_dynamic_inner_html() -> None:

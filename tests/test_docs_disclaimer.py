@@ -12,9 +12,7 @@ def test_readme_has_disclaimer() -> None:
     assert readme_path.exists(), "README.md không tồn tại"
     text = readme_path.read_text(encoding="utf-8").lower()
     assert (
-        "miễn trừ trách nhiệm" in text
-        or "không phải chẩn đoán" in text
-        or "chỉ để học tập" in text
+        "miễn trừ trách nhiệm" in text or "không phải chẩn đoán" in text or "chỉ để học tập" in text
     ), "README.md thiếu cảnh báo miễn trừ trách nhiệm y tế"
 
 
@@ -40,9 +38,9 @@ def test_model_card_sections_and_disclaimer() -> None:
     for sec in required_sections:
         assert sec in text, f"reports/model_card.md thiếu mục: {sec}"
 
-    assert (
-        "không phải chẩn đoán" in text.lower()
-    ), "reports/model_card.md thiếu dòng 'không phải chẩn đoán'"
+    assert "không phải chẩn đoán" in text.lower(), (
+        "reports/model_card.md thiếu dòng 'không phải chẩn đoán'"
+    )
 
 
 def test_reports_have_no_unfilled_auto_markers() -> None:
@@ -66,6 +64,6 @@ def test_safety_doc_mentions_confirmatory_test() -> None:
     safety_path = ROOT / "docs" / "safety_and_ethics.md"
     assert safety_path.exists(), "docs/safety_and_ethics.md không tồn tại"
     text = safety_path.read_text(encoding="utf-8")
-    assert (
-        "xét nghiệm xác nhận" in text.lower()
-    ), "docs/safety_and_ethics.md phải chứa cụm từ 'xét nghiệm xác nhận'"
+    assert "xét nghiệm xác nhận" in text.lower(), (
+        "docs/safety_and_ethics.md phải chứa cụm từ 'xét nghiệm xác nhận'"
+    )

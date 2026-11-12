@@ -99,6 +99,7 @@ def tune(
     n_classes = len(np.unique(y_train))
 
     if HAVE_OPTUNA and not force_random:
+
         def objective(trial: Any) -> float:
             candidate_params: dict[str, Any] = {}
             for param_name, spec in space.items():
@@ -109,13 +110,19 @@ def tune(
                     if isinstance(low, int) and isinstance(high, int) and not isinstance(low, bool):
                         candidate_params[param_name] = trial.suggest_int(param_name, low, high)
                     else:
-                        candidate_params[param_name] = trial.suggest_float(param_name, float(low), float(high))
+                        candidate_params[param_name] = trial.suggest_float(
+                            param_name, float(low), float(high)
+                        )
                 elif isinstance(spec, dict):
                     spec_type = spec.get("type")
                     if spec_type == "categorical" or "choices" in spec:
-                        candidate_params[param_name] = trial.suggest_categorical(param_name, spec["choices"])
+                        candidate_params[param_name] = trial.suggest_categorical(
+                            param_name, spec["choices"]
+                        )
                     elif spec_type == "int":
-                        candidate_params[param_name] = trial.suggest_int(param_name, int(spec["low"]), int(spec["high"]))
+                        candidate_params[param_name] = trial.suggest_int(
+                            param_name, int(spec["low"]), int(spec["high"])
+                        )
                     elif spec_type == "float":
                         candidate_params[param_name] = trial.suggest_float(
                             param_name,

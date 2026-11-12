@@ -64,12 +64,14 @@ def permutation_importance(
         mean_drop = float(np.mean(drops))
         std_drop = float(np.std(drops))
 
-        results.append({
-            "feature": feat,
-            "vi": vi(feat),
-            "mean_drop": mean_drop,
-            "std_drop": std_drop,
-        })
+        results.append(
+            {
+                "feature": feat,
+                "vi": vi(feat),
+                "mean_drop": mean_drop,
+                "std_drop": std_drop,
+            }
+        )
 
     results.sort(key=lambda r: r["mean_drop"], reverse=True)
     return results

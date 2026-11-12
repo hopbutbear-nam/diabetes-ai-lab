@@ -36,11 +36,7 @@ class KnowledgeAgent:
         """
         profile = state.get("profile", state)
         risk_result = state.get("risk_result", {})
-        risk_level = (
-            state.get("risk_level")
-            or risk_result.get("risk_level")
-            or "tiểu đường"
-        )
+        risk_level = state.get("risk_level") or risk_result.get("risk_level") or "tiểu đường"
 
         profile_dict = profile if isinstance(profile, dict) else profile.model_dump()
         symptoms = profile_dict.get("symptoms", [])

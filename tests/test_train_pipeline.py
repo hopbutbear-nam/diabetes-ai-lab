@@ -23,9 +23,7 @@ def synthetic_experiment_data():
     return build_experiment_data_from_frame(df, split, include_test=False)
 
 
-def test_run_training_writes_artifacts(
-    tmp_path: Path, synthetic_experiment_data
-) -> None:
+def test_run_training_writes_artifacts(tmp_path: Path, synthetic_experiment_data) -> None:
     """Kiểm tra pipeline tạo đủ artifact: model.joblib, scaler.json, meta.json, train_<run>.json."""
     models_dir = tmp_path / "models"
     metrics_dir = tmp_path / "metrics"
@@ -66,9 +64,7 @@ def test_run_training_writes_artifacts(
     assert len(labels) == len(synthetic_experiment_data.X_val)
 
 
-def test_run_training_reproducible(
-    tmp_path: Path, synthetic_experiment_data
-) -> None:
+def test_run_training_reproducible(tmp_path: Path, synthetic_experiment_data) -> None:
     """Hai lần huấn luyện cùng seed phải cho kết quả AUC val chênh lệch <= 1e-6."""
     model_cfg = {
         "model": "logreg",
@@ -131,6 +127,6 @@ def test_run_training_never_loads_test(
         log_to_experiment_log=False,
     )
 
-    assert (
-        called_kwargs.get("include_test") is False
-    ), "load_experiment_data phải được gọi với include_test=False"
+    assert called_kwargs.get("include_test") is False, (
+        "load_experiment_data phải được gọi với include_test=False"
+    )

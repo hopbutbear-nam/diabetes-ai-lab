@@ -75,61 +75,73 @@ class Orchestrator:
         # =========================================================================
         # 1. RISK AGENT
         # =========================================================================
-        events.append({
-            "event": "handoff",
-            "type": "handoff",
-            "from": "orchestrator",
-            "to": "risk_agent",
-            "message": "Chuyển giao hồ sơ bệnh nhân cho RiskAgent để ước tính nguy cơ ban đầu.",
-        })
+        events.append(
+            {
+                "event": "handoff",
+                "type": "handoff",
+                "from": "orchestrator",
+                "to": "risk_agent",
+                "message": "Chuyển giao hồ sơ bệnh nhân cho RiskAgent để ước tính nguy cơ ban đầu.",
+            }
+        )
 
-        events.append({
-            "event": "tool",
-            "type": "tool",
-            "agent": "risk_agent",
-            "action": "predict",
-            "input": profile,
-        })
+        events.append(
+            {
+                "event": "tool",
+                "type": "tool",
+                "agent": "risk_agent",
+                "action": "predict",
+                "input": profile,
+            }
+        )
 
         risk_output = self.risk_agent.run({"profile": profile})
 
-        events.append({
-            "event": "speak",
-            "type": "speak",
-            "agent": "risk_agent",
-            "content": (
-                f"Chỉ số nguy cơ sơ bộ là {risk_output.get('risk_index', 0.0):.2f} "
-                f"(mức: {risk_output.get('risk_level', 'thấp')})."
-            ),
-            "data": {
-                "risk_index": risk_output.get("risk_index"),
-                "risk_level": risk_output.get("risk_level"),
-                "probabilities": risk_output.get("probabilities"),
-            },
-        })
+        events.append(
+            {
+                "event": "speak",
+                "type": "speak",
+                "agent": "risk_agent",
+                "content": (
+                    f"Chỉ số nguy cơ sơ bộ là {risk_output.get('risk_index', 0.0):.2f} "
+                    f"(mức: {risk_output.get('risk_level', 'thấp')})."
+                ),
+                "data": {
+                    "risk_index": risk_output.get("risk_index"),
+                    "risk_level": risk_output.get("risk_level"),
+                    "probabilities": risk_output.get("probabilities"),
+                },
+            }
+        )
 
         # =========================================================================
         # 2. SAFETY AGENT
         # =========================================================================
-        events.append({
-            "event": "handoff",
-            "type": "handoff",
-            "from": "orchestrator",
-            "to": "safety_agent",
-            "message": "Chuyển giao kết quả sang SafetyAgent để kiểm tra luật an toàn và phản biện chéo.",
-        })
+        events.append(
+            {
+                "event": "handoff",
+                "type": "handoff",
+                "from": "orchestrator",
+                "to": "safety_agent",
+                "message": "Chuyển giao kết quả sang SafetyAgent để kiểm tra luật an toàn và phản biện chéo.",
+            }
+        )
 
-        events.append({
-            "event": "tool",
-            "type": "tool",
-            "agent": "safety_agent",
-            "action": "evaluate_and_cross_check",
-        })
+        events.append(
+            {
+                "event": "tool",
+                "type": "tool",
+                "agent": "safety_agent",
+                "action": "evaluate_and_cross_check",
+            }
+        )
 
-        safety_output = self.safety_agent.run({
-            "profile": profile,
-            "risk_result": risk_output,
-        })
+        safety_output = self.safety_agent.run(
+            {
+                "profile": profile,
+                "risk_result": risk_output,
+            }
+        )
 
         raw_alerts = safety_output.get("alerts", [])
         alerts_data: list[dict[str, Any]] = []
@@ -141,36 +153,42 @@ class Orchestrator:
                 "evidence": getattr(alert, "evidence", {}),
             }
             alerts_data.append(a_dict)
-            events.append({
-                "event": "alert",
-                "type": "alert",
-                "agent": "safety_agent",
-                "level": a_dict["level"],
-                "rule_id": a_dict["rule_id"],
-                "message": a_dict["text"],
-                "text": a_dict["text"],
-            })
+            events.append(
+                {
+                    "event": "alert",
+                    "type": "alert",
+                    "agent": "safety_agent",
+                    "level": a_dict["level"],
+                    "rule_id": a_dict["rule_id"],
+                    "message": a_dict["text"],
+                    "text": a_dict["text"],
+                }
+            )
 
         for contradiction in safety_output.get("contradictions", []):
-            events.append({
-                "event": "alert",
-                "type": "alert",
-                "agent": "safety_agent",
-                "level": "warn",
-                "rule_id": contradiction,
-                "message": f"Phản biện lâm sàng phát hiện mâu thuẫn ({contradiction}).",
-                "text": f"Phản biện lâm sàng phát hiện mâu thuẫn ({contradiction}).",
-            })
+            events.append(
+                {
+                    "event": "alert",
+                    "type": "alert",
+                    "agent": "safety_agent",
+                    "level": "warn",
+                    "rule_id": contradiction,
+                    "message": f"Phản biện lâm sàng phát hiện mâu thuẫn ({contradiction}).",
+                    "text": f"Phản biện lâm sàng phát hiện mâu thuẫn ({contradiction}).",
+                }
+            )
 
-        events.append({
-            "event": "speak",
-            "type": "speak",
-            "agent": "safety_agent",
-            "content": (
-                f"Hoàn thành rà soát an toàn lâm sàng: phát hiện {len(raw_alerts)} cảnh báo luật "
-                f"và {len(safety_output.get('contradictions', []))} điểm mâu thuẫn phản biện."
-            ),
-        })
+        events.append(
+            {
+                "event": "speak",
+                "type": "speak",
+                "agent": "safety_agent",
+                "content": (
+                    f"Hoàn thành rà soát an toàn lâm sàng: phát hiện {len(raw_alerts)} cảnh báo luật "
+                    f"và {len(safety_output.get('contradictions', []))} điểm mâu thuẫn phản biện."
+                ),
+            }
+        )
 
         # =========================================================================
         # TỔNG HỢP MỨC NGUY CƠ (Luật danger luôn nâng mức)
@@ -196,46 +214,56 @@ class Orchestrator:
         # =========================================================================
         # 3. KNOWLEDGE AGENT
         # =========================================================================
-        events.append({
-            "event": "handoff",
-            "type": "handoff",
-            "from": "orchestrator",
-            "to": "knowledge_agent",
-            "message": "Chuyển giao sang KnowledgeAgent để tìm kiếm trích dẫn và tài liệu hướng dẫn lâm sàng.",
-        })
+        events.append(
+            {
+                "event": "handoff",
+                "type": "handoff",
+                "from": "orchestrator",
+                "to": "knowledge_agent",
+                "message": "Chuyển giao sang KnowledgeAgent để tìm kiếm trích dẫn và tài liệu hướng dẫn lâm sàng.",
+            }
+        )
 
-        events.append({
-            "event": "tool",
-            "type": "tool",
-            "agent": "knowledge_agent",
-            "action": "graph_rag_search",
-            "query_context": final_level,
-        })
+        events.append(
+            {
+                "event": "tool",
+                "type": "tool",
+                "agent": "knowledge_agent",
+                "action": "graph_rag_search",
+                "query_context": final_level,
+            }
+        )
 
-        knowledge_output = self.knowledge_agent.run({
-            "profile": profile,
-            "risk_result": risk_output,
-            "risk_level": final_level,
-        })
+        knowledge_output = self.knowledge_agent.run(
+            {
+                "profile": profile,
+                "risk_result": risk_output,
+                "risk_level": final_level,
+            }
+        )
 
         citations = knowledge_output.get("citations", [])
         for c in citations:
-            events.append({
-                "event": "cite",
-                "type": "cite",
-                "agent": "knowledge_agent",
-                "title": c.get("title", ""),
-                "source": c.get("source", ""),
-                "text": c.get("text", ""),
-                "score": float(c.get("score", 0.0)),
-            })
+            events.append(
+                {
+                    "event": "cite",
+                    "type": "cite",
+                    "agent": "knowledge_agent",
+                    "title": c.get("title", ""),
+                    "source": c.get("source", ""),
+                    "text": c.get("text", ""),
+                    "score": float(c.get("score", 0.0)),
+                }
+            )
 
-        events.append({
-            "event": "speak",
-            "type": "speak",
-            "agent": "knowledge_agent",
-            "content": f"Đã trích dẫn {len(citations)} tài liệu y khoa từ hướng dẫn chính thức.",
-        })
+        events.append(
+            {
+                "event": "speak",
+                "type": "speak",
+                "agent": "knowledge_agent",
+                "content": f"Đã trích dẫn {len(citations)} tài liệu y khoa từ hướng dẫn chính thức.",
+            }
+        )
 
         # =========================================================================
         # 4. FINAL EVENT

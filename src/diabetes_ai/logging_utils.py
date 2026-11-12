@@ -30,9 +30,7 @@ def get_logger(
     log_level = getattr(logging, (level or "INFO").upper(), logging.INFO)
     logger.setLevel(log_level)
 
-    formatter = logging.Formatter(
-        fmt="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-    )
+    formatter = logging.Formatter(fmt="%(asctime)s | %(levelname)s | %(name)s | %(message)s")
 
     # Tránh thêm lặp lại console handler
     has_stream_handler = any(
@@ -50,8 +48,7 @@ def get_logger(
         log_file.parent.mkdir(parents=True, exist_ok=True)
         target_path = str(log_file.resolve())
         has_file_handler = any(
-            isinstance(h, logging.FileHandler)
-            and getattr(h, "baseFilename", None) == target_path
+            isinstance(h, logging.FileHandler) and getattr(h, "baseFilename", None) == target_path
             for h in logger.handlers
         )
         if not has_file_handler:

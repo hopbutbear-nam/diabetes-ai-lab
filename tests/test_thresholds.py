@@ -34,6 +34,7 @@ _p2 = np.clip(_p2, 0, 1)
 # Test 1: scale grid không bao giờ kém argmax
 # ---------------------------------------------------------------------------
 
+
 def test_scale_grid_never_worse_than_argmax():
     """Kết quả select_scale_factors phải ≥ baseline argmax trên validation."""
     result = select_scale_factors(_y3, _proba3)
@@ -42,13 +43,20 @@ def test_scale_grid_never_worse_than_argmax():
         f"argmax F1 ({result['val_macro_f1_argmax']:.4f})"
     )
     # Kiểm tra cấu trúc trả về
-    for key in ("scale", "val_macro_f1_scaled", "val_macro_f1_argmax", "val_recall", "val_precision"):
+    for key in (
+        "scale",
+        "val_macro_f1_scaled",
+        "val_macro_f1_argmax",
+        "val_recall",
+        "val_precision",
+    ):
         assert key in result, f"Thiếu khoá '{key}' trong kết quả"
 
 
 # ---------------------------------------------------------------------------
 # Test 2: apply_scale thay đổi nhãn khi scale thay đổi
 # ---------------------------------------------------------------------------
+
 
 def test_apply_scale_changes_labels():
     """apply_scale với scale=(1,10,1) phải đẩy nhiều mẫu sang lớp 1."""
@@ -59,8 +67,7 @@ def test_apply_scale_changes_labels():
     n_class1_default = np.sum(labels_default == 1)
     n_class1_scaled = np.sum(labels_scaled == 1)
     assert n_class1_scaled > n_class1_default, (
-        f"scale=(1,10,1) không tăng số mẫu lớp 1: "
-        f"{n_class1_default} → {n_class1_scaled}"
+        f"scale=(1,10,1) không tăng số mẫu lớp 1: {n_class1_default} → {n_class1_scaled}"
     )
 
     # apply_scale([1,1,1]) phải bằng argmax thuần
@@ -75,6 +82,7 @@ def test_apply_scale_changes_labels():
 # Test 3: binary threshold tối đa hóa F1
 # ---------------------------------------------------------------------------
 
+
 def test_binary_threshold_maximizes_f1():
     """Ngưỡng tìm được phải cho macro-F1 ≥ ngưỡng 0.5 (baseline)."""
     result = select_binary_threshold(_y2, _p2, objective="macro_f1")
@@ -88,6 +96,7 @@ def test_binary_threshold_maximizes_f1():
 
     # So sánh với threshold = 0.5
     from sklearn.metrics import f1_score
+
     f1_at_05 = f1_score(_y2, (_p2 >= 0.5).astype(int), average="macro", zero_division=0)
     assert result["val_macro_f1"] >= f1_at_05 - 1e-9, (
         f"Macro-F1 tối ưu ({result['val_macro_f1']:.4f}) < F1 tại 0.5 ({f1_at_05:.4f})"
@@ -97,6 +106,7 @@ def test_binary_threshold_maximizes_f1():
 # ---------------------------------------------------------------------------
 # Test 4: recall_at_precision tôn trọng precision_floor
 # ---------------------------------------------------------------------------
+
 
 def test_recall_at_precision_respects_floor():
     """recall_at_precision phải cho precision ≥ floor; ValueError nếu không đạt."""
@@ -111,6 +121,4 @@ def test_recall_at_precision_respects_floor():
 
     # Với floor không thể đạt (> 1.0) → phải raise ValueError
     with pytest.raises(ValueError, match="precision"):
-        select_binary_threshold(
-            _y2, _p2, objective="recall_at_precision", precision_floor=1.1
-        )
+        select_binary_threshold(_y2, _p2, objective="recall_at_precision", precision_floor=1.1)

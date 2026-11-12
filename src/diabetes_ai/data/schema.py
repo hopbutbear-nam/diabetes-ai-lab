@@ -3,16 +3,44 @@
 TARGET = "Diabetes_012"
 CLASSES = ["không", "tiền tiểu đường", "tiểu đường"]
 FEATURES = [
-    "HighBP", "HighChol", "CholCheck", "BMI", "Smoker", "Stroke",
-    "HeartDiseaseorAttack", "PhysActivity", "Fruits", "Veggies",
-    "HvyAlcoholConsump", "AnyHealthcare", "NoDocbcCost", "GenHlth",
-    "MentHlth", "PhysHlth", "DiffWalk", "Sex", "Age", "Education", "Income",
+    "HighBP",
+    "HighChol",
+    "CholCheck",
+    "BMI",
+    "Smoker",
+    "Stroke",
+    "HeartDiseaseorAttack",
+    "PhysActivity",
+    "Fruits",
+    "Veggies",
+    "HvyAlcoholConsump",
+    "AnyHealthcare",
+    "NoDocbcCost",
+    "GenHlth",
+    "MentHlth",
+    "PhysHlth",
+    "DiffWalk",
+    "Sex",
+    "Age",
+    "Education",
+    "Income",
 ]
 
 BINARY_FEATURES = [
-    "HighBP", "HighChol", "CholCheck", "Smoker", "Stroke",
-    "HeartDiseaseorAttack", "PhysActivity", "Fruits", "Veggies",
-    "HvyAlcoholConsump", "AnyHealthcare", "NoDocbcCost", "DiffWalk", "Sex",
+    "HighBP",
+    "HighChol",
+    "CholCheck",
+    "Smoker",
+    "Stroke",
+    "HeartDiseaseorAttack",
+    "PhysActivity",
+    "Fruits",
+    "Veggies",
+    "HvyAlcoholConsump",
+    "AnyHealthcare",
+    "NoDocbcCost",
+    "DiffWalk",
+    "Sex",
 ]
 
 ORDINAL_FEATURES = ["GenHlth", "Age", "Education", "Income"]

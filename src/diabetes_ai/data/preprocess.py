@@ -26,9 +26,7 @@ def encode_target(
     elif task == "binary":
         return (arr > 0).astype(np.int64)
     else:
-        raise ValueError(
-            f"task phải là 'multiclass' hoặc 'binary', nhận được: '{task}'."
-        )
+        raise ValueError(f"task phải là 'multiclass' hoặc 'binary', nhận được: '{task}'.")
 
 
 def duplicate_mask(df: pd.DataFrame) -> np.ndarray:
