@@ -22,4 +22,5 @@ jobs:
       - name: Kiểm tra phiên bản ruff đã ghim
         run: ruff --version | grep -qF "ruff 0.17.3"
       - run: ruff check src tests
+      - run: ruff format --check src tests
       - run: pytest
