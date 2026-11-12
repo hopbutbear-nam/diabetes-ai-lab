@@ -1,6 +1,5 @@
 """Kiểm thử tính năng tác động yếu tố và what-if lối sống (K07a)."""
 
-from typing import Any
 import numpy as np
 import pytest
 

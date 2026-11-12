@@ -8,13 +8,10 @@ from diabetes_ai.evaluation.metrics import (
     brier_multiclass,
     compute_all,
     ece_binary,
-    ece_ovr,
     macro_f1,
     majority_baseline_accuracy,
-    pr_auc_ovr,
     recall_precision_f1_per_class,
     roc_auc_ovr,
-    roc_auc_per_class,
 )
 
 

@@ -4,9 +4,6 @@ import pytest
 
 from diabetes_ai.safety.disclaimers import (
     CONFIRM_TEST_ADVICE,
-    DISCLAIMER_SHORT,
-    DISCLAIMER_VI,
-    EARLY_EXAM_ADVICE,
     advice_for,
 )
 from diabetes_ai.safety.risk_level import combine, level_from_index, risk_index

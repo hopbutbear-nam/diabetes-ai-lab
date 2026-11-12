@@ -19,5 +19,7 @@ jobs:
       - name: Cài torch bản CPU (nhẹ)
         run: pip install torch --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -r requirements-dev.txt && pip install -e .
+      - name: Kiểm tra phiên bản ruff đã ghim
+        run: ruff --version | grep -q "0.17.3"
       - run: ruff check src tests
       - run: pytest

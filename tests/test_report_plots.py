@@ -18,7 +18,6 @@ from diabetes_ai.evaluation.report import (
     file_sha256,
     read_lock,
     risk_alert_stats,
-    write_json,
 )
 
 

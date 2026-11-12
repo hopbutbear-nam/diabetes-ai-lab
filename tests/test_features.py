@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import tempfile
 from pathlib import Path
 
@@ -10,10 +9,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from diabetes_ai.data.schema import FEATURES, TARGET
+from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.data.split import make_split
 from diabetes_ai.features.build_features import (
-    ExperimentData,
     build_experiment_data_from_frame,
     to_xy,
 )
@@ -21,7 +19,6 @@ from diabetes_ai.features.scalers import StandardScalerNP
 from diabetes_ai.training.imbalance import class_weights
 
 # Import fixture make_synthetic_df từ conftest
-from tests.conftest import make_synthetic_df
 
 
 # ---------------------------------------------------------------------------

@@ -8,7 +8,7 @@ from typing import Any
 from diabetes_ai.data.schema import CLASSES
 from diabetes_ai.inference.schemas import PatientProfile
 from diabetes_ai.safety.critic import cross_check
-from diabetes_ai.safety.rules import Alert, Rule, evaluate, load_rules
+from diabetes_ai.safety.rules import Rule, evaluate, load_rules
 
 
 class SafetyAgent:

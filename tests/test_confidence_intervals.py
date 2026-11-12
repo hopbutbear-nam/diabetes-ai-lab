@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from diabetes_ai.evaluation.confidence_intervals import (
     bootstrap_ci,

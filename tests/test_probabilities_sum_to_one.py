@@ -1,7 +1,6 @@
 """Kiểm tra tổng xác suất dự đoán của các mô hình luôn bằng 1 ± 1e-6."""
 
 import numpy as np
-import pytest
 
 from diabetes_ai.data.split import make_split
 from diabetes_ai.features.build_features import build_experiment_data_from_frame

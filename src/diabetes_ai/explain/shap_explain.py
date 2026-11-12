@@ -1,6 +1,6 @@
 """Giải thích mô hình cục bộ cho từng cá nhân dùng SHAP (tùy chọn)."""
 
-from typing import Any, Callable
+from typing import Callable
 import numpy as np
 
 

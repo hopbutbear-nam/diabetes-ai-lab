@@ -24,7 +24,7 @@ from diabetes_ai.inference.schemas import PatientProfile
 from diabetes_ai.paths import ROOT
 from diabetes_ai.safety.disclaimers import DISCLAIMER_VI, advice_for
 from diabetes_ai.safety.risk_level import combine, risk_index
-from diabetes_ai.safety.rules import Alert, Rule, evaluate, load_rules
+from diabetes_ai.safety.rules import Rule, evaluate, load_rules
 
 
 class ModelNotReady(RuntimeError):

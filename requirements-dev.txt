@@ -1,7 +1,7 @@
 -r requirements.txt
 pytest
 pytest-cov
-ruff
+ruff==0.17.3
 pre-commit
 jupyterlab
 httpx

@@ -5,11 +5,9 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
-import pytest
 
 from diabetes_ai.evaluation.calibration import (
     IdentityCalibrator,
-    IsotonicOvRCalibrator,
     LogitMultinomialCalibrator,
     fit_calibrator,
     load_calibrator,

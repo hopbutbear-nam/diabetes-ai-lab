@@ -9,11 +9,7 @@ from pydantic import ValidationError
 from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.inference.export import NumpyMLP, load_bundle, make_bundle, save_bundle
 from diabetes_ai.inference.schemas import (
-    Alert,
-    ExplainRequest,
-    ExplainResponse,
     PatientProfile,
-    PredictionResponse,
 )
 
 

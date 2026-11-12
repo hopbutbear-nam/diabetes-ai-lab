@@ -8,7 +8,7 @@ import pytest
 from diabetes_ai.data.schema import FEATURES
 from diabetes_ai.explain.what_if import WHAT_IF_NOTE
 from diabetes_ai.inference.predictor import ModelNotReady, Predictor
-from diabetes_ai.safety.disclaimers import CONFIRM_TEST_ADVICE, DISCLAIMER_VI
+from diabetes_ai.safety.disclaimers import DISCLAIMER_VI
 from diabetes_ai.inference.export import load_bundle, save_bundle
 
 

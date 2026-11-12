@@ -1,7 +1,6 @@
 """Kiểm thử tính năng độ quan trọng hoán vị và SHAP (K07b)."""
 
 import numpy as np
-import pytest
 
 from diabetes_ai.config import load_config
 from diabetes_ai.data.schema import FEATURES
